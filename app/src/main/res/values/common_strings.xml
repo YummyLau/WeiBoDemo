@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- utils -->
+    <string name="hour">小时</string>
+    <string name="day">天</string>
+    <string name="minute">分钟</string>
+    <string name="second">秒</string>
+    <string name="before">前</string>
+    <string name="just">刚刚</string>
+
+    <!-- appUtils -->
+    <string name="ask_for_exit_app">再按一次退出app</string>
+
+</resources>
