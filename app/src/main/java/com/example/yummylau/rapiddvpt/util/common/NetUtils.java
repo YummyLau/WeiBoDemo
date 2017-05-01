@@ -3,13 +3,14 @@ package com.example.yummylau.rapiddvpt.util.common;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 import android.support.v4.net.ConnectivityManagerCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
 /**
  * 网络处理工具类
- *
+ * <p>
  * Created by yummyLau on 17-4-30
  * Email: yummyl.lau@gmail.com
  */
@@ -89,59 +90,6 @@ public class NetUtils {
         return ConnectivityManagerCompat.isActiveNetworkMetered(cm);
     }
 
-    /***
-     * 获取网络类型接口
-     * TODO：mtk和展讯平台的双卡双待兼容性
-     *
-     * @param context
-     * @return
-     */
-    public static int getNetworkType(Context context) {
-        int type = NETWORK_TYPE_NONE;
-        final ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        final NetworkInfo info = cm.getActiveNetworkInfo();
-        if (info != null && info.isConnected()) {
-            if (ConnectivityManager.TYPE_MOBILE == info.getType()) {
-                final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                type = getNetworkClass(tm.getNetworkType());
-            } else {
-                // 其他网络作为wifi网络看待
-                type = NETWORK_TYPE_WIFI;
-            }
-        }
-        return type;
-    }
-
-    /**
-     * copy of hided Method {@code android.telephony.TelephonyManager#getNetworkClass}
-     * <p/>
-     * Return general class of network type, such as "3G" or "4G". In cases
-     * where classification is contentious, this method is conservative.
-     */
-    private static int getNetworkClass(int networkType) {
-        switch (networkType) {
-            case TelephonyManager.NETWORK_TYPE_GPRS:
-            case TelephonyManager.NETWORK_TYPE_EDGE:
-            case TelephonyManager.NETWORK_TYPE_CDMA:
-            case TelephonyManager.NETWORK_TYPE_1xRTT:
-            case TelephonyManager.NETWORK_TYPE_IDEN:
-                return NETWORK_TYPE_2G;
-            case TelephonyManager.NETWORK_TYPE_UMTS:
-            case TelephonyManager.NETWORK_TYPE_EVDO_0:
-            case TelephonyManager.NETWORK_TYPE_EVDO_A:
-            case TelephonyManager.NETWORK_TYPE_HSDPA:
-            case TelephonyManager.NETWORK_TYPE_HSUPA:
-            case TelephonyManager.NETWORK_TYPE_HSPA:
-            case TelephonyManager.NETWORK_TYPE_EVDO_B:
-            case TelephonyManager.NETWORK_TYPE_EHRPD:
-            case TelephonyManager.NETWORK_TYPE_HSPAP:
-                return NETWORK_TYPE_3G;
-            case TelephonyManager.NETWORK_TYPE_LTE:
-                return NETWORK_TYPE_4G;
-            default:
-                return NETWORK_TYPE_UNKNOWN;
-        }
-    }
 
     /**
      * 是否是属于已联网
@@ -193,18 +141,21 @@ public class NetUtils {
     }
 
 
-    public static int getNetworkType2(Context context) {
+    /**
+     * 获取网络类型
+     *
+     * @param context
+     * @return
+     */
+    public static int getNetworkType(@NonNull Context context) {
         int type = NETWORK_TYPE_NONE;
-        // if (context != null) {
-        ConnectivityManager connectivityManager = (ConnectivityManager)context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
                 type = NETWORK_TYPE_WIFI;
             } else if (networkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
                 String _strSubTypeName = networkInfo.getSubtypeName();
-
-                // TD-SCDMA   networkType is 17
                 int networkType = networkInfo.getSubtype();
                 switch (networkType) {
                     case TelephonyManager.NETWORK_TYPE_GPRS:
@@ -239,9 +190,5 @@ public class NetUtils {
             }
         }
         return type;
-    }
-
-    public static boolean networkAvailable(Context context) {
-        return !(NETWORK_TYPE_NONE == getNetworkType2(context));
     }
 }

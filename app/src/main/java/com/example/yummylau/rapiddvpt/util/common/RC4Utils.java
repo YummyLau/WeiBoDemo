@@ -2,6 +2,8 @@ package com.example.yummylau.rapiddvpt.util.common;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
@@ -24,7 +26,9 @@ import javax.crypto.spec.SecretKeySpec;
 public class RC4Utils {
 
     private final static String TAG = RC4Utils.class.getSimpleName();
-    public static final String ALGORITHM = "RC4";
+
+    private static final String ALGORITHM = "RC4";
+    private static final String UTF8 = "UTF-8";
 
     /**
      * RC4加密
@@ -32,8 +36,10 @@ public class RC4Utils {
      * @param key      密钥
      * @return         密文
      */
-    public static String encryptData(String content, String key){
-        if (content == null || key == null) return null;
+    public static String encryptData(@NonNull String content, @NonNull String key){
+        if(TextUtils.isEmpty(content) || TextUtils.isEmpty(key)){
+            return null;
+        }
         byte[] encryptedData = encryptData(content.getBytes(), key);
         return Base64Utils.encode(encryptedData);
     }
@@ -44,12 +50,14 @@ public class RC4Utils {
      * @param key      密钥
      * @return         明文
      */
-    public static String decryptData(String content, String key){
-        if (content == null || key == null) return null;
+    public static String decryptData(@NonNull String content, @NonNull String key){
+        if(TextUtils.isEmpty(content) || TextUtils.isEmpty(key)){
+            return null;
+        }
         byte[] decodedData = Base64Utils.decode(content);
         byte[] decryptedData = decryptData(decodedData, key);
         try {
-            return new String(decryptedData, "UTF-8");
+            return new String(decryptedData, UTF8);
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
@@ -71,7 +79,7 @@ public class RC4Utils {
             try {
                 Cipher cipher = Cipher.getInstance(ALGORITHM);
                 //根据给定的字节数组构造一个密钥, ALGORITHM:与给定的密钥内容相关联的密钥算法的名称
-                SecretKeySpec keySpec = new SecretKeySpec( rc4Key.getBytes("UTF-8"), ALGORITHM );
+                SecretKeySpec keySpec = new SecretKeySpec( rc4Key.getBytes(UTF8), ALGORITHM );
                 cipher.init(Cipher.ENCRYPT_MODE, keySpec);
                 encryptedData = cipher.doFinal(data);
             } catch (NoSuchAlgorithmException e) {
@@ -104,7 +112,7 @@ public class RC4Utils {
         if (encryptedData != null) {
             try {
                 Cipher cipher = Cipher.getInstance(ALGORITHM);
-                SecretKeySpec keySpec = new SecretKeySpec( rc4Key.getBytes("UTF-8"), ALGORITHM );
+                SecretKeySpec keySpec = new SecretKeySpec( rc4Key.getBytes(UTF8), ALGORITHM );
 
                 cipher.init(Cipher.DECRYPT_MODE, keySpec);
                 decryptedData = cipher.doFinal(encryptedData);

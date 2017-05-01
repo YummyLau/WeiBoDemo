@@ -12,8 +12,6 @@ import android.view.WindowManager;
 
 public class DisplayUtils {
 
-//    private static int SCREEN_WIDTH;
-//    private static int SCREEN_HEIGHT;
 
     /**
      * 将px值转换为dip或dp值，保证尺寸大小不变
@@ -59,98 +57,6 @@ public class DisplayUtils {
         return (int) (spValue * fontScale + 0.5f);
     }
 
-//    public static class ScreenSize {
-//        public int width;
-//        public int height;
-//    }
-//
-//    public static ScreenSize getScreenSize(Context context) {
-//        ScreenSize size = new DisplayUtils.ScreenSize();
-//        DisplayMetrics metric = new DisplayMetrics();
-//        if (context instanceof Activity) {
-//            Activity activity = (Activity) context;
-//            activity.getWindowManager().getDefaultDisplay().getMetrics(metric);
-//            size.width = metric.widthPixels;
-//            size.height = metric.heightPixels;
-//        }
-//        return size;
-//    }
-//
-//    public static ScreenSize getScreenRealSize(Context context) {
-//        ScreenSize size = new DisplayUtils.ScreenSize();
-//
-//        int heightPixels;
-//        int widthPixels;
-//        WindowManager w = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-//        Display d = w.getDefaultDisplay();
-//        DisplayMetrics metrics = new DisplayMetrics();
-//        d.getMetrics(metrics);
-//        // since SDK_INT = 1;
-//        heightPixels = metrics.heightPixels;
-//        widthPixels = metrics.widthPixels;
-//        // includes window decorations (statusbar bar/navigation bar)
-//        if (Build.VERSION.SDK_INT >= 14 && Build.VERSION.SDK_INT < 17)
-//            try {
-//                heightPixels = (Integer) Display.class
-//                        .getMethod("getRawHeight").invoke(d);
-//            } catch (Exception ignored) {
-//            }
-//            // includes window decorations (statusbar bar/navigation bar)
-//        else if (Build.VERSION.SDK_INT >= 17)
-//            try {
-//                android.graphics.Point realSize = new android.graphics.Point();
-//                Display.class.getMethod("getRealSize",
-//                        android.graphics.Point.class).invoke(d, realSize);
-//                heightPixels = realSize.y;
-//            } catch (Exception ignored) {
-//            }
-//
-//        size.width = widthPixels;
-//        size.height = heightPixels;
-//        return size;
-//    }
-//
-//    /**
-//     * 压缩图片
-//     *
-//     * @param path
-//     */
-//    public static Bitmap dealimage(Context context, Uri path) {
-//        try {
-//            BitmapFactory.Options options = new BitmapFactory.Options();
-//            options.inJustDecodeBounds = true;
-//            Bitmap bitmap = BitmapFactory.decodeStream(context
-//                    .getContentResolver().openInputStream(path), null, options);
-//            options.inJustDecodeBounds = false;
-//            int be1 = (int) (options.outHeight / (float) 1024);
-//            int be2 = (int) (options.outWidth / (float) 1024);
-//
-//            int be = be1 > be2 ? be1 : be2;
-//            if (be <= 1) {
-//                be = 1;
-//            }
-//            options.inSampleSize = be;
-//            bitmap = BitmapFactory.decodeStream(context.getContentResolver()
-//                    .openInputStream(path), null, options);
-//            return bitmap;
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
-//
-//    public static int getScreenWidth(Context context) {
-//        if (SCREEN_WIDTH == 0) {
-//            SCREEN_WIDTH = context.getResources().getDisplayMetrics().widthPixels;
-//        }
-//        return SCREEN_WIDTH;
-//    }
-//
-//    public static int getScreenHeight(Context context) {
-//        if (SCREEN_HEIGHT == 0) {
-//            SCREEN_HEIGHT = context.getResources().getDisplayMetrics().heightPixels;
-//        }
-//        return SCREEN_HEIGHT;
-//    }
 
     /**
      * 获取屏幕宽度ppi

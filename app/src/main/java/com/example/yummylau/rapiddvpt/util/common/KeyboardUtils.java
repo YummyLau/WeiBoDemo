@@ -6,7 +6,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 /**
- * 软件盘工具类
+ * 软键盘工具类
  * Created by yummyLau on 17-4-30
  * Email: yummyl.lau@gmail.com
  */

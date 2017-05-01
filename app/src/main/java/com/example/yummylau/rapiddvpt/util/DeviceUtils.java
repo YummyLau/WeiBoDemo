@@ -1,4 +1,4 @@
-package com.example.yummylau.rapiddvpt.util.common;
+package com.example.yummylau.rapiddvpt.util;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

@@ -8,6 +8,8 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.yummylau.rapiddvpt.R;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -36,6 +38,7 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
     private Map<String, String> mInfoMap = new HashMap<>();                         //用来存储设备信息和异常信息
     private DateFormat mDateFormat =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());       //用于格式化日期,作为日志文件名的一部分
+    private static final String CRASH_SAVE_PATH = "自定义";
 
     private CrashUtils() {}
 
@@ -97,7 +100,7 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
             public void run() {
                 Looper.prepare();
                 try {
-                    Toast.makeText(mContext, "系统君不在状态？重启精彩继续", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, R.string.crash_for_tip, Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -179,15 +182,14 @@ public class CrashUtils implements Thread.UncaughtExceptionHandler {
             String fileName = "crash-" + time + "-" + timestamp + ".txt";
 
             //log的保存路径
-			String crashCachePath = mContext.getCacheDir().toString() + "/crash/";
-//            String crashCachePath = FileUtils.getCrashLogDir(mContext);
-            File crashCacheDir = new File(crashCachePath);
+//			String crashCachePath = mContext.getCacheDir().toString() + "/crash/";
+            File crashCacheDir = new File(CRASH_SAVE_PATH);
             // 如果文件夹不存在则创建
             if (!crashCacheDir.exists()) {
                 crashCacheDir.mkdirs();
             }
 
-            FileOutputStream fos = new FileOutputStream(crashCachePath + "/" + fileName);
+            FileOutputStream fos = new FileOutputStream(CRASH_SAVE_PATH + "/" + fileName);
             fos.write(sb.toString().getBytes());
             fos.close();
 

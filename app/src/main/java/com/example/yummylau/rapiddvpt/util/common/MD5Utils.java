@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 public class MD5Utils {
 
     private final static String TAG = MD5Utils.class.getSimpleName();
+    private static final String MD5 = "MD5";
 
     /**
      * 生产32位MD5码
@@ -23,7 +24,7 @@ public class MD5Utils {
     public static String generateMD5(String str){
         MessageDigest md5;
         try {
-            md5 = MessageDigest.getInstance( "MD5" );
+            md5 = MessageDigest.getInstance(MD5);
         } catch (NoSuchAlgorithmException e) {
             Log.e(TAG, e.toString());
             return "";

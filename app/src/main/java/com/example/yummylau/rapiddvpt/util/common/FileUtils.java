@@ -40,25 +40,39 @@ import java.util.zip.ZipInputStream;
 
 public class FileUtils {
 
-
-    public static final int SIZE_TYPE_B = 1;
-    public static final int SIZE_TYPE_KB = 2;
-    public static final int SIZE_TYPE_MB = 3;
-    public static final int SIZE_TYPE_GB = 4;
     private static final String TAG = FileUtils.class.getSimpleName();
 
+    public static final int SIZE_TYPE_B = 0x0001;
+    public static final int SIZE_TYPE_KB = 0x0002;
+    public static final int SIZE_TYPE_MB = 0x0003;
+    public static final int SIZE_TYPE_GB = 0x0004;
+
+    /**
+     * 判断文件是否存在
+     *
+     * @param filePath
+     * @return
+     */
     public static boolean isFileExist(String filePath) {
         File file = new File(filePath);
         return file.isFile();
     }
 
-    //递归删除文件
+    /**
+     * 删除文件
+     *
+     * @param path
+     */
     public static void delete(String path) {
         File file = new File(path);
         delete(file);
     }
 
-    //递归删除文件
+    /**
+     * 递归删除文件
+     *
+     * @param file
+     */
     public static void delete(File file) {
         if (file == null || !file.exists()) {
             return;
@@ -74,7 +88,6 @@ public class FileUtils {
                 file.delete();
                 return;
             }
-
             for (File childFile : childFiles) {
                 delete(childFile);
             }
@@ -95,10 +108,8 @@ public class FileUtils {
         try {
             blockSize = getFileSize(file);
         } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("获取文件大小", "获取失败!");
+            Log.e(TAG, e.toString());
         }
-
         DecimalFormat df = new DecimalFormat("#.0");
         double fileSizeLong;
         fileSizeLong = Double.valueOf(df.format((double) blockSize / 1024));
@@ -110,25 +121,6 @@ public class FileUtils {
         }
     }
 
-    /**
-     * 获取指定类型的文件夹大小
-     *
-     * @param filePath
-     * @param sizeType
-     * @return
-     */
-    public static double getFileSizeForType(String filePath, int sizeType) {
-        File file = new File(filePath);
-        long blockSize = 0;
-        try {
-            blockSize = getFileSize(file);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("获取文件大小", "获取失败!");
-        }
-        return FormatFileSize(blockSize, sizeType);
-
-    }
 
     /**
      * 获取文件大小
@@ -145,33 +137,40 @@ public class FileUtils {
             size = fis.available();
         } else {
             file.createNewFile();
-            Log.e("获取文件大小", "文件不存在!");
+            Log.e(TAG, "文件不存在!");
         }
         return size;
     }
 
     /**
-     * 文件大小格式化
+     * 获取指定类型的文件夹大小
      *
-     * @param fileS
+     * @param filePath
      * @param sizeType
      * @return
      */
-    private static double FormatFileSize(long fileS, int sizeType) {
+    public static double getFileSizeForType(String filePath, int sizeType) {
+        File file = new File(filePath);
+        long blockSize = 0;
+        try {
+            blockSize = getFileSize(file);
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
         DecimalFormat df = new DecimalFormat("#.00");
         double fileSizeLong = 0;
         switch (sizeType) {
             case SIZE_TYPE_B:
-                fileSizeLong = Double.valueOf(df.format((double) fileS));
+                fileSizeLong = Double.valueOf(df.format((double) blockSize));
                 break;
             case SIZE_TYPE_KB:
-                fileSizeLong = Double.valueOf(df.format((double) fileS / 1024));
+                fileSizeLong = Double.valueOf(df.format((double) blockSize / 1024));
                 break;
             case SIZE_TYPE_MB:
-                fileSizeLong = Double.valueOf(df.format((double) fileS / 1048576));
+                fileSizeLong = Double.valueOf(df.format((double) blockSize / 1048576));
                 break;
             case SIZE_TYPE_GB:
-                fileSizeLong = Double.valueOf(df.format((double) fileS / 1073741824));
+                fileSizeLong = Double.valueOf(df.format((double) blockSize / 1073741824));
                 break;
             default:
                 break;
@@ -180,7 +179,13 @@ public class FileUtils {
     }
 
 
-    //通过uri获取path
+    /**
+     * 根据uri获取path
+     *
+     * @param context
+     * @param uri
+     * @return
+     */
     @SuppressLint("NewApi")
     public static String getPath(final Context context, final Uri uri) {
 
@@ -295,7 +300,6 @@ public class FileUtils {
      * @throws Exception
      */
     public static int upZipFile(File zipFile, String folderPath) throws IOException {
-        // public static void upZipFile() throws Exception{
         ZipFile zfile = new ZipFile(zipFile);
         Enumeration zList = zfile.entries();
         ZipEntry ze;
@@ -303,16 +307,15 @@ public class FileUtils {
         while (zList.hasMoreElements()) {
             ze = (ZipEntry) zList.nextElement();
             if (ze.isDirectory()) {
-                Log.d("upZipFile", "ze.getName() = " + ze.getName());
+                Log.d(TAG, "upZipFile: ze.getName() = " + ze.getName());
                 String dirstr = folderPath + ze.getName();
-                // dirstr.trim();
                 dirstr = new String(dirstr.getBytes("8859_1"), "GB2312");
                 Log.d("upZipFile", "str = " + dirstr);
                 File f = new File(dirstr);
                 f.mkdir();
                 continue;
             }
-            Log.d("upZipFile", "ze.getName() = " + ze.getName());
+            Log.d(TAG, "upZipFile: ze.getName() = " + ze.getName());
             OutputStream os = new BufferedOutputStream(new FileOutputStream(getRealFileName(folderPath, ze.getName())));
             InputStream is = new BufferedInputStream(zfile.getInputStream(ze));
             int readLen;
@@ -323,7 +326,7 @@ public class FileUtils {
             os.close();
         }
         zfile.close();
-        Log.d("upZipFile", "unzip finished");
+        Log.d(TAG, "upZipFile: unzip finished");
         return 0;
     }
 
@@ -331,7 +334,7 @@ public class FileUtils {
      * 给定根目录，返回一个相对路径所对应的实际文件名.
      *
      * @param baseDir     指定根目录
-     * @param absFileName 相对路径名，来自于ZipEntry中的name
+     * @param absFileName 相对路径名
      * @return java.io.File 实际的文件
      */
     public static File getRealFileName(String baseDir, String absFileName) {
@@ -342,39 +345,29 @@ public class FileUtils {
             for (int i = 0; i < dirs.length - 1; i++) {
                 substr = dirs[i];
                 try {
-                    // substr.trim();
                     substr = new String(substr.getBytes("8859_1"), "GB2312");
-
                 } catch (UnsupportedEncodingException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    Log.e(TAG, e.toString());
                 }
                 ret = new File(ret, substr);
-
             }
-            Log.d("upZipFile", "1ret = " + ret);
             if (!ret.exists())
                 ret.mkdirs();
             substr = dirs[dirs.length - 1];
             try {
-                // substr.trim();
                 substr = new String(substr.getBytes("8859_1"), "GB2312");
-                Log.d("upZipFile", "substr = " + substr);
             } catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.e(TAG, e.toString());
             }
-
             ret = new File(ret, substr);
-            Log.d("upZipFile", "2ret = " + ret);
             return ret;
         }
         return ret;
     }
 
 
-    /**
-     * string to file
+    /**于
+     * 把字符串以文件形式保存特定路径中
      *
      * @param str
      * @param filename
@@ -401,6 +394,13 @@ public class FileUtils {
         return null;
     }
 
+    /**
+     * 从压缩文件中读取特定的文件，以字符串的形式返回
+     * @param assetManager
+     * @param zipFileName
+     * @param fileName
+     * @return
+     */
     public static String getContent(AssetManager assetManager, String zipFileName, String fileName) {
         String content = null;
         try {
@@ -415,11 +415,17 @@ public class FileUtils {
             }
             zipInputStream.close();
         } catch (Exception e) {
-            Log.e(TAG,e.toString());
+            Log.e(TAG, e.toString());
         }
         return content;
     }
 
+    /**
+     * 读取压缩文件流成字符串
+     *
+     * @param zipinputstream
+     * @return
+     */
     private static String getContent(ZipInputStream zipinputstream) {
         String content = null;
         if (zipinputstream == null) {

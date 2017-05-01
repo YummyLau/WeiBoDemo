@@ -1,6 +1,8 @@
 package com.example.yummylau.rapiddvpt.util.common;
 
 import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 
@@ -36,38 +38,41 @@ public class RSAUtils {
     private static final int MAX_DECRYPT_BLOCK = 128;       //RSA最大解密密文大小
 
     /**
-     * RSA分段加密
-     * @param content  明文
-     * @param key	   公钥
-     * @return         密文
+     * RSA加密
+     *
+     * @param content 明文
+     * @param key     公钥
+     * @return 密文
      */
-    public static String encryptByPublicKey(String content, String key){
-        if (content == null || key == null) return null;
+    public static String encryptByPublicKey(@NonNull String content, @NonNull String key) {
+        if (TextUtils.isEmpty(content) || TextUtils.isEmpty(key)) return null;
         byte[] encryptedData = encryptByPublicKey(content.getBytes(), key);
         return Base64Utils.encode(encryptedData);
     }
 
     /**
      * 私钥加密
-     * @param content  明文
-     * @param key	   公钥
-     * @return         密文
+     *
+     * @param content 明文
+     * @param key     公钥
+     * @return 密文
      */
-    public static String encryptByPrivateKey(String content, String key){
-        if (content == null || key == null) return null;
+    public static String encryptByPrivateKey(@NonNull String content, @NonNull String key) {
+        if (TextUtils.isEmpty(content) || TextUtils.isEmpty(key)) return null;
         byte[] encryptedData = encryptByPrivateKey(content.getBytes(), key);
         return Base64Utils.encode(encryptedData);
     }
 
 
     /**
-     * RSA分段加密
-     * @param data	     明文
-     * @param keyString	 公钥
-     * @return           密文
+     * RSA加密
+     *
+     * @param data      明文
+     * @param keyString 公钥
+     * @return 密文
      */
     @SuppressLint("TrulyRandom")
-    public static byte[] encryptByPublicKey(byte[] data, String keyString){
+    public static byte[] encryptByPublicKey(byte[] data, String keyString) {
         byte[] encryptedData = null;
         byte[] keyBytes = Base64Utils.decode(keyString);
         try {
@@ -81,8 +86,8 @@ public class RSAUtils {
 //			PublicKey publicKey = certificate.getPublicKey();
 
             // init
-            Cipher cipher = Cipher.getInstance( "RSA/ECB/PKCS1Padding", "BC" );	//默认为no padding, 服务器为PKCS1Padding,要一致
-            cipher.init( Cipher.ENCRYPT_MODE, publicKey );
+            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding", "BC");    //默认为no padding, 服务器为PKCS1Padding,要一致
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
             int inputLen = data.length;
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -128,13 +133,14 @@ public class RSAUtils {
 
     /**
      * 私钥加密
-     * @param data       明文
-     * @param keyString  私钥
-     * @return           密文
+     *
+     * @param data      明文
+     * @param keyString 私钥
+     * @return 密文
      */
-    public static byte[] encryptByPrivateKey(byte[] data, String keyString){
+    public static byte[] encryptByPrivateKey(byte[] data, String keyString) {
         byte[] encryptedData = null;
-        byte[] keyBytes = Base64.decode(keyString.getBytes(),Base64.DEFAULT);
+        byte[] keyBytes = Base64.decode(keyString.getBytes(), Base64.DEFAULT);
         try {
             // get the public key
             KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
@@ -142,8 +148,8 @@ public class RSAUtils {
             PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
 
             // init
-            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");	//默认为no padding, 服务器为PKCS1Padding,要一致
-            cipher.init( Cipher.ENCRYPT_MODE, privateKey );
+            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");    //默认为no padding, 服务器为PKCS1Padding,要一致
+            cipher.init(Cipher.ENCRYPT_MODE, privateKey);
 
             int inputLen = data.length;
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -189,36 +195,40 @@ public class RSAUtils {
      * 公钥解密
      *
      * @param encryptedData 已加密数据
-     * @param publicKey 公钥(BASE64编码)
+     * @param publicKey     公钥(BASE64编码)
      * @return
      * @throws Exception
      */
-    public static byte[] decryptByPublicKey(byte[] encryptedData, String publicKey)
-            throws Exception {
-        byte[] keyBytes = Base64Utils.decode(publicKey);
-        X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        Key publicK = keyFactory.generatePublic(x509KeySpec);
-        Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");  //默认为no padding, 服务器为PKCS1Padding,要一致
-        cipher.init(Cipher.DECRYPT_MODE, publicK);
-        int inputLen = encryptedData.length;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        int offSet = 0;
-        byte[] cache;
-        int i = 0;
-        // 对数据分段解密
-        while (inputLen - offSet > 0) {
-            if (inputLen - offSet > MAX_DECRYPT_BLOCK) {
-                cache = cipher.doFinal(encryptedData, offSet, MAX_DECRYPT_BLOCK);
-            } else {
-                cache = cipher.doFinal(encryptedData, offSet, inputLen - offSet);
+    public static byte[] decryptByPublicKey(byte[] encryptedData, @NonNull String publicKey) {
+        try{
+            byte[] keyBytes = Base64Utils.decode(publicKey);
+            X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
+            KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+            Key publicK = keyFactory.generatePublic(x509KeySpec);
+            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");  //默认为no padding, 服务器为PKCS1Padding,要一致
+            cipher.init(Cipher.DECRYPT_MODE, publicK);
+            int inputLen = encryptedData.length;
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            int offSet = 0;
+            byte[] cache;
+            int i = 0;
+            // 对数据分段解密
+            while (inputLen - offSet > 0) {
+                if (inputLen - offSet > MAX_DECRYPT_BLOCK) {
+                    cache = cipher.doFinal(encryptedData, offSet, MAX_DECRYPT_BLOCK);
+                } else {
+                    cache = cipher.doFinal(encryptedData, offSet, inputLen - offSet);
+                }
+                out.write(cache, 0, cache.length);
+                i++;
+                offSet = i * MAX_DECRYPT_BLOCK;
             }
-            out.write(cache, 0, cache.length);
-            i++;
-            offSet = i * MAX_DECRYPT_BLOCK;
+            byte[] decryptedData = out.toByteArray();
+            out.close();
+            return decryptedData;
+        }catch (Exception e){
+            Log.e(TAG,e.toString());
         }
-        byte[] decryptedData = out.toByteArray();
-        out.close();
-        return decryptedData;
+        return null;
     }
 }

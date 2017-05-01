@@ -17,7 +17,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.yummylau.rapiddvpt.R;
-import com.example.yummylau.rapiddvpt.util.common.DeviceUtils;
 import com.example.yummylau.rapiddvpt.util.common.StringUtils;
 
 import java.util.List;

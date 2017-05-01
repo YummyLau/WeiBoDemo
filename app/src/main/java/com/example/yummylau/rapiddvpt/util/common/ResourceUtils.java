@@ -1,7 +1,16 @@
 package com.example.yummylau.rapiddvpt.util.common;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
+import android.util.Log;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -22,49 +31,44 @@ public class ResourceUtils {
      * @param defType  类型
      * @return         返回id
      */
-    public static int getResId(Context context, String name, String defType) {
-        String pkgName = context.getPackageName();
-        Resources resources = context.getResources();
-        return resources.getIdentifier(name, defType, pkgName);
+    public static int getResId(@NonNull Context context, @NonNull String name, @NonNull String defType) {
+        if(TextUtils.isEmpty(name) || TextUtils.isEmpty(defType)){
+            return -1;
+        }
+        try {
+            String pkgName = context.getPackageName();
+            Resources resources = context.getResources();
+            return resources.getIdentifier(name, defType, pkgName);
+        }catch (Exception e){
+            Log.e(TAG,e.toString());
+        }
+        return -1;
     }
 
-//    /**
-//     * 加载assets中图片，使用本地二级缓存
-//     * @param context   context
-//     * @param name      图片的名称
-//     * @return          图片bitmap
-//     */
-//    public static Bitmap getAssetsImageWithCache(Context context, String name) {
-//        if (null == context || null == name) {
-//            return null;
-//        }
-////        ImageLruCache imageCache = ((GameServiceApplication)context.getApplicationContext()).getImageCache();
-//        ImageLruCache imageCache = ImageLruCache.getInstance(context.getApplicationContext());
-//        Bitmap bitmap = imageCache.getBitmap(name);
-//        if (null != bitmap) {
-//            return bitmap;
-//        }
-//
-//        AssetManager assetManager = context.getAssets();
-//        try {
-//            InputStream is = assetManager.open(name);
-//            bitmap = BitmapFactory.decodeStream(is);
-//            is.close();
-//
-//            if (null != bitmap) {
-////                imageCache.putBitmap(name, bitmap);
-//                return bitmap;
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (OutOfMemoryError e) {
-//            e.printStackTrace();
-//        }
-//
-//        return bitmap;
-//    }
+    /**
+     * 加载assets中图片
+     * @param context   context
+     * @param name      图片的名称
+     * @return          图片bitmap
+     */
+    public static Bitmap getAssetsImage(@NonNull Context context, @NonNull String name) {
+        if (null == context || null == name) {
+            return null;
+        }
+        Bitmap bitmap = null;
+        try {
+            InputStream is = context.getResources().getAssets().open(name);
+            bitmap = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (FileNotFoundException e) {
+            Log.e(TAG,e.toString());
+        } catch (IOException e) {
+            Log.e(TAG,e.toString());
+        } catch (OutOfMemoryError e) {
+            Log.e(TAG,e.toString());
+        }
+        return bitmap;
+    }
 
     /**
      * 从assets文件夹中获取文件并读取数据
@@ -72,7 +76,7 @@ public class ResourceUtils {
      * @param fileName  文件名
      * @return          返回去读的内容
      */
-    public static String getFromAssets(Context context, String fileName) {
+    public static String getAssetsFileString(Context context, String fileName) {
         String result = "";
         try {
             InputStream in = context.getResources().getAssets().open(fileName);

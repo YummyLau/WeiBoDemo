@@ -1,5 +1,7 @@
 package com.example.yummylau.rapiddvpt.util.common;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,6 +15,8 @@ import java.util.Map;
  */
 
 public class JsonUtils {
+
+    private static final String TAG = JsonUtils.class.getSimpleName();
 
     /**
      * 根据map生成Json字符串
@@ -31,7 +35,7 @@ public class JsonUtils {
             }
             str = jsonObject.toString();
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
         }
         return str;
     }
@@ -43,14 +47,14 @@ public class JsonUtils {
      * @param name
      * @return
      */
-    public static JSONObject getSaveJSONObject(JSONObject jsonObject, String name) {
+    public static JSONObject getJSONObject(JSONObject jsonObject, String name) {
         JSONObject value = null;
         try {
             if (jsonObject.has(name)) {
                 value = jsonObject.getJSONObject(name);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
         }
         return value;
     }
@@ -62,14 +66,14 @@ public class JsonUtils {
      * @param name
      * @return
      */
-    public static JSONArray getSaveJSONArray(JSONObject jsonObject, String name) {
+    public static JSONArray getJSONArray(JSONObject jsonObject, String name) {
         JSONArray value = null;
         try {
             if (jsonObject.has(name)) {
                 value = jsonObject.getJSONArray(name);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
         }
         return value;
     }
@@ -79,18 +83,18 @@ public class JsonUtils {
      *
      * @param jsonObject
      * @param name
+     * @param defaultValue
      * @return
      */
-    public static String getSaveString(JSONObject jsonObject, String name) {
-        String value = null;
+    public static String getString(JSONObject jsonObject, String name, String defaultValue) {
         try {
             if (jsonObject.has(name) && !jsonObject.isNull(name)) {
-                value = jsonObject.getString(name);
+                return jsonObject.optString(name, defaultValue);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
         }
-        return value;
+        return defaultValue;
     }
 
     /**
@@ -100,8 +104,8 @@ public class JsonUtils {
      * @param name
      * @return
      */
-    public static String getSaveStringFilterHTMLTag(JSONObject jsonObject, String name) {
-        return StringUtils.filterHTMLTag(getSaveString(jsonObject, name));
+    public static String getStringFilterHTMLTag(JSONObject jsonObject, String name, String defaultValue) {
+        return StringUtils.filterHTMLTag(getString(jsonObject, name, defaultValue));
     }
 
     /**
@@ -112,16 +116,15 @@ public class JsonUtils {
      * @param defaultValue
      * @return
      */
-    public static Double getSaveDouble(JSONObject jsonObject, String name, double defaultValue) {
-        Double value = defaultValue;
+    public static Double getDouble(JSONObject jsonObject, String name, double defaultValue) {
         try {
             if (jsonObject.has(name)) {
-                value = jsonObject.getDouble(name);
+                return jsonObject.optDouble(name, defaultValue);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
         }
-        return value;
+        return defaultValue;
     }
 
     /**
@@ -132,16 +135,15 @@ public class JsonUtils {
      * @param defaultValue
      * @return
      */
-    public static Integer getSaveInt(JSONObject jsonObject, String name, int defaultValue) {
-        Integer value = defaultValue;
+    public static Integer getInt(JSONObject jsonObject, String name, int defaultValue) {
         try {
             if (jsonObject.has(name)) {
-                value = jsonObject.getInt(name);
+                return jsonObject.optInt(name, defaultValue);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
         }
-        return value;
+        return defaultValue;
     }
 
     /**
@@ -152,16 +154,15 @@ public class JsonUtils {
      * @param defaultValue
      * @return
      */
-    public static Boolean getSaveBoolean(JSONObject jsonObject, String name, boolean defaultValue) {
-        Boolean value = defaultValue;
+    public static Boolean getBoolean(JSONObject jsonObject, String name, boolean defaultValue) {
         try {
             if (jsonObject.has(name)) {
-                value = jsonObject.getBoolean(name);
+                return jsonObject.optBoolean(name, defaultValue);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
         }
-        return value;
+        return defaultValue;
     }
 
     /**
@@ -173,14 +174,13 @@ public class JsonUtils {
      * @return
      */
     public static Long getSaveLong(JSONObject jsonObject, String name, Long defaultValue) {
-        Long value = defaultValue;
         try {
             if (jsonObject.has(name)) {
-                value = jsonObject.getLong(name);
+                return jsonObject.optLong(name, defaultValue);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
         }
-        return value;
+        return defaultValue;
     }
 }

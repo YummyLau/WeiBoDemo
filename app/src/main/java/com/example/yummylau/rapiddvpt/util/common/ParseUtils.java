@@ -1,6 +1,8 @@
 package com.example.yummylau.rapiddvpt.util.common;
 
+import android.renderscript.Short2;
 import android.text.TextUtils;
+import android.util.Log;
 
 /**
  * 解析基本类型，防止出错
@@ -10,23 +12,121 @@ import android.text.TextUtils;
 
 public class ParseUtils {
 
+    private static final String TAG = ParseUtils.class.getSimpleName();
 
     /**
-     * 字符串转整型
+     * 字符串转化为int
      *
-     * @param intString    字符串
-     * @param defaultValue 默认值
-     * @return 整型
+     * @param string
+     * @param defaultValue
+     * @return
      */
-    public static int parseInt(String intString, int defaultValue) {
+    public static int parseInt(String string, int defaultValue) {
 
-        if(TextUtils.isEmpty(intString.trim())){
+        if (TextUtils.isEmpty(string.trim())) {
             return defaultValue;
         }
         try {
-            return Integer.parseInt(intString.trim());
+            return Integer.parseInt(string.trim());
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
+        }
+        return defaultValue;
+    }
+
+    /**
+     * 字符串转化为double
+     *
+     * @param string
+     * @param defaultValue
+     * @return
+     */
+    public static double parseDouble(String string, double defaultValue) {
+
+        if (TextUtils.isEmpty(string.trim())) {
+            return defaultValue;
+        }
+        try {
+            return Double.parseDouble(string.trim());
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        return defaultValue;
+    }
+
+    /**
+     * 字符串转化为long
+     *
+     * @param string
+     * @param defaultValue
+     * @return
+     */
+    public static long parseLong(String string, long defaultValue) {
+
+        if (TextUtils.isEmpty(string.trim())) {
+            return defaultValue;
+        }
+        try {
+            return Long.parseLong(string.trim());
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        return defaultValue;
+    }
+
+    /**
+     * 字符串转化为float
+     *
+     * @param string
+     * @param defaultValue
+     * @return
+     */
+    public static float parseFloat(String string, float defaultValue) {
+        if (TextUtils.isEmpty(string.trim())) {
+            return defaultValue;
+        }
+        try {
+            return Float.parseFloat(string.trim());
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        return defaultValue;
+    }
+
+    /**
+     * 字符串转化为boolean
+     *
+     * @param string
+     * @param defaultValue
+     * @return
+     */
+    public static Boolean parseBoolean(String string, Boolean defaultValue) {
+        if (TextUtils.isEmpty(string.trim())) {
+            return defaultValue;
+        }
+        try {
+            return Boolean.parseBoolean(string.trim());
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+        return defaultValue;
+    }
+
+    /**
+     * 字符串转化为Short
+     *
+     * @param string
+     * @param defaultValue
+     * @return
+     */
+    public static Short parseShort(String string, Short defaultValue) {
+        if (TextUtils.isEmpty(string.trim())) {
+            return defaultValue;
+        }
+        try {
+            return Short.parseShort(string.trim());
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
         }
         return defaultValue;
     }

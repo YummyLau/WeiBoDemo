@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 public class HtmlUtils {
 
     private final static String TAG = HtmlUtils.class.getSimpleName();
+
     public static final HashMap<String, Character> charTable;
 
     static {

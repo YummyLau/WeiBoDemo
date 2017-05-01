@@ -11,5 +11,7 @@
 
     <!-- appUtils -->
     <string name="ask_for_exit_app">再按一次退出app</string>
+    <!-- CrashUtls -->
+    <string name="crash_for_tip">程序异常退出</string>
 
 </resources>

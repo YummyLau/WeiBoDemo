@@ -9,19 +9,26 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.WindowManager;
 
 /**
+ * 屏幕相关工具类
  * Created by yummyLau on 17-4-30
  * Email: yummyl.lau@gmail.com
  */
 
 public class ScreenUtils {
 
+    private static final String TAG = ScreenUtils.class.getSimpleName();
     private static final String STATUS_BAR_HEIGHT_RES_NAME = "status_bar_height";
     private static final String NAVIGATION_BAR_HEIGHT_RES_NAME = "navigation_bar_height";
+    private static final boolean isWidth = true;
 
     public static int sStatusBarHeight;
     public static boolean sHasNavBar;
@@ -49,23 +56,14 @@ public class ScreenUtils {
         }
     }
 
-    /**
-     * 重新测量屏幕
-     *
-     * @param context
-     */
-    public static void tryReinit(Context context) {
-        if (getOrientation(context) != sOrientation) {
-            init(context);
-        }
-    }
 
     /**
      * 测量初始化屏幕属性
      *
      * @param context
      */
-    public static void init(Context context) {
+    public static void measureScreen(Context context) {
+        //获取整个屏幕区域，不包括导航栏
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         sWidth = displayMetrics.widthPixels;
         sHeight = displayMetrics.heightPixels;
@@ -74,7 +72,10 @@ public class ScreenUtils {
         } else {
             sOrientation = Configuration.ORIENTATION_PORTRAIT;
         }
+        //获取状态栏高度
         sStatusBarHeight = getInternalDimensionSize(context.getResources(), STATUS_BAR_HEIGHT_RES_NAME);
+        //获取导航栏高度
+        sNavBarHeight = getInternalDimensionSize(context.getResources(), NAVIGATION_BAR_HEIGHT_RES_NAME);
         try {
             final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             final Display display = windowManager.getDefaultDisplay();
@@ -89,7 +90,7 @@ public class ScreenUtils {
             sRawWidth = point.x;
             sRawHeight = point.y;
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, e.toString());
         }
         if (sOrientation == Configuration.ORIENTATION_LANDSCAPE && sRawWidth < sRawHeight) {
             int temp = sRawWidth;
@@ -102,18 +103,47 @@ public class ScreenUtils {
         if (sRawHeight <= 0) {
             sRawHeight = sHeight;
         }
-        sNavBarWidth = sRawWidth - sWidth;
-        sNavBarHeight = sRawHeight - sHeight;
+//        sNavBarWidth = sRawWidth - sWidth;
+//        sNavBarHeight = sRawHeight - sHeight;
         sHasNavBar = sNavBarWidth > 0 || sNavBarHeight > 0;
     }
 
+
     /**
-     * 选择性获取状态栏、导航栏告诉
+     * 是否有导航栏显示
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isNavigationBarShow(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+            Point size = new Point();
+            Point realSize = new Point();
+            display.getSize(size);
+            display.getRealSize(realSize);
+            return realSize.y != size.y;
+        } else {
+            boolean menu = ViewConfiguration.get(context).hasPermanentMenuKey();
+            boolean back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+            if (menu || back) {
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+    }
+
+
+    /**
+     * 选择性获取状态栏、导航栏
      *
      * @param res context.getResources()
      * @param key NAVIGATION_BAR_HEIGHT_RES_NAME 或 STATUS_BAR_HEIGHT_RES_NAME
      * @return
      */
+
     private static int getInternalDimensionSize(Resources res, String key) {
         int result = 0;
         int resourceId = res.getIdentifier(key, "dimen", "android");
@@ -129,32 +159,14 @@ public class ScreenUtils {
      * @param context
      * @return
      */
-    public static int getScreenWidth(Context context) {
+    public static int getScreenWOrH(Context context,boolean isWidth) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displayMetrics);
-        return displayMetrics.widthPixels;
-    }
-
-    /**
-     * 获取屏幕可操作高度
-     *
-     * @param context
-     * @return
-     */
-    public static int getScreenHeight(Context context) {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displayMetrics);
-        return displayMetrics.heightPixels;
-    }
-
-    /**
-     * 获取屏幕可操作区域宽度和高度
-     *
-     * @param context
-     * @return 宽度和高度封装到Point对象中
-     */
-    public static Point getScreenSize(Context context) {
-        return new Point(getScreenWidth(context), getScreenHeight(context));
+        if(isWidth){
+            return displayMetrics.widthPixels;
+        }else{
+            return displayMetrics.heightPixels;
+        }
     }
 
     /**
@@ -163,65 +175,27 @@ public class ScreenUtils {
      * @param context
      * @return 屏幕真实宽度
      */
-    public static int getRealWidth(Context context) {
-        int widthPixels = 0;
-        Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        final int VERSION = Build.VERSION.SDK_INT;
-        if (VERSION < 13) {
-            display.getWidth();
-        } else if (VERSION == 13) {
-            try {
-                widthPixels = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
-            } catch (Exception e) {
+    public static int getRealWOrH(Context context,boolean isWidth) {
+        try {
+            final WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            final Display display = windowManager.getDefaultDisplay();
+            Point point = new Point();
+            //版本判断
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH &&
+                    Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                Display.class.getMethod("getRealSize", Point.class).invoke(display, point);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                display.getRealSize(point);
             }
-        } else {
-            Point realSize = new Point();
-            try {
-                Display.class.getMethod("getRealSize", Point.class).invoke(display, realSize);
-                widthPixels = realSize.x;
-            } catch (Exception e) {
+            if(isWidth){
+                return point.x;
+            }else{
+                return point.y;
             }
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+            return 0;
         }
-        return widthPixels;
-    }
-
-    /**
-     * 获取屏幕真实高度
-     *
-     * @param context
-     * @return 屏幕真实高度
-     */
-    public static int getRealHeight(Context context) {
-        int heightPixels = 0;
-        Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-        final int VERSION = Build.VERSION.SDK_INT;
-
-        if (VERSION < 13) {
-            display.getHeight();
-        } else if (VERSION == 13) {
-            try {
-                heightPixels = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
-            } catch (Exception e) {
-            }
-        } else {
-            Point realSize = new Point();
-            try {
-                Display.class.getMethod("getRealSize", Point.class).invoke(display, realSize);
-                heightPixels = realSize.y;
-            } catch (Exception e) {
-            }
-        }
-        return heightPixels;
-    }
-
-    /**
-     * 获取屏幕真实宽度和高度
-     *
-     * @param context
-     * @return 宽度和高度封装到Point对象中
-     */
-    public static Point getRealSize(Context context) {
-        return new Point(getRealWidth(context), getRealHeight(context));
     }
 
     /**
@@ -231,9 +205,7 @@ public class ScreenUtils {
      * @return
      */
     public static float getWidthInch(Context context) {
-        int realWidth = getRealWidth(context);
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displayMetrics);
+        int realWidth = getRealWOrH(context,isWidth);
         return (float) realWidth / DisplayUtils.getWidthPpi(context);
     }
 
@@ -244,7 +216,7 @@ public class ScreenUtils {
      * @return
      */
     public static float getHeightInch(Context context) {
-        int realHeight = getRealHeight(context);
+        int realHeight = getRealWOrH(context,!isWidth);
         return (float) realHeight / DisplayUtils.getHeightPpi(context);
     }
 
@@ -268,8 +240,8 @@ public class ScreenUtils {
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
         Bitmap bmp = view.getDrawingCache();
-        int width = getScreenWidth(activity);
-        int height = getScreenHeight(activity);
+        int width = getScreenWOrH(activity,isWidth);
+        int height = getScreenWOrH(activity,!isWidth);
         Bitmap bp = Bitmap.createBitmap(bmp, 0, 0, width, height);
         view.destroyDrawingCache();
         return bp;
@@ -286,10 +258,11 @@ public class ScreenUtils {
         view.buildDrawingCache();
         Bitmap bmp = view.getDrawingCache();
         Rect frame = new Rect();
+        //不包括状态栏
         activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
         int statusBarHeight = frame.top;
-        int width = getScreenWidth(activity);
-        int height = getScreenHeight(activity);
+        int width = getScreenWOrH(activity,isWidth);
+        int height = getScreenWOrH(activity,!isWidth);
         Bitmap bp = Bitmap.createBitmap(bmp, 0, statusBarHeight, width, height - statusBarHeight);
         view.destroyDrawingCache();
         return bp;
