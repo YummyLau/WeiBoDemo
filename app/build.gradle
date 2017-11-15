@@ -17,6 +17,12 @@ android {
         versionName rootProject.ext.android.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
     }
     buildTypes {
         release {
@@ -31,6 +37,9 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
 
-    implementation project(':moduleA')
-    implementation project(':moduleB')
+    if(buildWithOtherModule.toBoolean()){
+        implementation project(':moduleA')
+        implementation project(':moduleB')
+        annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+    }
 }

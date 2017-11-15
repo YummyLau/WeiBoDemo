@@ -1,4 +1,6 @@
 def supportVersion = "26.1.0"
+def arouterApiVersion = "1.2.4"
+def arouterCompilerVersion = "1.1.4"
 def rxJavaAndroidVersion = "1.2.1"
 def logVersion = "1.15"
 def retrofitVersion = "2.3.0"
@@ -34,6 +36,10 @@ project.ext {
             "converter-scalars": "com.squareup.retrofit2:converter-scalars:${converterScalarsVersion}",
 
             //log
-            "log"              : "com.orhanobut:logger:${logVersion}"
+            "log"              : "com.orhanobut:logger:${logVersion}",
+
+            //arouter
+            "arouter-api":"com.alibaba:arouter-api:${arouterApiVersion}",
+            "arouter-compiler":"com.alibaba:arouter-compiler:${arouterCompilerVersion}"
     ]
 }
