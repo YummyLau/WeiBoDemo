@@ -17,7 +17,11 @@ android {
         versionName rootProject.ext.android.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
     }
 
     buildTypes {
@@ -27,6 +31,7 @@ android {
         }
     }
 
+    resourcePrefix "library_"
 }
 
 dependencies {
@@ -51,4 +56,7 @@ dependencies {
     api rootProject.ext.dependencies["retorfit"]
     api rootProject.ext.dependencies["converter-gson"]
     api rootProject.ext.dependencies["converter-scalars"]
+
+    api rootProject.ext.dependencies["arouter-api"]
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
 }

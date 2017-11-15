@@ -1,6 +1,6 @@
-if(buildModule.toBoolean()){
+if (buildModule.toBoolean()) {
     apply plugin: 'com.android.library'
-}else{
+} else {
     apply plugin: 'com.android.application'
 }
 
@@ -15,9 +15,16 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        //配置buildConfig变量
+        buildConfigField "boolean", "TEST_HOST_API", testHostApi.toBoolean().toString()
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
     }
 
     buildTypes {
@@ -40,6 +47,7 @@ android {
         }
     }
 
+    resourcePrefix "modulea_"
 }
 
 dependencies {
@@ -49,5 +57,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    api project(':Library')
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+    api project(':library')
 }

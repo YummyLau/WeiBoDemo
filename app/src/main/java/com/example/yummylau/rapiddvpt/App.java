@@ -1,13 +1,11 @@
-package debug;
+package com.example.yummylau.rapiddvpt;
 
 import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
-import yummylau.modulea.BuildConfig;
-
 /**
- * Created by g8931 on 2017/11/14.
+ * Created by g8931 on 2017/11/15.
  */
 
 public class App extends Application {
@@ -15,10 +13,11 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        
-        if (BuildConfig.DEBUG) {
-            ARouter.openLog();
-            ARouter.openDebug();
-        }
+
+        ARouter.openDebug();
+        ARouter.openLog();
+        ARouter.printStackTrace();
+
+        ARouter.init(this);
     }
 }

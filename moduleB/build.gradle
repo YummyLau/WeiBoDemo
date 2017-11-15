@@ -14,9 +14,16 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        //配置buildConfig变量
+        buildConfigField "boolean", "TEST_HOST_API", testHostApi.toBoolean().toString()
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
     }
 
     buildTypes {
@@ -39,6 +46,8 @@ android {
         }
     }
 
+    resourcePrefix "moduleb_"
+
 }
 
 dependencies {
@@ -46,6 +55,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
-    api project(':Library')
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+    api project(':library')
 }
