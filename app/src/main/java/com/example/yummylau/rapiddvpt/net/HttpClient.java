@@ -1,8 +1,8 @@
-package com.example.yummylau.rapiddvpt.NET;
+package com.example.yummylau.rapiddvpt.net;
 
-import com.netease.hearthstone.app.AppConfig;
-import com.netease.hearthstone.http.interceptor.CacheInterceptorByHeader;
-import com.netease.hearthstone.http.interceptor.LoggingInterceptor;
+
+import com.example.yummylau.rapiddvpt.net.interceptor.CacheInterceptorByHeader;
+import com.example.yummylau.rapiddvpt.net.interceptor.LoggingInterceptor;
 
 import java.util.concurrent.TimeUnit;
 

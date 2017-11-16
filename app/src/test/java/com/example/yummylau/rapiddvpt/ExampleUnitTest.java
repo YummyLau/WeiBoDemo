@@ -2,6 +2,9 @@ package com.example.yummylau.rapiddvpt;
 
 import org.junit.Test;
 
+import rx.Observable;
+import rx.Observer;
+
 import static org.junit.Assert.*;
 
 /**

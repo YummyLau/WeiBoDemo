@@ -1,4 +1,4 @@
-package com.example.yummylau.rapiddvpt.NET;
+package com.example.yummylau.rapiddvpt.net;
 
 import java.nio.charset.Charset;
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *******************************************************************************/
-package com.netease.hearthstone.third.imageviewer;
+package com.example.yummylau.rapiddvpt.widget.imageviewer;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -113,7 +113,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener,OnGes
 
     // Gesture Detectors
     private GestureDetector mGestureDetector;
-    private com.netease.hearthstone.third.imageviewer.GestureDetector mScaleDragDetector;
+    private com.example.yummylau.rapiddvpt.widget.imageviewer.GestureDetector mScaleDragDetector;
 
     // These are set so we don't keep allocating them on the heap
     private final Matrix mBaseMatrix = new Matrix();

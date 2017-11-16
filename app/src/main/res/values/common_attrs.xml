@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <declare-styleable name="TitlebarWidget">
+        <attr name="activity_title" format="string" />
+        <attr name="activity_back" format="boolean" />
+        <attr name="activity_title_gravity">
+            <flag name="center" value="0" />
+            <flag name="left" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

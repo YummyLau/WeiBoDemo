@@ -1,4 +1,4 @@
-package com.example.yummylau.rapiddvpt.NET.interceptor;
+package com.example.yummylau.rapiddvpt.net.interceptor;
 import com.netease.hearthstone.utils.common.NetUtil;
 
 import java.io.IOException;

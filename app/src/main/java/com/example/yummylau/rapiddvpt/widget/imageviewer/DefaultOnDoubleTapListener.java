@@ -1,4 +1,4 @@
-package com.netease.hearthstone.third.imageviewer;
+package com.example.yummylau.rapiddvpt.widget.imageviewer;
 
 import android.graphics.RectF;
 import android.view.GestureDetector;

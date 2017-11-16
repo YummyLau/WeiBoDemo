@@ -1,4 +1,4 @@
-package com.netease.hearthstone.biz.image;
+package com.example.yummylau.rapiddvpt.helper.image;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

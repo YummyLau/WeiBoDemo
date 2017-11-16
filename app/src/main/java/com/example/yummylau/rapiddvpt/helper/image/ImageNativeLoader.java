@@ -1,4 +1,4 @@
-package com.netease.hearthstone.biz;
+package com.example.yummylau.rapiddvpt.helper.image;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,7 +21,6 @@ import java.util.concurrent.Semaphore;
 
 public class ImageNativeLoader {
     private LruCache<String, Bitmap> mLruCache;     //图片缓存的核心类
-
     private ExecutorService mThreadPool;            //线程池
     private static int mThreadCount = 5;            //线程池的线程数量，默认为5
     private Type mType = Type.LIFO;                 //队列的调度方式
@@ -164,7 +163,7 @@ public class ImageNativeLoader {
                         e.printStackTrace();
                     }
                     if (bm == null) {
-                        LogPrinter.i("ImageLoaderNative", path);
+                        Log.i("ImageLoaderNative", path);
                     }
                     addBitmapToLruCache(path, bm);
                     ImgBeanHolder holder = new ImgBeanHolder();
@@ -229,7 +228,7 @@ public class ImageNativeLoader {
                         e.printStackTrace();
                     }
                     if (bm == null) {
-                        LogPrinter.i("ImageLoaderNative", pathKey);
+                        Log.i("ImageLoaderNative", pathKey);
                     } else {
                         //维护缓存并动态回收
                         mImageCacheForImagePage.put(pathKey, bm);

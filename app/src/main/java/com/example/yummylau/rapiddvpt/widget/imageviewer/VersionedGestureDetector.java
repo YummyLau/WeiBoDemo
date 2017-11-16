@@ -1,4 +1,4 @@
-package com.netease.hearthstone.third.imageviewer;
+package com.example.yummylau.rapiddvpt.widget.imageviewer;
 
 /*******************************************************************************
  * Copyright 2011, 2012 Chris Banes.

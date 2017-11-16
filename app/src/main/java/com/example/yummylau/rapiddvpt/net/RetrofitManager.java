@@ -1,10 +1,10 @@
-package com.example.yummylau.rapiddvpt.NET;
+package com.example.yummylau.rapiddvpt.net;
 
 import android.content.Context;
 import android.util.Log;
 
-import com.netease.hearthstone.biz.LogPrinter;
-import com.netease.hearthstone.utils.common.NetUtil;
+
+import com.example.yummylau.rapiddvpt.util.common.NetUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -52,7 +52,7 @@ public class RetrofitManager {
             .maxStale(Constants.MAX_STALE, TimeUnit.SECONDS)
             .build();
 
-    public static void init(Context context) {
+    public static void init(final Context context) {
         sApplicationContext = context.getApplicationContext();
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
                 .connectTimeout(Constants.DEFAULT_CONNECT_TIMEOUT, TimeUnit.SECONDS)
@@ -68,7 +68,7 @@ public class RetrofitManager {
 
             @Override
             public CacheControl getCacheControl() {
-                return NetUtil.networkAvailable() ? cacheControl : NO_NETWORK_CACHE_CONTROL;
+                return NetUtils.isConnected(context) ? cacheControl : NO_NETWORK_CACHE_CONTROL;
             }
 
         };
@@ -119,7 +119,7 @@ public class RetrofitManager {
         try {
             return getRetrofit(retrofitParam).create(serviceClass);
         }catch (Exception e) {
-            LogPrinter.e(TAG, e.getMessage());
+            Log.e(TAG, e.getMessage());
         }
         return null;
     }
@@ -141,7 +141,7 @@ public class RetrofitManager {
                 Request request = requestBuilder.build();
                 response = chain.proceed(request);
 
-                LogPrinter.i(TAG, "code:" + response.code() + ", url:" + request.url());
+                Log.d(TAG, "code:" + response.code() + ", url:" + request.url());
             } catch (StackOverflowError e) {
                 Log.e(TAG, "", e);
             }

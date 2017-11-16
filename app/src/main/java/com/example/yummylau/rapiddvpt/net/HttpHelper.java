@@ -1,16 +1,9 @@
-package com.example.yummylau.rapiddvpt.NET;
+package com.example.yummylau.rapiddvpt.net;
 
 import android.content.Context;
+import android.util.Log;
 
-import com.netease.cloud.nos.android.core.Callback;
-import com.netease.cloud.nos.android.core.WanAccelerator;
-import com.netease.cloud.nos.android.core.WanNOSObject;
-import com.netease.cloud.nos.android.exception.InvalidParameterException;
-import com.netease.cloud.nos.android.utils.Util;
-import com.netease.hearthstone.api.CommonApis;
-import com.netease.hearthstone.biz.LogPrinter;
-import com.netease.hearthstone.utils.FileUtils;
-import com.netease.hearthstone.utils.common.URLUtils;
+import com.example.yummylau.rapiddvpt.util.common.URLUtils;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -48,17 +41,17 @@ public class HttpHelper {
      * @param url
      */
     public static Observable<String> getData(final String url) {
-        if (url == null) return null;
-        LogPrinter.i(TAG, "getData-->" + url);
-        //去掉baseurl 用@url 方式会忽略baseurl
-        RetrofitParam retrofitParam = new RetrofitParam.Builder()
-                .converterFactory(ScalarsConverterFactory.create())
-                .build();
-        return RetrofitManager.createService(retrofitParam, CommonApis.class)
-                .getData(url)
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+//        if (url == null) return null;
+//        Log.i(TAG, "getData-->" + url);
+//        //去掉baseurl 用@url 方式会忽略baseurl
+//        RetrofitParam retrofitParam = new RetrofitParam.Builder()
+//                .converterFactory(ScalarsConverterFactory.create())
+//                .build();
+//        return RetrofitManager.createService(retrofitParam, CommonApis.class)
+//                .getData(url)
+//                .subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
@@ -70,19 +63,19 @@ public class HttpHelper {
      * @param subscriber
      */
     public static void getData(final String url, boolean cache, final Subscriber<String> subscriber) {
-        if (url == null || subscriber == null) return;
-        LogPrinter.i(TAG, "getData-->" + url);
-        //去掉baseurl 用@url 方式会忽略baseurl
-        RetrofitParam retrofitParam = new RetrofitParam.Builder()
-                .cache(cache)
-                .converterFactory(ScalarsConverterFactory.create())
-                .build();
-        RetrofitManager.createService(retrofitParam, CommonApis.class)
-                .getData(url)
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+//        if (url == null || subscriber == null) return;
+//        Log.i(TAG, "getData-->" + url);
+//        //去掉baseurl 用@url 方式会忽略baseurl
+//        RetrofitParam retrofitParam = new RetrofitParam.Builder()
+//                .cache(cache)
+//                .converterFactory(ScalarsConverterFactory.create())
+//                .build();
+//        RetrofitManager.createService(retrofitParam, CommonApis.class)
+//                .getData(url)
+//                .subscribeOn(Schedulers.io())
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(subscriber);
     }
 
 
@@ -156,53 +149,53 @@ public class HttpHelper {
         return doHttpPost(urlString, postData, DEFAULT_POST_CONTENT_TYPE, DEFAULT_CONNECT_TIME_OUT_MILLIS_NORMAL, DEFAULT_READ_TIME_OUT_MILLIS_NORMAL, propertyMap);
 
     }
-
-    /**
-     * 文件上传nos，支持图片压缩
-     *
-     * @param context    上下文
-     * @param path       图片路径
-     * @param token      token
-     * @param bucketName 桶名称
-     * @param objectName 对象名称
-     */
-    public static void doUpload(Context context, final String path, final String token, final String bucketName,
-                                final String objectName, boolean compress, final Callback callback) {
-        //进行图片质量和尺寸的压缩
-        final File file;
-        if (compress) {
-            String compressedPath = FileUtils.getCompressedPath(context, path);
-            file = new File(compressedPath);
-        } else {
-            file = new File(path);
-        }
-
-        final Context appContext = context.getApplicationContext();
-
-        WanNOSObject wanNOSObject = new WanNOSObject();
-        wanNOSObject.setUploadToken(token);
-        wanNOSObject.setNosBucketName(bucketName);
-        wanNOSObject.setNosObjectName(objectName);
-        if (file.getName().contains(".jpg") || file.getName().contains(".jpeg")) {
-            wanNOSObject.setContentType("image/jpeg");
-        } else if (file.getName().contains(".png")) {
-            wanNOSObject.setContentType("image/png");
-        } else if (file.getName().contains(".aac")) {
-            wanNOSObject.setContentType("audio/aac");
-        }
-//        else if (file.getName().contains(".gif")) {
-//            wanNOSObject.setContentType("image/gif");
+//
+//    /**
+//     * 文件上传nos，支持图片压缩
+//     *
+//     * @param context    上下文
+//     * @param path       图片路径
+//     * @param token      token
+//     * @param bucketName 桶名称
+//     * @param objectName 对象名称
+//     */
+//    public static void doUpload(Context context, final String path, final String token, final String bucketName,
+//                                final String objectName, boolean compress, final Callback callback) {
+//        //进行图片质量和尺寸的压缩
+//        final File file;
+//        if (compress) {
+//            String compressedPath = FileUtils.getCompressedPath(context, path);
+//            file = new File(compressedPath);
+//        } else {
+//            file = new File(path);
 //        }
-
-        String uploadContext = null;
-        if (Util.getData(appContext, file.getAbsolutePath()) != null && !Util.getData(appContext, file.getAbsolutePath()).equals("")) {
-            uploadContext = Util.getData(appContext, file.getAbsolutePath());
-        }
-
-        try {
-            WanAccelerator.putFileByHttp(appContext, file, file.getAbsoluteFile(), uploadContext, wanNOSObject, callback);
-        } catch (InvalidParameterException e) {
-            e.printStackTrace();
-        }
-    }
+//
+//        final Context appContext = context.getApplicationContext();
+//
+//        WanNOSObject wanNOSObject = new WanNOSObject();
+//        wanNOSObject.setUploadToken(token);
+//        wanNOSObject.setNosBucketName(bucketName);
+//        wanNOSObject.setNosObjectName(objectName);
+//        if (file.getName().contains(".jpg") || file.getName().contains(".jpeg")) {
+//            wanNOSObject.setContentType("image/jpeg");
+//        } else if (file.getName().contains(".png")) {
+//            wanNOSObject.setContentType("image/png");
+//        } else if (file.getName().contains(".aac")) {
+//            wanNOSObject.setContentType("audio/aac");
+//        }
+////        else if (file.getName().contains(".gif")) {
+////            wanNOSObject.setContentType("image/gif");
+////        }
+//
+//        String uploadContext = null;
+//        if (Util.getData(appContext, file.getAbsolutePath()) != null && !Util.getData(appContext, file.getAbsolutePath()).equals("")) {
+//            uploadContext = Util.getData(appContext, file.getAbsolutePath());
+//        }
+//
+//        try {
+//            WanAccelerator.putFileByHttp(appContext, file, file.getAbsoluteFile(), uploadContext, wanNOSObject, callback);
+//        } catch (InvalidParameterException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

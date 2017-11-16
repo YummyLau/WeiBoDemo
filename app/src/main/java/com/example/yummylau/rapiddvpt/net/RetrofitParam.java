@@ -1,4 +1,5 @@
-package com.example.yummylau.rapiddvpt.NET;
+package com.example.yummylau.rapiddvpt.net;
+
 
 import retrofit2.Converter;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -1,4 +1,4 @@
-package com.example.yummylau.rapiddvpt.NET.interceptor;
+package com.example.yummylau.rapiddvpt.net.interceptor;
 
 import java.io.IOException;
 

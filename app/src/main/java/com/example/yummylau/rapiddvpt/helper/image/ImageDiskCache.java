@@ -1,14 +1,13 @@
-package com.netease.hearthstone.biz.image;
+package com.example.yummylau.rapiddvpt.helper.image;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
-import com.jakewharton.disklrucache.DiskLruCache;
-import com.netease.hearthstone.biz.LogPrinter;
-import com.netease.hearthstone.utils.FileUtils;
-import com.netease.hearthstone.utils.common.MD5Utils;
-
+import com.bumptech.glide.disklrucache.DiskLruCache;
+import com.example.yummylau.rapiddvpt.util.common.FileUtils;
+import com.example.yummylau.rapiddvpt.util.common.MD5Utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +27,12 @@ public class ImageDiskCache {
 
     private int mDiskCacheSize = 1024 * 1024 * 100;     // 100MB                ？磁盘缓存100MB是否太小了
 
+
+    //图片缓存目录
+    public static String getImageCacheDir(Context context) {
+        return context.getCacheDir() + "/image";
+    }
+
     /**
      * 初始化函数
      *
@@ -35,7 +40,7 @@ public class ImageDiskCache {
      */
     ImageDiskCache(Context context) {
         try {
-            File imageCacheDir = new File(FileUtils.getImageCacheDir(context));
+            File imageCacheDir = new File(getImageCacheDir(context));
 
             //如果文件夹不存在则创建
             if (!imageCacheDir.exists()) {
@@ -49,7 +54,7 @@ public class ImageDiskCache {
             mDiskLruCache = DiskLruCache.open(imageCacheDir, 1, 1, mDiskCacheSize);
 
         } catch (IOException e) {
-            LogPrinter.i(TAG, "fail to open cache");
+            Log.i(TAG, "fail to open cache");
         }
 
     }
@@ -65,33 +70,33 @@ public class ImageDiskCache {
         }
 
         if (mDiskLruCache != null) {
-            final String key = MD5Utils.generateMD5(data);
-            OutputStream out = null;
-            try {
-                final DiskLruCache.Snapshot snapshot = mDiskLruCache.get(key);
-                if (snapshot == null) {
-                    final DiskLruCache.Editor editor = mDiskLruCache.edit(key);
-                    if (editor != null) {
-                        out = editor.newOutputStream(0);
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-                        editor.commit();
-                        out.close();
-                        mDiskLruCache.flush();
-                    }
-                } else {
-                    snapshot.getInputStream(0).close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (out != null) {
-                        out.close();
-                    }
-                } catch (final Exception e) {
-                    e.printStackTrace();
-                }
-            }
+//            final String key = MD5Utils.generateMD5(data);
+//            OutputStream out = null;
+//            try {
+//                final DiskLruCache.Snapshot snapshot = mDiskLruCache.get(key);
+//                if (snapshot == null) {
+//                    final DiskLruCache.Editor editor = mDiskLruCache.edit(key);
+//                    if (editor != null) {
+//                        out = editor.newOutputStream(0);
+//                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+//                        editor.commit();
+//                        out.close();
+//                        mDiskLruCache.flush();
+//                    }
+//                } else {
+//                    snapshot.getInputStream(0).close();
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            } finally {
+//                try {
+//                    if (out != null) {
+//                        out.close();
+//                    }
+//                } catch (final Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
         }
     }
 
@@ -106,33 +111,33 @@ public class ImageDiskCache {
             return null;
         }
         final String key = MD5Utils.generateMD5(data);//md5生成key
-        if (mDiskLruCache != null) {
-            InputStream inputStream = null;
-            try {
-                final DiskLruCache.Snapshot snapshot = mDiskLruCache.get(key);
-                if (snapshot != null) {
-                    inputStream = snapshot.getInputStream(0);
-                    if (inputStream != null) {
-                        final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                        if (bitmap != null) {
-                            return bitmap;
-                        }
-                    }
-                }
-            } catch (final IOException e) {
-                LogPrinter.e(TAG, "fail to ge cache in disk (IOException)");
-            } catch (OutOfMemoryError e) {
-                LogPrinter.e(TAG, "fail to ge cache in disk (OutOfMemoryError)");
-            } finally {
-                try {
-                    if (inputStream != null) {
-                        inputStream.close();
-                    }
-                } catch (final IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+//        if (mDiskLruCache != null) {
+//            InputStream inputStream = null;
+//            try {
+//                final DiskLruCache.Snapshot snapshot = mDiskLruCache.get(key);
+//                if (snapshot != null) {
+//                    inputStream = snapshot.getInputStream(0);
+//                    if (inputStream != null) {
+//                        final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+//                        if (bitmap != null) {
+//                            return bitmap;
+//                        }
+//                    }
+//                }
+//            } catch (final IOException e) {
+//                Log.e(TAG, "fail to ge cache in disk (IOException)");
+//            } catch (OutOfMemoryError e) {
+//                Log.e(TAG, "fail to ge cache in disk (OutOfMemoryError)");
+//            } finally {
+//                try {
+//                    if (inputStream != null) {
+//                        inputStream.close();
+//                    }
+//                } catch (final IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
         return null;
     }
 
