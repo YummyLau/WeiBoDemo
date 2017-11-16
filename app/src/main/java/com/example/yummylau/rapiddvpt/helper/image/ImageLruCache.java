@@ -6,8 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.v4.util.LruCache;
 
-import com.netease.hearthstone.biz.LogPrinter;
-import com.netease.hearthstone.utils.common.MD5Utils;
+import com.example.yummylau.rapiddvpt.util.common.MD5Utils;
 
 
 /**
@@ -39,7 +38,6 @@ public class ImageLruCache implements ImageCache {
 
         // 使用最大可用内存值的1/16作为缓存的大小。
         int cacheSize = maxMemory / 16;
-        LogPrinter.i(TAG, "The Size of MemoryCache is " + cacheSize / 1024 + " MB");
 
         mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
             @Override
