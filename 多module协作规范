@@ -1,0 +1,8 @@
+1. 第三方库依赖冲突统一管理
+   配置dependencies.gradle，里面统一配置依赖版本及公用变量定义
+
+2. 资源冲突
+   在每一个子模块的build.gradle加上对应资源文件标识符resourcePrefix "xxx_"前缀
+   建议xxx以模块名命名即可
+
+3. App模块通过buildWithOtherModule动态build其他模块，module模块通过buildModule打开是否作为module使用
