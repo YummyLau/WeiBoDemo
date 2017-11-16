@@ -344,7 +344,7 @@ public class ImageUtils {
         } else if (imageType == SMALL_IMAGE) {                                      // 小图模式
             type = IMAGE_TYPE_LOW;
         } else {                                                                                    // wifi大图，其他小图
-            int networkType = NetUtils.getNetworkType2(context);
+            int networkType = NetUtils.getNetworkType(context);
             if (networkType == NetUtils.NETWORK_TYPE_WIFI) {
                 type = IMAGE_TYPE_HIGH;
             } else {

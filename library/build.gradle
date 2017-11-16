@@ -1,10 +1,6 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
-
-    dataBinding {
-        enabled = true
-    }
 
     compileOptions{
         sourceCompatibility JavaVersion.VERSION_1_7
@@ -15,42 +11,52 @@ android {
     buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
-        applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [ moduleName : project.getName() ]
             }
         }
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    resourcePrefix "library_"
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile 'com.github.bumptech.glide:glide:3.6.1'
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //log
+    api rootProject.ext.dependencies["log"]
 
-    testImplementation 'junit:junit:4.12'
+    //android support
+    api rootProject.ext.dependencies["support-v4"]
+    api rootProject.ext.dependencies["appcompat-v7"]
 
-    if(buildWithOtherModule.toBoolean()){
-        implementation project(':moduleA')
-        implementation project(':moduleB')
-        annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
-    }
+    //rx
+    api rootProject.ext.dependencies["rx-java"]
+    api rootProject.ext.dependencies["rx-android"]
+
+    //retrofit
+    api rootProject.ext.dependencies["retorfit"]
+    api rootProject.ext.dependencies["converter-gson"]
+    api rootProject.ext.dependencies["converter-scalars"]
+
+    api rootProject.ext.dependencies["arouter-api"]
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
 }
