@@ -1,4 +1,4 @@
-package yummylau.networkmodule.interceptor;
+package yummylau.common.interceptor;
 
 /**
  * Created by g8931 on 2017/6/13.
@@ -13,7 +13,7 @@ import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-import yummylau.networkmodule.Constants;
+import yummylau.common.Constants;
 
 /**
  * 缓存拦截器

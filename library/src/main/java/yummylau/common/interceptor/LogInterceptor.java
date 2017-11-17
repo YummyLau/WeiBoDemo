@@ -1,4 +1,4 @@
-package yummylau.networkmodule.interceptor;
+package yummylau.common.interceptor;
 
 import android.util.Log;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
 import okio.BufferedSource;
-import yummylau.networkmodule.Constants;
+import yummylau.common.Constants;
 
 /**
  * 应用层拦截

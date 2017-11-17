@@ -1,4 +1,4 @@
-package yummylau.networkmodule.router;
+package yummylau.common.router;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 

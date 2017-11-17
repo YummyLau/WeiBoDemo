@@ -57,6 +57,9 @@ dependencies {
     api rootProject.ext.dependencies["converter-gson"]
     api rootProject.ext.dependencies["converter-scalars"]
 
+    //status-bar
+    api rootProject.ext.dependencies["status-bar"]
+
     api rootProject.ext.dependencies["arouter-api"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
 }

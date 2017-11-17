@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 
-import yummylau.networkmodule.router.RouterManager;
+import yummylau.common.router.RouterManager;
 
 /**
  * Created by g8931 on 2017/11/14.
