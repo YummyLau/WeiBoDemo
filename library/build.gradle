@@ -61,5 +61,7 @@ dependencies {
     api rootProject.ext.dependencies["status-bar"]
 
     api rootProject.ext.dependencies["arouter-api"]
+
+    api rootProject.ext.dependencies["eventbus"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
 }

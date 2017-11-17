@@ -1,4 +1,4 @@
-package yummylau.common;
+package yummylau.common.net;
 
 import android.util.ArrayMap;
 
