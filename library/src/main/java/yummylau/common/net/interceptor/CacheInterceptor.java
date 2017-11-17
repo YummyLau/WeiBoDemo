@@ -1,4 +1,4 @@
-package yummylau.common.interceptor;
+package yummylau.common.net.interceptor;
 
 /**
  * Created by g8931 on 2017/6/13.

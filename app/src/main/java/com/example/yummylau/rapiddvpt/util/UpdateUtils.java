@@ -170,7 +170,7 @@ public class UpdateUtils {
 //     */
 //    public static String getAppVersionName() {
 //        try {
-//            PackageInfo info = App.getInstance().getPackageManager().getPackageInfo(App.getInstance().getPackageName(), 0);
+//            PackageInfo info = yummylau.modulea.App.getInstance().getPackageManager().getPackageInfo(yummylau.modulea.App.getInstance().getPackageName(), 0);
 //            return info.versionName;
 //        } catch (PackageManager.NameNotFoundException e) {
 //            e.printStackTrace();

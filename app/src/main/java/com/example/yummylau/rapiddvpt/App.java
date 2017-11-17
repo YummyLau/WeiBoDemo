@@ -19,5 +19,8 @@ public class App extends Application {
         ARouter.printStackTrace();
 
         ARouter.init(this);
+
+        yummylau.modulea.App.onCreateAsLibrary();
+        yummylau.moduleb.App.onCreateAsLibrary();
     }
 }

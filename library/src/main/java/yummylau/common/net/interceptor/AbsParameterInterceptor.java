@@ -1,4 +1,4 @@
-package yummylau.common.interceptor;
+package yummylau.common.net.interceptor;
 
 import android.content.Context;
 import android.support.v4.util.ArrayMap;

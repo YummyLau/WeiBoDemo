@@ -7,6 +7,7 @@ def retrofitVersion = "2.3.0"
 def converterGsonVersion = "2.3.0"
 def converterScalarsVersion = "2.3.0"
 def statusbarVersion = "1.4.0"
+def eventbusVersion = "3.0.0"
 
 project.ext {
     android = [
@@ -44,6 +45,9 @@ project.ext {
             "arouter-compiler" : "com.alibaba:arouter-compiler:${arouterCompilerVersion}",
 
             //status bar
-            "status-bar"       : "com.jaeger.statusbarutil:library:${statusbarVersion}"
+            "status-bar"       : "com.jaeger.statusbarutil:library:${statusbarVersion}",
+
+            //eventbus
+            "eventbus"         : "org.greenrobot:eventbus:${eventbusVersion}"
     ]
 }

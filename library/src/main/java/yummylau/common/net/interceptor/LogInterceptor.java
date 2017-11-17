@@ -1,4 +1,4 @@
-package yummylau.common.interceptor;
+package yummylau.common.net.interceptor;
 
 import android.util.Log;
 import java.io.IOException;
