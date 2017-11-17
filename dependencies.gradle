@@ -6,6 +6,7 @@ def logVersion = "1.15"
 def retrofitVersion = "2.3.0"
 def converterGsonVersion = "2.3.0"
 def converterScalarsVersion = "2.3.0"
+def statusbarVersion = "1.4.0"
 
 project.ext {
     android = [
@@ -39,7 +40,10 @@ project.ext {
             "log"              : "com.orhanobut:logger:${logVersion}",
 
             //arouter
-            "arouter-api":"com.alibaba:arouter-api:${arouterApiVersion}",
-            "arouter-compiler":"com.alibaba:arouter-compiler:${arouterCompilerVersion}"
+            "arouter-api"      : "com.alibaba:arouter-api:${arouterApiVersion}",
+            "arouter-compiler" : "com.alibaba:arouter-compiler:${arouterCompilerVersion}",
+
+            //status bar
+            "status-bar"       : "com.jaeger.statusbarutil:library:${statusbarVersion}"
     ]
 }

@@ -1,4 +1,4 @@
-package yummylau.networkmodule.factory;
+package yummylau.common.factory;
 
 import android.util.Log;
 

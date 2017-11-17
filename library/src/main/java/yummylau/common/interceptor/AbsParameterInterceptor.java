@@ -1,4 +1,4 @@
-package yummylau.networkmodule.interceptor;
+package yummylau.common.interceptor;
 
 import android.content.Context;
 import android.support.v4.util.ArrayMap;
@@ -17,7 +17,7 @@ import okhttp3.ResponseBody;
 import okhttp3.internal.http.HttpHeaders;
 import okio.Buffer;
 import okio.BufferedSource;
-import yummylau.networkmodule.Constants;
+import yummylau.common.Constants;
 
 /**
  * 动态参数拦截

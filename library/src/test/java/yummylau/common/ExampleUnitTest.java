@@ -1,4 +1,4 @@
-package yummylau.networkmodule;
+package yummylau.common;
 
 import org.junit.Test;
 

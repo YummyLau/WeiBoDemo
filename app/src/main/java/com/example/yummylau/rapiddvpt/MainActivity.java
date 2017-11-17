@@ -4,11 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import yummylau.networkmodule.router.RouterManager;
+import yummylau.common.router.RouterManager;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.subjects.Subject;
 
 public class MainActivity extends AppCompatActivity {
 
