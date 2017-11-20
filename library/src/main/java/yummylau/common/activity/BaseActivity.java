@@ -6,8 +6,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import yummylau.common.StatusbarUtil;
-import yummylau.common.bus.EventbusUtils;
+import yummylau.common.systemui.StatusbarUtil;
 
 /**
  * baseActivity

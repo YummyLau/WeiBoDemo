@@ -1,4 +1,4 @@
-package yummylau.common;
+package yummylau.common.systemui;
 
 import android.app.Activity;
 import android.graphics.Color;

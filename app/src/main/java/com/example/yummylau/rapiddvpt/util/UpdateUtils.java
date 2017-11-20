@@ -46,7 +46,7 @@ public class UpdateUtils {
 //                AppConfig.setNeedCheckVersion(true);
 //                AppConfig.setVersionShowUpdate(serverVersionString);
 //                AppConfig.setDateShowUpdate(nowDate);
-////                Intent mServiceIntent = new Intent(context, DownloadService.class);
+////                Intent mServiceIntent = new Intent(context, DownloadApkService.class);
 ////                context.startService(mServiceIntent);
 //            } catch (Exception e) {
 ////                mAppDataHelper.putString(AppDataHelper.VERSION_SHOW_UPDATE, serverVersionString);
@@ -65,7 +65,7 @@ public class UpdateUtils {
 ////            mAppDataHelper.putBoolean(AppDataHelper.NEED_CHECK_VERSION, true);
 ////            mAppDataHelper.putString(AppDataHelper.VERSION_SHOW_UPDATE, serverVersionString);
 ////            mAppDataHelper.putString(AppDataHelper.DATE_SHOW_UPDATE, nowDate);
-////            Intent mServiceIntent = new Intent(context, DownloadService.class);
+////            Intent mServiceIntent = new Intent(context, DownloadApkService.class);
 ////            context.startService(mServiceIntent);
 //            return;
 //        }
@@ -151,15 +151,15 @@ public class UpdateUtils {
 //
 //    public static void download(Context context) {
 //        ToastUtils.showShort(context, context.getString(R.string.update_downloading));
-//        Intent mServiceIntent = new Intent(context, DownloadService.class);
+//        Intent mServiceIntent = new Intent(context, DownloadApkService.class);
 //        String downLoadUrlString =  AppConfig.getUpdateApkUrl() ;
 //        DownloadItem downloadItem = new DownloadItem(
 //                downLoadUrlString,
 //                context.getResources().getString(R.string.app_name),
 //                context.getPackageName(),
 //                context.getPackageName(),
-//                DownloadService.NOTIFICATION_ID_OF_UPDATE_APP);
-//        mServiceIntent.putExtra(DownloadService.INTENT_UPDATE_APP, downloadItem);
+//                DownloadApkService.NOTIFICATION_ID_OF_UPDATE_APP);
+//        mServiceIntent.putExtra(DownloadApkService.INTENT_UPDATE_APP, downloadItem);
 //        context.startService(mServiceIntent);
 //    }
 //

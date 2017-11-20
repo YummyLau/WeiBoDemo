@@ -1,4 +1,4 @@
-package yummylau.common;
+package yummylau.common.systemui;
 
 import android.os.Build;
 import android.text.TextUtils;
