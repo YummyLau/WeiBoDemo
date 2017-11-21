@@ -18,6 +18,7 @@ import yummylau.common.activity.BaseActivity;
 import yummylau.common.bus.EventbusUtils;
 import yummylau.common.bus.FunctionBus;
 import yummylau.common.router.RouterManager;
+import yummylau.common.util.DbUtil;
 
 /**
  * Created by g8931 on 2017/11/14.
@@ -37,6 +38,7 @@ public class MainActivity extends BaseActivity {
         });
         ((TextView) findViewById(R.id.textview)).setText(
                 FunctionBus.getFunction(ModuleBFuns.class).getModuleName());
+        DbUtil.exportDatabase(this);
         EventbusUtils.register(this);
     }
 

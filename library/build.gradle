@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
 
-    compileOptions{
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
@@ -19,7 +19,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
+                arguments = [moduleName: project.getName()]
             }
         }
     }
@@ -64,5 +64,14 @@ dependencies {
     api rootProject.ext.dependencies["arouter-api"]
 
     api rootProject.ext.dependencies["eventbus"]
+
+    api rootProject.ext.dependencies["lifecycleRuntime"]
+    annotationProcessor rootProject.ext.dependencies["lifecycleCompiler"]
+    api rootProject.ext.dependencies["lifecyclerCommonJava8"]
+    api rootProject.ext.dependencies["lifecycleExtensions"]
+    api rootProject.ext.dependencies["roomRuntime"]
+//    api rootProject.ext.dependencies["roomRxjava2"]
+    api rootProject.ext.dependencies["pagingRuntime"]
+
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
 }

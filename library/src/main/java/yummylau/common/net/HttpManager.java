@@ -40,7 +40,7 @@ public class HttpManager {
         if (httpParam.supportCache) {
             sHttpClientBuilder.addInterceptor(new CacheInterceptor(true, NetworkUtils.networkAvailable(sContext)));
         } else {
-            sHttpClientBuilder.addInterceptor(new CacheInterceptor(true, NetworkUtils.networkAvailable(sContext)));
+            sHttpClientBuilder.addInterceptor(new CacheInterceptor(false, NetworkUtils.networkAvailable(sContext)));
         }
         if (BuildConfig.DEBUG) {
             sHttpClientBuilder.addInterceptor(new LogInterceptor());
