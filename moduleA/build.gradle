@@ -57,6 +57,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
+    annotationProcessor rootProject.ext.dependencies["lifecycleCompiler"]
+    annotationProcessor rootProject.ext.dependencies["roomCompiler"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
     api project(':library')
 }

@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
+import java.io.IOException;
 
 public class DbUtil {
 
@@ -14,7 +15,7 @@ public class DbUtil {
         final String dbDir = context.getFilesDir().getParentFile().getPath() + "/databases";
         final File dbDirFile = new File(dbDir);
         Log.v(TAG, "exportDatabase dbDir:" + dbDir);
-        final String exportedDir = Environment.getExternalStorageDirectory().getPath() + "/RapidDvpt/databases";
+        final String exportedDir = Environment.getExternalStorageDirectory() + "/ModuleA/databases";
         final File exportedDirFile = new File(exportedDir);
         if (!exportedDirFile.exists()) {
             exportedDirFile.mkdirs();
@@ -25,7 +26,15 @@ public class DbUtil {
                 public void run() {
                     for (File file : dbDirFile.listFiles()) {
                         if (file.isFile()) {
-                            FileUtils.copyFile(file, new File(exportedDirFile, file.getName()));
+                            try {
+                                File newFile = new File(exportedDirFile, file.getName());
+                                if (!newFile.exists()) {
+                                    newFile.createNewFile();
+                                }
+                                FileUtils.copyFile(file, new File(exportedDirFile, file.getName()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }

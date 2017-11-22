@@ -67,6 +67,7 @@ dependencies {
 
     api rootProject.ext.dependencies["lifecycleRuntime"]
     annotationProcessor rootProject.ext.dependencies["lifecycleCompiler"]
+    annotationProcessor rootProject.ext.dependencies["roomCompiler"]
     api rootProject.ext.dependencies["lifecyclerCommonJava8"]
     api rootProject.ext.dependencies["lifecycleExtensions"]
     api rootProject.ext.dependencies["roomRuntime"]

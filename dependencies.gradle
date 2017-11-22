@@ -21,6 +21,7 @@ def lifecycleExtensionsVersion = "1.0.0"
 
 //room
 def roomVersion = "1.0.0"
+def roomCompilerVersion = "1.0.0"
 def roomRxJava2Version = "1.0.0"
 
 //paging
@@ -79,8 +80,9 @@ project.ext {
             "lifecycleExtensions"  : "android.arch.lifecycle:extensions:${lifecycleExtensionsVersion}",
 
             "roomRuntime"          : "android.arch.persistence.room:runtime:${roomVersion}",
-            "roomRxjava2"          : "android.arch.persistence.room:rxjava2:${roomRxJava2Version}",
+            "roomCompiler"          : "android.arch.persistence.room:compiler:${roomCompilerVersion}",
 
+            "roomRxjava2"          : "android.arch.persistence.room:rxjava2:${roomRxJava2Version}",
             "pagingRuntime"        : "android.arch.paging:runtime:${pagingRuntimeVersion}",
     ]
 }
