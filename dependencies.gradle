@@ -11,6 +11,7 @@ def statusbarVersion = "1.4.0"
 def eventbusVersion = "3.0.0"
 def multiDexVersion = "1.0.1"
 
+def gsonVersion = "2.8.0"
 //lifecycler
 def lifecycleVersion = "1.0.3"
 def lifecycleCompilerVersion = "1.0.0"
@@ -56,6 +57,7 @@ project.ext {
             "converter-gson"       : "com.squareup.retrofit2:converter-gson:${converterGsonVersion}",
             "converter-scalars"    : "com.squareup.retrofit2:converter-scalars:${converterScalarsVersion}",
             "rxJava-adapter"       : "com.squareup.retrofit2:adapter-rxjava:${rxJavaAdapterVersion}",
+            "gson"                 : "com.google.code.gson:gson:${gsonVersion}",
 
             //log
             "log"                  : "com.orhanobut:logger:${logVersion}",
@@ -80,7 +82,7 @@ project.ext {
             "lifecycleExtensions"  : "android.arch.lifecycle:extensions:${lifecycleExtensionsVersion}",
 
             "roomRuntime"          : "android.arch.persistence.room:runtime:${roomVersion}",
-            "roomCompiler"          : "android.arch.persistence.room:compiler:${roomCompilerVersion}",
+            "roomCompiler"         : "android.arch.persistence.room:compiler:${roomCompilerVersion}",
 
             "roomRxjava2"          : "android.arch.persistence.room:rxjava2:${roomRxJava2Version}",
             "pagingRuntime"        : "android.arch.paging:runtime:${pagingRuntimeVersion}",

@@ -2,10 +2,13 @@ package yummylau.modulea;
 
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.sina.weibo.sdk.WbSdk;
+import com.sina.weibo.sdk.auth.AuthInfo;
 
 import yummylau.common.bus.CommonBizLogin.ModuleAFuns;
 import yummylau.common.activity.BaseApplication;
 import yummylau.common.bus.FunctionBus;
+import yummylau.modulea.db.DBManager;
 
 /**
  * Created by g8931 on 2017/11/14.
@@ -21,18 +24,17 @@ public class App extends BaseApplication {
             ARouter.openLog();
             ARouter.openDebug();
         }
+        DBManager.init(this);
+        WbSdk.install(this, new AuthInfo(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE));
     }
-
 
     public static void onCreateAsLibrary() {
         // 子类选择覆盖
-        FunctionBus.setFunction(new ModuleAFuns(){
+        FunctionBus.setFunction(new ModuleAFuns() {
             @Override
             public String getModuleName() {
                 return "模块A";
             }
         });
     }
-
-
 }

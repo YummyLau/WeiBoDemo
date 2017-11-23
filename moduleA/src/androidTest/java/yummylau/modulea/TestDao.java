@@ -1,4 +1,4 @@
-package yummylau.modulea.db.dao;
+package yummylau.modulea;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -21,7 +21,7 @@ import yummylau.modulea.bean.UserItem;
  * Created by g8931 on 2017/11/22.
  */
 @Dao
-public interface UserDao {
+public interface TestDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long[] insertUsers(User... users);

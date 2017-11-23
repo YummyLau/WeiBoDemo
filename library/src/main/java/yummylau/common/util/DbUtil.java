@@ -15,7 +15,10 @@ public class DbUtil {
         final String dbDir = context.getFilesDir().getParentFile().getPath() + "/databases";
         final File dbDirFile = new File(dbDir);
         Log.v(TAG, "exportDatabase dbDir:" + dbDir);
-        final String exportedDir = Environment.getExternalStorageDirectory() + "/ModuleA/databases";
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            //SD卡已装入
+        }
+        final String exportedDir = Environment.getExternalStorageDirectory().getPath() + "/RapidDvpt/databases";
         final File exportedDirFile = new File(exportedDir);
         if (!exportedDirFile.exists()) {
             exportedDirFile.mkdirs();
@@ -26,15 +29,7 @@ public class DbUtil {
                 public void run() {
                     for (File file : dbDirFile.listFiles()) {
                         if (file.isFile()) {
-                            try {
-                                File newFile = new File(exportedDirFile, file.getName());
-                                if (!newFile.exists()) {
-                                    newFile.createNewFile();
-                                }
-                                FileUtils.copyFile(file, new File(exportedDirFile, file.getName()));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            FileUtils.copyFile(file, new File(exportedDirFile, file.getName()));
                         }
                     }
                 }

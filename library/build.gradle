@@ -36,8 +36,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
@@ -47,6 +47,7 @@ dependencies {
     //android support
     api rootProject.ext.dependencies["support-v4"]
     api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["design"]
 
     //rx
     api rootProject.ext.dependencies["rx-java"]
@@ -57,6 +58,7 @@ dependencies {
     api rootProject.ext.dependencies["converter-gson"]
     api rootProject.ext.dependencies["converter-scalars"]
     api rootProject.ext.dependencies["rxJava-adapter"]
+    api rootProject.ext.dependencies["gson"]
 
     //status-bar
     api rootProject.ext.dependencies["status-bar"]

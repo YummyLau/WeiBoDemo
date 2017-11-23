@@ -1,31 +1,34 @@
 package yummylau.modulea;
 
-import android.arch.persistence.room.Room;
+
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.sina.weibo.sdk.auth.AccessTokenKeeper;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.WbAuthListener;
+import com.sina.weibo.sdk.auth.WbConnectErrorMessage;
+import com.sina.weibo.sdk.auth.sso.SsoHandler;
+import com.sina.weibo.sdk.exception.WeiboException;
+import com.sina.weibo.sdk.net.RequestListener;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.File;
+import java.text.SimpleDateFormat;
 
-import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Actions;
 import yummylau.common.bus.CommonBizLogin.Bean;
 import yummylau.common.activity.BaseActivity;
 import yummylau.common.bus.EventbusUtils;
-import yummylau.common.router.RouterManager;
-import yummylau.common.util.DbUtil;
-import yummylau.common.util.FileUtils;
-import yummylau.modulea.bean.Address;
-import yummylau.modulea.bean.User;
-import yummylau.modulea.db.AppDataBase;
+import yummylau.modulea.databinding.ModuleaActivityMainLayoutBinding;
+
 
 /**
  * Created by g8931 on 2017/11/14.
@@ -33,68 +36,98 @@ import yummylau.modulea.db.AppDataBase;
 @Route(path = "/modulea/MainActivity")
 public class MainActivity extends BaseActivity {
 
-    private AppDataBase dataBase;
-    private TextView mTextView;
-    private TextView mLogView;
+    private ModuleaActivityMainLayoutBinding mBinding;
+    private SsoHandler mSsoHandler;
+    private Oauth2AccessToken mAccessToken;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.modulea_activity_main_layout);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.modulea_activity_main_layout);
         initView();
-        EventbusUtils.register(this);
     }
 
     private void initView() {
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+        mSsoHandler = new SsoHandler(this);
+        mBinding.weibologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RouterManager.navigation("/moduleb/MainActivity");
+                mSsoHandler.authorize(new WbAuthListener() {
+                    @Override
+                    public void onSuccess(Oauth2AccessToken oauth2AccessToken) {
+                        Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        mAccessToken = oauth2AccessToken;
+                        if (mAccessToken.isSessionValid()) {
+                            updateTokenView();
+                            AccessTokenKeeper.writeAccessToken(MainActivity.this, mAccessToken);
+                        }
+                    }
+
+                    @Override
+                    public void cancel() {
+                        Toast.makeText(MainActivity.this, "取消登录", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(WbConnectErrorMessage wbConnectErrorMessage) {
+                        Toast.makeText(MainActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
-        mTextView = findViewById(R.id.textview);
-        mLogView = findViewById(R.id.log_txt);
-//        mTextView.setText(
-//                FunctionBus.getFunction(ModuleBFuns.class).getModuleName());
-        dataBase = Room.databaseBuilder(getApplicationContext(), AppDataBase.class, "myDb").build();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                User user = new User();
-                user.id = 0;
-                user.age = 18;
-                user.name = "name0";
-                Address address = new Address();
-                address.city = "广东";
-                address.street = "天河";
-                address.state = "科韵路";
-                user.address = address;
-                dataBase.userDao().insertUser(user);
-            }
-        }).start();
-
-        findViewById(R.id.dbout).setOnClickListener(new View.OnClickListener() {
+        mBinding.weiboout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DbUtil.exportDatabase(MainActivity.this.getApplicationContext());
+                AccessTokenKeeper.clear(getApplicationContext());
+                mAccessToken = new Oauth2AccessToken();
+                updateTokenView();
             }
         });
+        mBinding.weiboupdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!TextUtils.isEmpty(mAccessToken.getRefreshToken())) {
+                    AccessTokenKeeper.refreshToken(Constants.APP_KEY, MainActivity.this, new RequestListener() {
+                        @Override
+                        public void onComplete(String response) {
+
+                        }
+
+                        @Override
+                        public void onWeiboException(WeiboException e) {
+
+                        }
+                    });
+                }
+            }
+        });
+
+        mAccessToken = AccessTokenKeeper.readAccessToken(this);
+        if (mAccessToken.isSessionValid()) {
+            updateTokenView();
+        }
+    }
+
+    private void updateTokenView() {
+        String date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(
+                new java.util.Date(mAccessToken.getExpiresTime()));
+        mBinding.textview.setText("token: " + mAccessToken.getToken() + "\n"
+                + "到期时间： " + date);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //如果发起sso授权回调
+        if (mSsoHandler != null) {
+            mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
     }
 
     @Override
     protected void onDestroy() {
-        EventbusUtils.unRegister(this);
         super.onDestroy();
     }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(Bean bean) {
-        StringBuilder builder = new StringBuilder(mLogView.getText().toString());
-        builder.append("modulea收到： bean: name" + bean.name);
-        mLogView.setText(builder.toString());
-    }
-
 
     @Override
     protected boolean supportHandlerStatusbar() {

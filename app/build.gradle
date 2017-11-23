@@ -38,19 +38,20 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile 'com.github.bumptech.glide:glide:3.6.1'
+    implementation 'com.github.bumptech.glide:glide:3.6.1'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.12'
-
-    if(buildWithOtherModule.toBoolean()){
+    androidTestImplementation 'junit:junit:4.12'
+    if(buildWithAModule.toBoolean()){
         implementation project(':moduleA')
-        implementation project(':moduleB')
-        annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
     }
+    if(buildWithBModule.toBoolean()){
+        implementation project(':moduleB')
+    }
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
 }
