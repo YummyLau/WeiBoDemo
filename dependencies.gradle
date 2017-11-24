@@ -29,6 +29,9 @@ def roomRxJava2Version = "1.0.0"
 def pagingRuntimeVersion = "1.0.0-alpha3"
 
 
+def constraintLayoutVersion = "1.0.0"
+
+
 project.ext {
     android = [
             compileSdkVersion: 26,
@@ -86,5 +89,8 @@ project.ext {
 
             "roomRxjava2"          : "android.arch.persistence.room:rxjava2:${roomRxJava2Version}",
             "pagingRuntime"        : "android.arch.paging:runtime:${pagingRuntimeVersion}",
+
+
+            "constraint-layout"        : "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
     ]
 }

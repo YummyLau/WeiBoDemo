@@ -8,3 +8,13 @@
 3. App模块通过buildWithOtherModule动态build其他模块，module模块通过buildModule打开是否作为module使用
 4. 开源库的代码隔离设计
 
+
+
+
+设计风格
+https://www.materialpalette.com/icons
+http://www.iconfont.cn/
+https://material.io/icons/
+https://medium.com/uxabc/designing-for-different-platforms-dc0d40eb18c3
+
+
