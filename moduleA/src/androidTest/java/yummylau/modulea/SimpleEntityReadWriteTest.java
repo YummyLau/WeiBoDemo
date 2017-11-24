@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import yummylau.modulea.bean.Address;
-import yummylau.modulea.bean.User;
+import yummylau.modulea.bean.UserTest;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
@@ -41,7 +41,7 @@ public class SimpleEntityReadWriteTest {
 
     @Test
     public void writeUserAndReadInList() throws Exception {
-        User user = new User();
+        UserTest user = new UserTest();
         user.id = 1;
         user.name = "name1";
         user.age = 1;
@@ -51,7 +51,7 @@ public class SimpleEntityReadWriteTest {
         address.city = "city1";
         user.address = address;
         mUserDao.insertUser(user);
-        User[] byName = mUserDao.loadAllUser();
+        UserTest[] byName = mUserDao.loadAllUser();
         assertThat(byName[0], equalTo(user));
     }
 }

@@ -12,7 +12,7 @@ import android.database.Cursor;
 import java.util.List;
 
 import yummylau.modulea.bean.Address;
-import yummylau.modulea.bean.User;
+import yummylau.modulea.bean.UserTest;
 import yummylau.modulea.bean.UserItem;
 
 /**
@@ -24,41 +24,41 @@ import yummylau.modulea.bean.UserItem;
 public interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public long[] insertUsers(User... users);
+    public long[] insertUsers(UserTest... users);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public long insertUser(User user);
+    public long insertUser(UserTest user);
 
     @Update
-    public void updateUsers(User... users);
+    public void updateUsers(UserTest... users);
 
     @Delete
-    public void deleteUsers(User... users);
+    public void deleteUsers(UserTest... users);
 
-    @Query("SELECT * from users")
-    public User[] loadAllUser();
+    @Query("SELECT * from UserTest")
+    public UserTest[] loadAllUser();
 
-    @Query("SELECT * FROM users WHERE userAge > :minAge")
-    public User[] loadAllUsersOlderThan(int minAge);
+    @Query("SELECT * FROM UserTest WHERE userAge > :minAge")
+    public UserTest[] loadAllUsersOlderThan(int minAge);
 
-    @Query("SELECT * FROM users WHERE userAge BETWEEN :minAge AND :maxAge")
-    public User[] loadAllUsersBetweenAges(int minAge, int maxAge);
+    @Query("SELECT * FROM UserTest WHERE userAge BETWEEN :minAge AND :maxAge")
+    public UserTest[] loadAllUsersBetweenAges(int minAge, int maxAge);
 
-    @Query("SELECT * FROM users WHERE userName LIKE :search")
-    public List<User> findUserWithName(String search);
+    @Query("SELECT * FROM UserTest WHERE userName LIKE :search")
+    public List<UserTest> findUserWithName(String search);
 
-    @Query("SELECT userId,userName FROM users")
+    @Query("SELECT userId,userName FROM UserTest")
     public List<UserItem> loadFullName();
 
-    @Query("SELECT street,state,city FROM users")
+    @Query("SELECT street,state,city FROM UserTest")
     public List<Address> loadAllAddress();
 
-    @Query("SELECT userId,userName FROM users WHERE userId IN (:userAges)")
+    @Query("SELECT userId,userName FROM UserTest WHERE userId IN (:userAges)")
     public List<UserItem> loadUsersFromAges(List<Integer> userAges);
 
-    @Query("SELECT userId,userName FROM users WHERE userId IN (:userAges)")
+    @Query("SELECT userId,userName FROM UserTest WHERE userId IN (:userAges)")
     public LiveData<List<UserItem>> loadUsersFromAgesSync(List<Integer> userAges);
 
-    @Query("SELECT * FROM users WHERE userAge > :minAge LIMIT 5")
+    @Query("SELECT * FROM UserTest WHERE userAge > :minAge LIMIT 5")
     public Cursor loadRawUsersOlderThan(int minAge);
 }

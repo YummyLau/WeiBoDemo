@@ -19,14 +19,9 @@ import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.text.SimpleDateFormat;
 
-import yummylau.common.bus.CommonBizLogin.Bean;
 import yummylau.common.activity.BaseActivity;
-import yummylau.common.bus.EventbusUtils;
 import yummylau.modulea.databinding.ModuleaActivityMainLayoutBinding;
 
 
@@ -90,12 +85,12 @@ public class MainActivity extends BaseActivity {
                     AccessTokenKeeper.refreshToken(Constants.APP_KEY, MainActivity.this, new RequestListener() {
                         @Override
                         public void onComplete(String response) {
-
+                            response.toString();
                         }
 
                         @Override
                         public void onWeiboException(WeiboException e) {
-
+                            e.getMessage();
                         }
                     });
                 }
