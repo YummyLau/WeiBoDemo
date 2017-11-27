@@ -30,13 +30,11 @@
         </FrameLayout>
 
         <android.support.design.widget.NavigationView
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="@android:color/black"
-            app:headerLayout="@layout/app_navigation_header_layout">
-
-        </android.support.design.widget.NavigationView>
+            android:background="@android:color/white"
+            app:headerLayout="@layout/app_navigation_header_layout" />
 
 
     </android.support.v4.widget.DrawerLayout>
