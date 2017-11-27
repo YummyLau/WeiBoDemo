@@ -80,4 +80,6 @@ dependencies {
     api rootProject.ext.dependencies["constraint-layout"]
 
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+
+    implementation project(':commonRes')
 }

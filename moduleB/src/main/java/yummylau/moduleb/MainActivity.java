@@ -40,12 +40,12 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected boolean supportHandlerStatusbar() {
+    protected boolean supportHandlerStatusBar() {
         return true;
     }
 
     @Override
-    public int getStatusbarColor() {
+    public int getStatusBarColor() {
         return Color.GREEN;
     }
 }

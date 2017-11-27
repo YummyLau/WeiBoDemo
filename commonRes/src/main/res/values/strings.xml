@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CommonRes</string>
+
+
+    <string name="search">搜索</string>
+    <string name="login">登录</string>
+    <string name="third_weibo_login">微博第三方登录</string>
+
+
+</resources>

@@ -22,8 +22,8 @@ public class App extends Application {
 
         ARouter.init(this);
 
-        yummylau.modulea.App.onCreateAsLibrary();
-        yummylau.moduleb.App.onCreateAsLibrary();
+//        yummylau.modulea.App.onCreateAsLibrary();
+//        yummylau.moduleb.App.onCreateAsLibrary();
 
         //crash收集
         CrashHandler.getInstance().init(this);

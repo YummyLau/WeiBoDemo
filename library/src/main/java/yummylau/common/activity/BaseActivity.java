@@ -1,12 +1,12 @@
 package yummylau.common.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import yummylau.common.systemui.StatusbarUtil;
+import yummylau.commonres.ColorGetter;
 
 /**
  * baseActivity
@@ -19,25 +19,31 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EventbusUtils.register(this);
-        if (supportHandlerStatusbar()) {
-            StatusbarUtil.setStatusbarColor(this, getStatusbarColor());
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        if (supportHandlerStatusBar()) {
+            setStatusBar();
         }
     }
 
     @Override
     protected void onDestroy() {
-//        EventbusUtils.unRegister(this);
         super.onDestroy();
     }
 
-    protected boolean supportHandlerStatusbar() {
-        return false;
+    protected boolean supportHandlerStatusBar() {
+        return true;
     }
 
     @ColorInt
-    public int getStatusbarColor() {
-        return Color.TRANSPARENT;
+    public int getStatusBarColor() {
+        return ColorGetter.getStatusBarColor(this);
     }
 
+    public void setStatusBar() {
+        StatusbarUtil.setStatusbarColor(this, getStatusBarColor());
+    }
 }

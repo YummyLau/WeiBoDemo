@@ -53,5 +53,8 @@ dependencies {
     if(buildWithBModule.toBoolean()){
         implementation project(':moduleB')
     }
+
+    implementation project(':library')
+    implementation project(':commonRes')
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
 }
