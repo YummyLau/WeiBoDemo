@@ -6,7 +6,7 @@ android {
         enabled = true
     }
 
-    compileOptions{
+    compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
@@ -25,9 +25,14 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
+                arguments = [moduleName: project.getName()]
             }
         }
+
+        //配置buildConfig变量
+        buildConfigField "boolean", "BUILD_MODULE_ACCOUNT", rootProject.ext.module.openModuleAccount
+        buildConfigField "boolean", "BUILD_MODULE_B", rootProject.ext.module.openModuleB
+
     }
     buildTypes {
         release {
@@ -35,26 +40,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    resourcePrefix "app_"
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-
     implementation 'com.github.bumptech.glide:glide:3.6.1'
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    androidTestImplementation 'junit:junit:4.12'
-    if(buildWithAModule.toBoolean()){
-        implementation project(':moduleA')
-    }
-    if(buildWithBModule.toBoolean()){
-        implementation project(':moduleB')
+    if(rootProject.ext.module.openModuleAccount.toBoolean()){
+        implementation project(':accountcomponent')
     }
 
-    implementation project(':library')
-    implementation project(':commonRes')
+    if(rootProject.ext.module.openModuleB.toBoolean()){
+        implementation project(':featurecomponent')
+    }
+
+    implementation project(':componentservice')
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
 }

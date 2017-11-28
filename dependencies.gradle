@@ -27,9 +27,11 @@ def roomRxJava2Version = "1.0.0"
 
 //paging
 def pagingRuntimeVersion = "1.0.0-alpha3"
-
-
 def constraintLayoutVersion = "1.0.0"
+
+//测试继承
+def stethoVersion = "1.5.0"
+def stethoOkhttp3Version = "1.5.0"
 
 
 project.ext {
@@ -41,6 +43,11 @@ project.ext {
             targetSdkVersion : 26,
             versionCode      : 1,
             versionName      : "1.0"
+    ]
+
+    module = [
+            openModuleAccount: "true",
+            openModuleB      : "true",
     ]
 
     dependencies = [
@@ -62,8 +69,10 @@ project.ext {
             "rxJava-adapter"       : "com.squareup.retrofit2:adapter-rxjava:${rxJavaAdapterVersion}",
             "gson"                 : "com.google.code.gson:gson:${gsonVersion}",
 
-            //log
+            //测试继承
             "log"                  : "com.orhanobut:logger:${logVersion}",
+            "stetho"               : "com.facebook.stetho:stetho:${stethoVersion}",
+            "stethoOkhttp3"               : "com.facebook.stetho:stetho-okhttp3:${stethoOkhttp3Version}",
 
             //arouter
             "arouter-api"          : "com.alibaba:arouter-api:${arouterApiVersion}",
@@ -91,6 +100,6 @@ project.ext {
             "pagingRuntime"        : "android.arch.paging:runtime:${pagingRuntimeVersion}",
 
 
-            "constraint-layout"        : "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
+            "constraint-layout"    : "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}",
     ]
 }

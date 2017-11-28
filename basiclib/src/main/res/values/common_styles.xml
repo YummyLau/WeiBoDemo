@@ -1,0 +1,12 @@
+<resources>
+
+    <!--选择图片的复选框-->
+    <style name="OriginalImageCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/original_image_selector</item>
+    </style>
+
+    <style name="ChooseImageCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/choose_image_selector</item>
+    </style>
+
+</resources>

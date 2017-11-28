@@ -1,1 +1,1 @@
-include ':app', ':moduleAccount', ':moduleB', ':library', ':commonRes'
+include ':app', ':accountcomponent', ':featurecomponent', ':basiclib', ':basicres', ':componentservice', ':componentlib'

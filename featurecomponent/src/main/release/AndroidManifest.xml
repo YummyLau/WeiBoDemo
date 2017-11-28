@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="yummylau.feature">
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true">
+        <activity android:name="yummylau.feature.MainActivity" />
+    </application>
+</manifest>

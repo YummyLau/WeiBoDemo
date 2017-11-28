@@ -1,0 +1,92 @@
+apply plugin: 'com.android.library'
+
+android {
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    resourcePrefix "library_"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    //log
+    api rootProject.ext.dependencies["log"]
+
+    //android support
+    api rootProject.ext.dependencies["support-v4"]
+    api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["design"]
+
+    //rx
+    api rootProject.ext.dependencies["rx-java"]
+    api rootProject.ext.dependencies["rx-android"]
+
+    //retrofit
+    api rootProject.ext.dependencies["retorfit"]
+    api rootProject.ext.dependencies["converter-gson"]
+    api rootProject.ext.dependencies["converter-scalars"]
+    api rootProject.ext.dependencies["rxJava-adapter"]
+    api rootProject.ext.dependencies["gson"]
+
+    //status-bar
+    api rootProject.ext.dependencies["status-bar"]
+
+    api rootProject.ext.dependencies["arouter-api"]
+
+    api rootProject.ext.dependencies["eventbus"]
+
+    api rootProject.ext.dependencies["lifecycleRuntime"]
+    annotationProcessor rootProject.ext.dependencies["lifecycleCompiler"]
+    annotationProcessor rootProject.ext.dependencies["roomCompiler"]
+    api rootProject.ext.dependencies["lifecyclerCommonJava8"]
+    api rootProject.ext.dependencies["lifecycleExtensions"]
+    api rootProject.ext.dependencies["roomRuntime"]
+//    api rootProject.ext.dependencies["roomRxjava2"]
+    api rootProject.ext.dependencies["pagingRuntime"]
+
+    api rootProject.ext.dependencies["stetho"]
+    api rootProject.ext.dependencies["stethoOkhttp3"]
+
+
+    api rootProject.ext.dependencies["constraint-layout"]
+
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+
+    implementation project(':basicres')
+}

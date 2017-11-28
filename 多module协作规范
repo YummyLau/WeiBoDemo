@@ -10,11 +10,25 @@
 
 
 
+基础结构
+
+                app
+
+accountcomponent   featurecomponent
+
+        componentservice
+
+            componentlib
+
+        basicres    basiclib
+
+
 
 设计风格
 https://www.materialpalette.com/icons
 http://www.iconfont.cn/
 https://material.io/icons/
 https://medium.com/uxabc/designing-for-different-platforms-dc0d40eb18c3
+http://next.36kr.com/posts/collections/200
 
 

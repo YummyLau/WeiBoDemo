@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- utils -->
+    <string name="hour">小时</string>
+    <string name="day">天</string>
+    <string name="minute">分钟</string>
+    <string name="second">秒</string>
+    <string name="before">前</string>
+    <string name="just">刚刚</string>
+
+    <!-- appUtils -->
+    <string name="ask_for_exit_app">再按一次退出app</string>
+    <!-- CrashUtls -->
+    <string name="crash_for_tip">程序异常退出</string>
+
+    <!-- activity -->
+
+    <!-- 图片查看器 -->
+    <string name="image_pager_title">图片查看</string>
+    <string name="viewpager_indicator">%1$d/%2$d</string>
+    <string name="original_image">原图</string>
+    <string name="see_original_image">查看原图</string>
+    <string name="choose">选择</string>
+    <string name="save">保存</string>
+    <string name="load_image_fail">加载图片出错</string>
+
+</resources>
