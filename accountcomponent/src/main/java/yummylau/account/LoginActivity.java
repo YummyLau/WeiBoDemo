@@ -23,8 +23,8 @@ import yummylau.account.databinding.AccountActivityMainLayoutBinding;
 /**
  * Created by g8931 on 2017/11/14.
  */
-@Route(path = "/modulea/MainActivity")
-public class MainActivity extends BaseActivity {
+@Route(path = "/modulea/LoginActivity")
+public class LoginActivity extends BaseActivity {
 
     private AccountActivityMainLayoutBinding mBinding;
     private SsoHandler mSsoHandler;
@@ -57,22 +57,22 @@ public class MainActivity extends BaseActivity {
                 mSsoHandler.authorize(new WbAuthListener() {
                     @Override
                     public void onSuccess(Oauth2AccessToken oauth2AccessToken) {
-                        Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                         mAccessToken = oauth2AccessToken;
                         if (mAccessToken.isSessionValid()) {
                             updateTokenView();
-                            AccessTokenKeeper.writeAccessToken(MainActivity.this, mAccessToken);
+                            AccessTokenKeeper.writeAccessToken(LoginActivity.this, mAccessToken);
                         }
                     }
 
                     @Override
                     public void cancel() {
-                        Toast.makeText(MainActivity.this, "取消登录", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "取消登录", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(WbConnectErrorMessage wbConnectErrorMessage) {
-                        Toast.makeText(MainActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -85,22 +85,22 @@ public class MainActivity extends BaseActivity {
 //                mSsoHandler.authorize(new WbAuthListener() {
 //                    @Override
 //                    public void onSuccess(Oauth2AccessToken oauth2AccessToken) {
-//                        Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
 //                        mAccessToken = oauth2AccessToken;
 //                        if (mAccessToken.isSessionValid()) {
 //                            updateTokenView();
-//                            AccessTokenKeeper.writeAccessToken(MainActivity.this, mAccessToken);
+//                            AccessTokenKeeper.writeAccessToken(LoginActivity.this, mAccessToken);
 //                        }
 //                    }
 //
 //                    @Override
 //                    public void cancel() {
-//                        Toast.makeText(MainActivity.this, "取消登录", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "取消登录", Toast.LENGTH_SHORT).show();
 //                    }
 //
 //                    @Override
 //                    public void onFailure(WbConnectErrorMessage wbConnectErrorMessage) {
-//                        Toast.makeText(MainActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
 //                    }
 //                });
 //            }
@@ -118,7 +118,7 @@ public class MainActivity extends BaseActivity {
 //            @Override
 //            public void onClick(View view) {
 //                if (!TextUtils.isEmpty(mAccessToken.getRefreshToken())) {
-//                    AccessTokenKeeper.refreshToken(Constants.APP_KEY, MainActivity.this, new RequestListener() {
+//                    AccessTokenKeeper.refreshToken(Constants.APP_KEY, LoginActivity.this, new RequestListener() {
 //                        @Override
 //                        public void onComplete(String response) {
 //                            response.toString();

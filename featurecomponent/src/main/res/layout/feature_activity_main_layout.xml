@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawerlayout"
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
@@ -30,14 +30,13 @@
         </FrameLayout>
 
         <android.support.design.widget.NavigationView
+            android:id="@+id/navigation_layout"
             android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@android:color/white"
-            app:headerLayout="@layout/app_navigation_header_layout"
-            app:menu="@menu/app_navigation_menu" />
-
+            app:headerLayout="@layout/feature_activity_main_navigation_header_layout"
+            app:menu="@menu/feateur_activity_main_navigation_menu" />
 
     </android.support.v4.widget.DrawerLayout>
-
 </layout>

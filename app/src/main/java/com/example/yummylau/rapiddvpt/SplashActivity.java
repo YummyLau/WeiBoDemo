@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+
 import com.example.yummylau.rapiddvpt.databinding.AppActivitySplashLayoutBinding;
 
 import rx.Subscription;
@@ -28,7 +29,7 @@ public class SplashActivity extends BaseActivity {
         gotoMainActivity = RxUtils.postDelayed(2000, new Runnable() {
             @Override
             public void run() {
-                RouterManager.navigation("/modulea/MainActivity");
+                RouterManager.navigation(App.featureService.getMainPath());
             }
         });
     }

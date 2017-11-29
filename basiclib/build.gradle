@@ -21,11 +21,6 @@ android {
         versionName rootProject.ext.android.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [moduleName: project.getName()]
-            }
-        }
     }
 
     buildTypes {
@@ -34,16 +29,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    resourcePrefix "library_"
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
 
     //log
     api rootProject.ext.dependencies["log"]
@@ -66,9 +55,6 @@ dependencies {
 
     //status-bar
     api rootProject.ext.dependencies["status-bar"]
-
-    api rootProject.ext.dependencies["arouter-api"]
-
     api rootProject.ext.dependencies["eventbus"]
 
     api rootProject.ext.dependencies["lifecycleRuntime"]
@@ -85,8 +71,5 @@ dependencies {
 
 
     api rootProject.ext.dependencies["constraint-layout"]
-
-    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
-
     implementation project(':basicres')
 }

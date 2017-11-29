@@ -27,8 +27,4 @@ public class App extends BaseApplication {
         DBManager.init(this);
         WbSdk.install(this, new AuthInfo(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE));
     }
-
-    public static void onCreateAsLibrary(final Context context) {
-        WbSdk.install(context, new AuthInfo(context, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE));
-    }
 }

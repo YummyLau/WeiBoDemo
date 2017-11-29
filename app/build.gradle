@@ -48,6 +48,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.github.bumptech.glide:glide:3.6.1'
 
+    implementation project(':componentservice')
+
     if(rootProject.ext.module.openModuleAccount.toBoolean()){
         implementation project(':accountcomponent')
     }
@@ -56,6 +58,5 @@ dependencies {
         implementation project(':featurecomponent')
     }
 
-    implementation project(':componentservice')
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
 }
