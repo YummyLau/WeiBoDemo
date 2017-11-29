@@ -5,6 +5,12 @@ if(rootProject.ext.module.openModuleB.toBoolean()){
 }
 
 android {
+
+    dataBinding {
+        enabled = true
+    }
+
+
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
 

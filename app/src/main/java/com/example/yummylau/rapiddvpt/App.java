@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.facebook.stetho.Stetho;
 
 import yummylau.common.crash.CrashHandler;
+import yummylau.common.net.HttpManager;
 import yummylau.componentservice.interfaces.IAccountService;
 import yummylau.componentservice.interfaces.IFeatureService;
 
@@ -17,7 +18,7 @@ import yummylau.componentservice.interfaces.IFeatureService;
 public class App extends Application {
 
     @Autowired(name = IAccountService.SERVICE_NAME)
-    public static  IAccountService accountService;
+    public static IAccountService accountService;
 
     @Autowired(name = IFeatureService.SERVICE_NAME)
     public static IFeatureService featureService;
@@ -35,6 +36,7 @@ public class App extends Application {
         CrashHandler.getInstance().init(this);
 
 
+        HttpManager.init(this);
         //初始化库
         ARouter.getInstance().inject(this);
         accountService.createAsLibrary(this);

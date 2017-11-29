@@ -1,4 +1,4 @@
-package yummylau.account.bean;
+package yummylau.feature.bean;
 
 import com.google.gson.annotations.SerializedName;
 

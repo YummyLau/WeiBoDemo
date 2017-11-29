@@ -1,12 +1,20 @@
 package com.example.yummylau.rapiddvpt;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.SpannableString;
+import android.util.Log;
 
 
 import com.example.yummylau.rapiddvpt.databinding.AppActivitySplashLayoutBinding;
 
+import okhttp3.internal.Util;
 import rx.Subscription;
 import yummylau.common.activity.BaseActivity;
 import yummylau.common.rx.RxUtils;
@@ -19,6 +27,7 @@ import yummylau.componentlib.router.RouterManager;
 
 public class SplashActivity extends BaseActivity {
 
+    private static final String TAG = SplashActivity.class.getSimpleName();
     private AppActivitySplashLayoutBinding mBinding;
     private Subscription gotoMainActivity;
 
@@ -30,8 +39,13 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void run() {
                 RouterManager.navigation(App.featureService.getMainPath());
+                finish();
             }
         });
+        Listener listener = new Listener();
+        Lifecycle registry = getLifecycle();
+        getLifecycle().getCurrentState();
+        registry.addObserver(listener);
     }
 
     @Override
@@ -40,5 +54,38 @@ public class SplashActivity extends BaseActivity {
             gotoMainActivity.unsubscribe();
         }
         super.onDestroy();
+    }
+
+    class Listener implements LifecycleObserver {
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+        void onCreate() {
+            Log.d(TAG, "onCreate!");
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_START)
+        void onStart() {
+            Log.d(TAG, "onStart!");
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+        void onPause() {
+            Log.d(TAG, "onPause!");
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+        void onStop() {
+            Log.d(TAG, "onStop!");
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        void onDestory() {
+            Log.d(TAG, "onDestory!");
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
+        void onAny() {
+            Log.d(TAG, "onCreate!");
+        }
     }
 }

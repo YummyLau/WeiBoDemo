@@ -44,6 +44,7 @@ public class HttpManager {
         sHttpClientBuilder.writeTimeout(httpParam.writeTimeOut, TimeUnit.SECONDS);
         sHttpClientBuilder.interceptors().clear();
         sHttpClientBuilder.addNetworkInterceptor(new StethoInterceptor());
+//        sHttpClientBuilder.retryOnConnectionFailure(true);
 
         if (httpParam.supportCache) {
             sHttpClientBuilder.addInterceptor(new CacheInterceptor(true, NetworkUtils.networkAvailable(sContext)));

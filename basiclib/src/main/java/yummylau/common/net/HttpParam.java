@@ -79,5 +79,9 @@ public class HttpParam {
             this.callAdapterFactory = callAdapterFactory;
             return this;
         }
+
+        public HttpParam build() {
+            return new HttpParam(this);
+        }
     }
 }

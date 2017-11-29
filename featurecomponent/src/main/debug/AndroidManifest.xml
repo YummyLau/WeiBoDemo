@@ -8,8 +8,8 @@
         android:theme="@style/baseres_AppTheme">
 
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:name=".view.MainActivity"
+            android:label="@string/feature_app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

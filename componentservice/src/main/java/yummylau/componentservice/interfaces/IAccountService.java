@@ -17,5 +17,4 @@ public interface IAccountService extends IService {
     String getLoginPath();
 
     Token getToken(Context context);
-
 }

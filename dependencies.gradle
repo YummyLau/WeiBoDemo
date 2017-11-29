@@ -1,3 +1,20 @@
+//谷歌架构1.0
+
+//lifecycler
+def lifecycleVersion = "1.0.3"
+def lifecycleCompilerVersion = "1.0.0"
+def lifecyclerCommonJava8Version = "1.0.0"
+//liveData
+def lifecycleExtensionsVersion = "1.0.0"
+//room
+def roomVersion = "1.0.0"
+def roomCompilerVersion = "1.0.0"
+def roomRxJava2Version = "1.0.0"
+//paging
+def pagingRuntimeVersion = "1.0.0-alpha3"
+
+
+
 def supportVersion = "26.1.0"
 def arouterApiVersion = "1.2.4"
 def arouterCompilerVersion = "1.1.4"
@@ -12,21 +29,13 @@ def eventbusVersion = "3.0.0"
 def multiDexVersion = "1.0.1"
 
 def gsonVersion = "2.8.0"
-//lifecycler
-def lifecycleVersion = "1.0.3"
-def lifecycleCompilerVersion = "1.0.0"
-def lifecyclerCommonJava8Version = "1.0.0"
 
-//liveData
-def lifecycleExtensionsVersion = "1.0.0"
 
-//room
-def roomVersion = "1.0.0"
-def roomCompilerVersion = "1.0.0"
-def roomRxJava2Version = "1.0.0"
 
-//paging
-def pagingRuntimeVersion = "1.0.0-alpha3"
+
+
+
+
 def constraintLayoutVersion = "1.0.0"
 
 //测试继承
@@ -72,7 +81,7 @@ project.ext {
             //测试继承
             "log"                  : "com.orhanobut:logger:${logVersion}",
             "stetho"               : "com.facebook.stetho:stetho:${stethoVersion}",
-            "stethoOkhttp3"               : "com.facebook.stetho:stetho-okhttp3:${stethoOkhttp3Version}",
+            "stethoOkhttp3"        : "com.facebook.stetho:stetho-okhttp3:${stethoOkhttp3Version}",
 
             //arouter
             "arouter-api"          : "com.alibaba:arouter-api:${arouterApiVersion}",
@@ -86,16 +95,13 @@ project.ext {
 
             "multidex"             : "com.android.support:multidex:${multiDexVersion}",
 
-
+            //谷歌架构
             "lifecycleRuntime"     : "android.arch.lifecycle:runtime:${lifecycleVersion}",
             "lifecycleCompiler"    : "android.arch.lifecycle:compiler:${lifecycleCompilerVersion}",
             "lifecyclerCommonJava8": "android.arch.lifecycle:common-java8:${lifecyclerCommonJava8Version}",
-
             "lifecycleExtensions"  : "android.arch.lifecycle:extensions:${lifecycleExtensionsVersion}",
-
             "roomRuntime"          : "android.arch.persistence.room:runtime:${roomVersion}",
             "roomCompiler"         : "android.arch.persistence.room:compiler:${roomCompilerVersion}",
-
             "roomRxjava2"          : "android.arch.persistence.room:rxjava2:${roomRxJava2Version}",
             "pagingRuntime"        : "android.arch.paging:runtime:${pagingRuntimeVersion}",
 
