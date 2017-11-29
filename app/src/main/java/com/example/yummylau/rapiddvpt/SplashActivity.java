@@ -39,7 +39,14 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void run() {
                 RouterManager.navigation(App.featureService.getMainPath());
-                finish();
+            }
+        });
+
+        gotoMainActivity = RxUtils.postDelayed(5000, new Runnable() {
+            @Override
+            public void run() {
+                mBinding.text.setText("后台更新数据");
+                Log.d(TAG, mBinding.text.getText().toString());
             }
         });
         Listener listener = new Listener();
@@ -85,7 +92,7 @@ public class SplashActivity extends BaseActivity {
 
         @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
         void onAny() {
-            Log.d(TAG, "onCreate!");
+            Log.d(TAG, "ON_ANY!");
         }
     }
 }

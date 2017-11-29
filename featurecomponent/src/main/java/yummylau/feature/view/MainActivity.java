@@ -1,6 +1,11 @@
 package yummylau.feature.view;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
@@ -43,7 +48,6 @@ public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private FeatureActivityMainLayoutBinding mBinding;
     private MainViewModel mModel;
-    private static int requestTime = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,46 +61,35 @@ public class MainActivity extends BaseActivity {
             }
         };
         mModel.getCurrentName().observe(this, nameObserver);
-        initView();
         mBinding.send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HttpParam param = new HttpParam.Builder()
-                        .converterFactory(ScalarsConverterFactory.create())
-                        .baseUrl("http://star.pt.163.com/")
-                        .build();
-                HttpManager
-                        .create(param, WeiboApis.class)
-                        .getTest("http://star.pt.163.com/history/apps/xyq/client/users?uids=5a1c0827f628337afef50d01&uid=5a1c0827f628337afef50d01")
-//                        .getTest("https://www.baidu.com/s?wd=a&rsv_spt=1&rsv_iqid=0xc05e669d00043ec1&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=3&rsv_sug1=2&rsv_sug7=100&rsv_sug2=0&inputT=689&rsv_sug4=766")
-                        .subscribeOn(Schedulers.io())
-                        .subscribe(new Subscriber<String>() {
-
-                            @Override
-                            public void onStart() {
-                                super.onStart();
-                                requestTime = requestTime + 1;
-                                Log.d(TAG, "请求次数： " + requestTime);
-                            }
-
-                            @Override
-                            public void onCompleted() {
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                Log.d(TAG, e.getMessage());
-                            }
-
-                            @Override
-                            public void onNext(String s) {
-                                Log.d(TAG, "请求成功");
-                            }
-                        });
-
+                mModel.getCurrentName().setValue("推送数据");
             }
         });
+        initView();
+
+        LiveData<Integer> obserable = new LiveData<Integer>() {
+            @Override
+            protected void onActive() {
+                super.onActive();
+                Log.d(TAG, "state-" + MainActivity.this.getLifecycle().getCurrentState());
+                setValue(1);
+            }
+
+            @Override
+            protected void onInactive() {
+                Log.d(TAG, "state-" + MainActivity.this.getLifecycle().getCurrentState());
+                setValue(0);
+            }
+        };
+        obserable.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                Log.d(TAG, "自定义数据-" + integer);
+            }
+        });
+        getLifecycle().addObserver(new Listener(this));
     }
 
     private void initView() {
@@ -134,6 +127,46 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setStatusBar() {
         StatusBarUtil.setColorForDrawerLayout(this, mBinding.drawerLayout, ColorGetter.getStatusBarColor(this));
+    }
+
+    class Listener implements LifecycleObserver {
+
+        LifecycleOwner lifecycleOwner;
+
+        public Listener(LifecycleOwner lifecycleOwner) {
+            this.lifecycleOwner = lifecycleOwner;
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+        void onCreate() {
+            Log.d(TAG, "onCreate!");
+            Log.d(TAG, "state-" + lifecycleOwner.getLifecycle().getCurrentState());
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_START)
+        void onStart() {
+            Log.d(TAG, "onStart!");
+            Log.d(TAG, "state-" + lifecycleOwner.getLifecycle().getCurrentState());
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+        void onPause() {
+            Log.d(TAG, "onPause!");
+            Log.d(TAG, "state-" + lifecycleOwner.getLifecycle().getCurrentState());
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+        void onStop() {
+            Log.d(TAG, "onStop!");
+            Log.d(TAG, "state-" + lifecycleOwner.getLifecycle().getCurrentState());
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        void onDestory() {
+            Log.d(TAG, "onDestory!");
+            Log.d(TAG, "state-" + lifecycleOwner.getLifecycle().getCurrentState());
+        }
+
     }
 
 

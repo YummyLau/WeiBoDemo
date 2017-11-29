@@ -12,4 +12,6 @@
 Lifecycle getLifecycle();
 ```
 
+onStop接受的数据，也是会缓存起来，在onActive回调
+
 

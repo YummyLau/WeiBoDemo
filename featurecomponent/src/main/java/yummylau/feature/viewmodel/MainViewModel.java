@@ -14,10 +14,10 @@ import yummylau.feature.bean.User;
 public class MainViewModel extends ViewModel {
 
 
-    private LiveData<User> user;
+    private MutableLiveData<User> user;
     private MutableLiveData<String> mCurrentName;
 
-    public LiveData<User> getUser() {
+    public MutableLiveData<User> getUser() {
         return user;
     }
 
