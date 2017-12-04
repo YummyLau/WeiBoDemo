@@ -1,4 +1,4 @@
-package yummylau.feature.viewmodel;
+package yummylau.feature.videmodel;
 
 import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
@@ -6,7 +6,10 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 
-import yummylau.feature.bean.User;
+import yummylau.feature.repository.UserRepository;
+import yummylau.feature.repository.local.db.DBManager;
+import yummylau.feature.repository.local.db.entity.UserEntity;
+
 
 /**
  * 数据实体
@@ -15,8 +18,6 @@ import yummylau.feature.bean.User;
 
 public class MainViewModel extends ViewModel {
 
-
-    private MutableLiveData<User> user;
     private MutableLiveData<String> mCurrentName = new MutableLiveData<>();
     private LiveData<String> mAfterTranName = Transformations.map(mCurrentName, new Function<String, String>() {
         @Override
@@ -29,14 +30,22 @@ public class MainViewModel extends ViewModel {
         return mAfterTranName;
     }
 
-    public MutableLiveData<User> getUser() {
-        return user;
-    }
-
     public MutableLiveData<String> getCurrentName() {
         if (mCurrentName == null) {
             mCurrentName = new MutableLiveData<String>();
         }
         return mCurrentName;
+    }
+
+
+    private UserRepository mRepository;
+    private MutableLiveData<UserEntity> ownUserInfo;
+
+    public MutableLiveData<UserEntity> getUser() {
+        if (ownUserInfo == null) {
+            ownUserInfo = new MutableLiveData<>();
+            DBManager.getInstance().userDao().getUsers();
+        }
+        return ownUserInfo;
     }
 }

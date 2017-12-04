@@ -36,7 +36,7 @@ def gsonVersion = "2.8.0"
 
 
 
-def constraintLayoutVersion = "1.0.0"
+def constraintLayoutVersion = "1.0.2"
 
 //测试继承
 def stethoVersion = "1.5.0"

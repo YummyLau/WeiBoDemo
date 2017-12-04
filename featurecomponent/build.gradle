@@ -57,6 +57,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    annotationProcessor rootProject.ext.dependencies["lifecycleCompiler"]
+    annotationProcessor rootProject.ext.dependencies["roomCompiler"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
     implementation project(':componentservice')
 }

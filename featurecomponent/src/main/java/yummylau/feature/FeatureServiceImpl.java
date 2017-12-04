@@ -1,12 +1,14 @@
 package yummylau.feature;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 
 import yummylau.componentservice.interfaces.IFeatureService;
+import yummylau.feature.repository.local.db.DBManager;
 
 /**
  * Created by g8931 on 2017/11/29.
@@ -26,6 +28,7 @@ public class FeatureServiceImpl implements IFeatureService {
 
     @Override
     public void createAsLibrary(Application application) {
-        // TODO: 2017/11/29 初始化一些依赖库
+        //init database
+        DBManager.init(application);
     }
 }

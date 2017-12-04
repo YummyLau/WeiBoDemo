@@ -1,14 +1,20 @@
-package yummylau.feature.bean;
+package yummylau.feature.repository.local.db.entity;
+
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by g8931 on 2017/11/24.
  */
-
-public class User {
+@Entity(tableName = "user_table")
+public class UserEntity {
 
     //用户UID
+    @PrimaryKey
     @SerializedName("id")
     public int id;
 
@@ -109,8 +115,9 @@ public class User {
     public String remark;
 
     //用户的最近一条微博信息字段
+    @Ignore
     @SerializedName("status")
-    public Status status;
+    public StatusEntity status;
 
     //是否允许所有人对我的微博进行评论，true：是，false：否
     @SerializedName("allow_all_comment")

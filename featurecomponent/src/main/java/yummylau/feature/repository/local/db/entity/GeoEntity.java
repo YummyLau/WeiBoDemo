@@ -1,4 +1,6 @@
-package yummylau.feature.bean;
+package yummylau.feature.repository.local.db.entity;
+
+import android.arch.persistence.room.Entity;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,8 +8,8 @@ import com.google.gson.annotations.SerializedName;
  * 地理信息
  * Created by g8931 on 2017/11/24.
  */
-
-public class Geo {
+@Entity(tableName = "geo_table")
+public class GeoEntity {
 
     //经度坐标
     @SerializedName("longitude")

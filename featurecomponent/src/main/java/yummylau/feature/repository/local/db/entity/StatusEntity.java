@@ -1,13 +1,18 @@
-package yummylau.feature.bean;
+package yummylau.feature.repository.local.db.entity;
+
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 
 import com.google.gson.annotations.SerializedName;
+
 
 /**
  * 微博实体
  * Created by g8931 on 2017/11/24.
  */
-
-public class Status {
+@Entity(tableName = "status_table")
+public class StatusEntity {
 
     //微博创建时间
     @SerializedName("created_at")
@@ -66,16 +71,19 @@ public class Status {
     public String original_pic;
 
     //地理信息字段
+    @Ignore
     @SerializedName("geo")
-    public Geo geo;
+    public GeoEntity geo;
 
     //微博作者的用户信息字段
+    @Ignore
     @SerializedName("user")
-    public User user;
+    public UserEntity user;
 
     //被转发的原微博信息字段，当该微博为转发微博时返回
+    @Ignore
     @SerializedName("retweeted_status")
-    public Status retweetedStatus;
+    public StatusEntity retweetedStatus;
 
     //转发数
     @SerializedName("reposts_count")

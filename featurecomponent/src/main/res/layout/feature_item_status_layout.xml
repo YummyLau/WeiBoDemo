@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
+
+        <yummylau.common.view.RoundedImageView
+            android:id="@+id/feature_roundedimageview"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/feature_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/feature_roundedimageview"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="十一月的肖邦" />
+
+        <TextView
+            android:id="@+id/feature_textview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/feature_textview"
+            app:layout_constraintTop_toBottomOf="@+id/feature_textview" />
+
+        <TextView
+            android:id="@+id/feature_textview3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/feature_roundedimageview"
+            app:layout_constraintTop_toBottomOf="@+id/feature_roundedimageview" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
