@@ -94,12 +94,6 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        mBinding.send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mModel.getCurrentName().setValue("推送数据");
-            }
-        });
         getLifecycle().addObserver(new Listener(this));
 
         //weibo demo start

@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -27,13 +27,16 @@
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-                <Button
-                    android:id="@+id/send"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="发送测试"/>
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/post_btn"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/ic_add_white_24dp" />
 
-            </LinearLayout>
+            </RelativeLayout>
         </FrameLayout>
 
         <android.support.design.widget.NavigationView
