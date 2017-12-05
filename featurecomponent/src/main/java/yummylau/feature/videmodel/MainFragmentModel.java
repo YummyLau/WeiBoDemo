@@ -1,11 +1,8 @@
 package yummylau.feature.videmodel;
 
 import android.app.Application;
-import android.arch.core.util.Function;
 import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
@@ -14,68 +11,47 @@ import android.support.annotation.NonNull;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
 
+import java.util.List;
+
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import yummylau.common.bus.CommonBizLogin.ModuleAccountFuns;
 import yummylau.common.net.HttpManager;
 import yummylau.common.net.HttpParam;
 import yummylau.componentlib.router.RouterManager;
 import yummylau.componentservice.bean.Token;
 import yummylau.componentservice.interfaces.IAccountService;
-import yummylau.feature.repository.MainRepository;
-import yummylau.feature.repository.local.db.DBManager;
+import yummylau.feature.repository.MainFragmentRepository;
+import yummylau.feature.repository.local.db.entity.StatusEntity;
 import yummylau.feature.repository.local.db.entity.UserEntity;
+import yummylau.feature.repository.remote.api.StatusResult;
 import yummylau.feature.repository.remote.api.WeiboApis;
 
-
 /**
- * 数据实体
- * Created by g8931 on 2017/11/29.
+ * Created by g8931 on 2017/12/5.
  */
 
-public class MainViewModel extends AndroidViewModel {
+public class MainFragmentModel extends AndroidViewModel {
 
     @Autowired(name = IAccountService.SERVICE_NAME)
     public IAccountService accountService;
 
-    private MutableLiveData<String> mCurrentName = new MutableLiveData<>();
-    private LiveData<String> mAfterTranName = Transformations.map(mCurrentName, new Function<String, String>() {
-        @Override
-        public String apply(String input) {
-            return "转化后的数据" + input;
-        }
-    });
-
-    public LiveData<String> getAfterName() {
-        return mAfterTranName;
-    }
-
-    public MutableLiveData<String> getCurrentName() {
-        if (mCurrentName == null) {
-            mCurrentName = new MutableLiveData<String>();
-        }
-        return mCurrentName;
-    }
-
-
-    private MutableLiveData<UserEntity> ownUserInfo;
-    private MainRepository mainRepository;
+    private MutableLiveData<List<StatusEntity>> mAllStatus;
+    private MainFragmentRepository mRepository;
     private Context context;
 
-    public MainViewModel(@NonNull Application application) {
+    public MainFragmentModel(@NonNull Application application) {
         super(application);
-        mainRepository = new MainRepository();
-        ownUserInfo = new MutableLiveData<>();
-        context = application;
+        mRepository = new MainFragmentRepository();
         ARouter.getInstance().inject(this);
+        mAllStatus = new MutableLiveData<>();
+        context = application;
     }
 
-    public MutableLiveData<UserEntity> getUser() {
-        return ownUserInfo;
+    public MutableLiveData<List<StatusEntity>> getAllStatus() {
+        return mAllStatus;
     }
 
     public void fetchData() {
@@ -90,10 +66,10 @@ public class MainViewModel extends AndroidViewModel {
             RouterManager.navigation(accountService.getLoginPath());
         }
         HttpManager.create(httpParam, WeiboApis.class)
-                .getUser(accountService.getToken(context).accessToken, accountService.getToken(context).uid)
+                .getAllStatus(accountService.getToken(context).accessToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<UserEntity>() {
+                .subscribe(new Subscriber<StatusResult>() {
                     @Override
                     public void onCompleted() {
 
@@ -101,16 +77,17 @@ public class MainViewModel extends AndroidViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        e.getMessage();
+
                     }
 
                     @Override
-                    public void onNext(UserEntity s) {
-                        ownUserInfo.setValue(s);
+                    public void onNext(StatusResult statusResult) {
+                        if (statusResult != null && statusResult.statusList != null) {
+                            mAllStatus.setValue(statusResult.statusList);
+                        }
                     }
                 });
     }
-
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
 
@@ -123,7 +100,7 @@ public class MainViewModel extends AndroidViewModel {
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
-            return (T) new MainViewModel(mApplication);
+            return (T) new MainFragmentModel(mApplication);
         }
     }
 }

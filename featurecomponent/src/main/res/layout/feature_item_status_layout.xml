@@ -9,7 +9,7 @@
         android:layout_margin="8dp">
 
         <yummylau.common.view.RoundedImageView
-            android:id="@+id/feature_roundedimageview"
+            android:id="@+id/avatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
@@ -20,7 +20,7 @@
             app:srcCompat="@color/colorAccent" />
 
         <TextView
-            android:id="@+id/feature_textview"
+            android:id="@+id/nick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -28,22 +28,22 @@
             android:layout_marginTop="16dp"
             android:text="TextView"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/feature_roundedimageview"
+            app:layout_constraintStart_toEndOf="@+id/avatar"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="十一月的肖邦" />
 
         <TextView
-            android:id="@+id/feature_textview2"
+            android:id="@+id/create_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="TextView"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/feature_textview"
-            app:layout_constraintTop_toBottomOf="@+id/feature_textview" />
+            app:layout_constraintStart_toStartOf="@+id/content"
+            app:layout_constraintTop_toBottomOf="@+id/content" />
 
         <TextView
-            android:id="@+id/feature_textview3"
+            android:id="@+id/content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -52,8 +52,8 @@
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/feature_roundedimageview"
-            app:layout_constraintTop_toBottomOf="@+id/feature_roundedimageview" />
+            app:layout_constraintStart_toStartOf="@+id/avatar"
+            app:layout_constraintTop_toBottomOf="@+id/avatar" />
 
 
     </android.support.constraint.ConstraintLayout>

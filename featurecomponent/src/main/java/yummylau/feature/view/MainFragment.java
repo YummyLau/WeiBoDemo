@@ -1,10 +1,14 @@
 package yummylau.feature.view;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,10 @@ import java.util.List;
 import yummylau.common.CommonViewPagerAdapter;
 import yummylau.feature.R;
 import yummylau.feature.databinding.FeatureFragmentMainLayoutBinding;
+import yummylau.feature.repository.local.db.entity.StatusEntity;
+import yummylau.feature.videmodel.MainFragmentModel;
+import yummylau.feature.videmodel.MainViewModel;
+import yummylau.feature.view.adapter.StatusListAdapter;
 
 /**
  * 首页 fragment
@@ -26,33 +34,49 @@ import yummylau.feature.databinding.FeatureFragmentMainLayoutBinding;
 public class MainFragment extends Fragment {
 
     private FeatureFragmentMainLayoutBinding mBinding;
-    private StatusListWidget hotStatus;
-    private StatusListWidget followStatus;
+
+    private MainFragmentModel mModel;
+
+    private LinearLayoutManager mLinearLayoutManager;
+    private StatusListAdapter mStatusListAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.feature_fragment_main_layout, null, false);
         initView();
+        initViewModel();
         return mBinding.getRoot();
     }
 
     private void initView() {
-        List<View> statusListViews = new ArrayList<>();
-        hotStatus = new StatusListWidget(getContext());
-        hotStatus.initView(StatusListWidget.HOT_TYPE);
-        followStatus = new StatusListWidget(getContext());
-        followStatus.initView(StatusListWidget.FOLLOW_TYPE);
-        statusListViews.add(hotStatus);
-        statusListViews.add(followStatus);
-        List<String> statusListTabs = new ArrayList<>();
-        statusListTabs.add(getContext().getString(R.string.feature_main_fragment_tab_hot));
-        statusListTabs.add(getContext().getString(R.string.feature_main_fragment_tab_follow));
-        CommonViewPagerAdapter<View> pagerAdapter = new CommonViewPagerAdapter<>(statusListViews, statusListTabs);
-        mBinding.viewPager.setAdapter(pagerAdapter);
-        mBinding.tabs.addTab(mBinding.tabs.newTab().setText(R.string.feature_main_fragment_tab_hot));
-        mBinding.tabs.addTab(mBinding.tabs.newTab().setText(R.string.feature_main_fragment_tab_follow));
-        mBinding.tabs.setupWithViewPager(mBinding.viewPager);
-        mBinding.viewPager.setCurrentItem(0);
+        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        mStatusListAdapter = new StatusListAdapter(R.layout.feature_item_status_layout, null);
+        mBinding.statusList.setLayoutManager(mLinearLayoutManager);
+        mBinding.swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mModel.fetchData();
+            }
+        });
+        mBinding.statusList.setAdapter(mStatusListAdapter);
+    }
+
+    private void initViewModel() {
+
+        MainFragmentModel.Factory factory = new MainFragmentModel
+                .Factory(getActivity().getApplication());
+        mModel = ViewModelProviders.of(this, factory).get(MainFragmentModel.class);
+
+        mModel.getAllStatus().observe(this, new Observer<List<StatusEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<StatusEntity> statusEntity) {
+                if (statusEntity != null) {
+                    mStatusListAdapter.addData(statusEntity);
+                    mBinding.swipeLayout.setRefreshing(false);
+                }
+            }
+        });
+        mModel.fetchData();
     }
 }

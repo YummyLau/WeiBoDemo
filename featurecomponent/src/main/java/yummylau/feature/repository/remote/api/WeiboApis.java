@@ -18,6 +18,10 @@ public interface WeiboApis {
     @GET("2/users/show.json")
     Observable<UserEntity> getUser(@Query("access_token") String token, @Query("uid") int id);
 
+    @GET("2/statuses/home_timeline.json")
+    Observable<StatusResult> getAllStatus(@Query("access_token") String token);
+
+
     @GET("2/users/show.json")
     Observable<UserEntity> getUser(@Query("access_token") String token, @Query("screen_name") String screenName);
 

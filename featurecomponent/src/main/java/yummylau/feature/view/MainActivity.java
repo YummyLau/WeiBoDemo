@@ -62,7 +62,6 @@ public class MainActivity extends BaseActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.feature_activity_main_layout);
         mFragments = new ArrayList<>();
         mFragments.add(new MainFragment());
-        mFragments.add(new MessageFragement());
         mFragmentManager = super.getSupportFragmentManager();
         mFragmentManager.beginTransaction().replace(R.id.content_frame, mFragments.get(0), null).commit();
         initView();
