@@ -23,7 +23,4 @@ public interface WeiboApis {
 
     @GET("2/users/domain_show.json")
     Observable<UserEntity> getUserByDomain(@Query("access_token") String token, @Query("domain") String domain);
-
-    @GET
-    Observable<String> getTest(@Url String url);
 }

@@ -1,6 +1,13 @@
 <resources>
     <string name="feature_app_name">moduleB</string>
 
+    <!-- 首页 -->
+    <string name="feature_main_fragment_tab_hot">热门推荐</string>
+    <string name="feature_main_fragment_tab_follow">关注的人</string>
+    <string name="feature_weibo_count_tip">微博(%1$d)</string>
+    <string name="feature_follows_count_tip">关注(%1$d)</string>
+    <string name="feature_fans_count_tip">粉丝(%1$d)</string>
+
     <string name="feature_navigation_drawer_open">navigation_drawer_open</string>
     <string name="feature_navigation_drawer_close">navigation_drawer_close</string>
 </resources>

@@ -22,8 +22,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -68,7 +71,9 @@ public class MainActivity extends BaseActivity {
 
     private void initViewModel() {
 
-        mModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        MainViewModel.Factory factory = new MainViewModel
+                .Factory(this.getApplication());
+        mModel = ViewModelProviders.of(this, factory).get(MainViewModel.class);
 
         //for test lifecycler
         final Observer<String> nameObserver = new Observer<String>() {
@@ -100,9 +105,20 @@ public class MainActivity extends BaseActivity {
         mModel.getUser().observe(this, new Observer<UserEntity>() {
             @Override
             public void onChanged(@Nullable UserEntity userEntity) {
-
+                if (userEntity != null) {
+                    View view = mBinding.navigationLayout.getHeaderView(0);
+                    ((TextView) view.findViewById(R.id.nick)).setText(userEntity.name);
+                    ((TextView) view.findViewById(R.id.status_tip)).setText(String.format(MainActivity.this.getString(R.string.feature_weibo_count_tip), userEntity.statusesCount));
+                    ((TextView) view.findViewById(R.id.follow_tip)).setText(String.format(MainActivity.this.getString(R.string.feature_follows_count_tip), userEntity.friendsCount));
+                    ((TextView) view.findViewById(R.id.fans_tip)).setText(String.format(MainActivity.this.getString(R.string.feature_fans_count_tip), userEntity.followersCount));
+                    Glide.with(MainActivity.this)
+                            .load(userEntity.profileImageUrl)
+                            .into((ImageView) view.findViewById(R.id.avatar));
+                }
+                // TODO: 2017/12/5 收到用户信息
             }
         });
+        mModel.fetchData();
 
     }
 
@@ -160,8 +176,6 @@ public class MainActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.nav_main) {
                     mFragmentManager.beginTransaction().replace(R.id.content_frame, mFragments.get(0), null).commit();
-                } else if (item.getItemId() == R.id.nav_message) {
-                    mFragmentManager.beginTransaction().replace(R.id.content_frame, mFragments.get(1), null).commit();
                 }
                 mBinding.drawerLayout.closeDrawers();
                 return true;

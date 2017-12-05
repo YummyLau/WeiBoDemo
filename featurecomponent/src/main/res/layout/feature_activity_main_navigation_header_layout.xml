@@ -1,98 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="192dp"
+    android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     android:paddingLeft="10dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
 
     <LinearLayout
         android:id="@+id/info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            android:id="@+id/status_layout"
+
+        <TextView
+            android:id="@+id/status_tip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:gravity="left"
+            android:text="微博"
+            android:textColor="@color/colorTextIcon"
+            android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/status_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorTextIcon" />
 
-            <TextView
-                android:id="@+id/status_tip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="微博"
-                android:textColor="@color/colorTextIcon"
-                android:textSize="15sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/follow_layout"
+        <TextView
+            android:id="@+id/follow_tip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:gravity="left"
+            android:text="关注"
+            android:textColor="@color/colorTextIcon"
+            android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/follow_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorTextIcon" />
-
-            <TextView
-                android:id="@+id/follow_tip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="关注"
-                android:textColor="@color/colorTextIcon"
-                android:textSize="15sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/fans_layout"
+        <TextView
+            android:id="@+id/fans_tip"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/fans_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorTextIcon" />
-
-            <TextView
-                android:id="@+id/fans_tip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="粉丝"
-                android:textColor="@color/colorTextIcon"
-                android:textSize="15sp" />
-        </LinearLayout>
+            android:gravity="left"
+            android:text="粉丝"
+            android:textColor="@color/colorTextIcon"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
     <yummylau.common.view.RoundedImageView
-        android:id="@+id/bg"
+        android:id="@+id/avatar"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_above="@+id/info"
-        android:layout_marginBottom="15dp"
-        android:background="@color/colorTextIcon" />
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:oval="true" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/nick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar"
+        app:layout_constraintStart_toEndOf="@+id/avatar" />
+
+
+</android.support.constraint.ConstraintLayout>

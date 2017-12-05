@@ -16,7 +16,7 @@ public class UserEntity {
     //用户UID
     @PrimaryKey
     @SerializedName("id")
-    public int id;
+    public long id;
 
     //字符串型的用户UID
     @SerializedName("idStr")

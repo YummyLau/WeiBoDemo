@@ -10,8 +10,6 @@ import com.sina.weibo.sdk.auth.AccessTokenKeeper;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
-
-import yummylau.account.Constants;
 import yummylau.componentservice.interfaces.IAccountService;
 import yummylau.componentservice.bean.Token;
 
@@ -27,7 +25,7 @@ public class AccountServiceImpl implements IAccountService {
         Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(context);
         Token token = new Token();
         if (accessToken.isSessionValid()) {
-            token.uid = accessToken.getUid();
+            token.uid = Integer.valueOf(accessToken.getUid());
             token.accessToken = accessToken.getToken();
             token.refreshToken = accessToken.getRefreshToken();
             token.expiresTime = accessToken.getExpiresTime();
@@ -35,6 +33,7 @@ public class AccountServiceImpl implements IAccountService {
         }
         return token;
     }
+
 
     @Override
     public String getLoginPath() {

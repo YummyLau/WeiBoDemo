@@ -23,7 +23,7 @@ import yummylau.account.databinding.AccountActivityMainLayoutBinding;
 /**
  * Created by g8931 on 2017/11/14.
  */
-@Route(path = "/modulea/LoginActivity")
+@Route(path = Constants.ROUTER_LOGIN)
 public class LoginActivity extends BaseActivity {
 
     private AccountActivityMainLayoutBinding mBinding;
@@ -105,7 +105,7 @@ public class LoginActivity extends BaseActivity {
 //                });
 //            }
 //        });
-
+//
 //        mBinding.weiboout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

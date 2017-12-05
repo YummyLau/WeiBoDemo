@@ -7,7 +7,7 @@ package yummylau.componentservice.bean;
 
 public class Token {
 
-    public String uid;
+    public int uid;
     public String accessToken;
     public String refreshToken;
     public long expiresTime;

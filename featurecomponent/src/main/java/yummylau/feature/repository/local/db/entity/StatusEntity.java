@@ -20,11 +20,11 @@ public class StatusEntity {
 
     //微博ID
     @SerializedName("id")
-    public int id;
+    public long id;
 
     //微博MID
     @SerializedName("mid")
-    public int mid;
+    public long mid;
 
     //字符串型的微博ID
     @SerializedName("idstr")
@@ -101,9 +101,9 @@ public class StatusEntity {
     @SerializedName("mlevel")
     public int mlevel;
 
-    //微博的可见性及指定可见分组信息。该object中type取值，0：普通微博，1：私密微博，3：指定分组微博，4：密友微博；list_id为分组的组号
-    @SerializedName("visible")
-    public String visible;
+//    //微博的可见性及指定可见分组信息。该object中type取值，0：普通微博，1：私密微博，3：指定分组微博，4：密友微博；list_id为分组的组号
+//    @SerializedName("visible")
+//    public boolean visible;
 
     //微博配图ID。多图时返回多图ID，用来拼接图片url。用返回字段thumbnail_pic的地址配上该返回字段的图片ID，即可得到多个图片url。
     @SerializedName("pic_ids")

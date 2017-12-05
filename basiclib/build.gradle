@@ -71,5 +71,10 @@ dependencies {
 
 
     api rootProject.ext.dependencies["constraint-layout"]
+    api rootProject.ext.dependencies["baseRecyclerViewAdapterHelper"]
+
+    api rootProject.ext.dependencies["glide"]
+
+
     implementation project(':basicres')
 }

@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
 
+    defaultConfig {
+        multiDexEnabled true
+    }
+
     dataBinding {
         enabled = true
     }
