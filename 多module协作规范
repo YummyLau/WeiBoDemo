@@ -30,6 +30,9 @@ lifecycle room
 https://medium.com/google-developers/viewmodels-and-livedata-patterns-antipatterns-21efaef74a54
 1. 使用数据仓库：远端数据，本地数据，内存缓存。建议使用分离独立的单例仓库类来处理数据业务
 
+http://bytes.schibsted.com/data-binding-android-architecture-components-preview/
+1. 区分LiveData和ObserableData
+
 依赖注入框架
 1. dragger2
 http://www.jianshu.com/p/cd2c1c9f68d4
@@ -48,6 +51,7 @@ Module可以包含创建类实例的方法，这些方法用Provides来标注
 快速开发MD设计    https://zhuanlan.zhihu.com/p/20870983
 MD快速导入插件    https://github.com/konifar/android-material-design-icon-generator-plugin
 无设计开发漂亮app  https://www.race604.com/develpor-beautiful-app-without-ps/
+卡片风格设计 http://blog.csdn.net/ygilove/article/details/57077745
 https://www.materialpalette.com/icons
 http://www.iconfont.cn/
 https://material.io/icons/

@@ -5,55 +5,81 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp">
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:stateListAnimator="@animator/feature_status_list_animator">
 
         <yummylau.common.view.RoundedImageView
             android:id="@+id/avatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:oval="true"
             app:srcCompat="@color/colorAccent" />
 
         <TextView
             android:id="@+id/nick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="5dp"
             android:text="TextView"
+            android:textColor="@color/colorTextPrimary"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/avatar"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/avatar"
             tools:text="十一月的肖邦" />
 
         <TextView
             android:id="@+id/create_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/content"
-            app:layout_constraintTop_toBottomOf="@+id/content" />
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/avatar"
+            app:layout_constraintStart_toStartOf="@+id/nick"
+            app:layout_constraintTop_toBottomOf="@+id/nick" />
 
         <TextView
             android:id="@+id/content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:text="TextView"
+            android:textColor="@color/colorTextPrimary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/avatar"
+            app:layout_constraintStart_toStartOf="@+id/nick"
             app:layout_constraintTop_toBottomOf="@+id/avatar" />
+
+        <TextView
+            android:id="@+id/device_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textColor="@color/colorTextSecondary"
+            app:layout_constraintBottom_toTopOf="@+id/divider"
+            app:layout_constraintStart_toStartOf="@+id/content"
+            app:layout_constraintTop_toBottomOf="@+id/content" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="345dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:background="@color/colorDivider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/avatar"
+            app:layout_constraintTop_toBottomOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>

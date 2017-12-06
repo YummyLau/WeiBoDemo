@@ -1,22 +1,11 @@
-package yummylau.feature.repository;
+package yummylau.feature.data;
 
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
-import com.alibaba.android.arouter.launcher.ARouter;
-
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
-import yummylau.common.net.HttpManager;
-import yummylau.common.net.HttpParam;
-import yummylau.componentlib.router.RouterManager;
-import yummylau.componentservice.bean.Token;
-import yummylau.componentservice.interfaces.IAccountService;
-import yummylau.feature.repository.remote.api.StatusResult;
-import yummylau.feature.repository.remote.api.WeiboApis;
+import yummylau.feature.data.local.db.entity.UserEntity;
+import yummylau.feature.data.remote.result.StatusResult;
 
 /**
  * Created by g8931 on 2017/12/5.
@@ -60,4 +49,8 @@ public class FeatureRepository implements FeatureDataSource {
         return mRemoteDataSource.getAllStatus();
     }
 
+    @Override
+    public Observable<UserEntity> getUserInfo() {
+        return mRemoteDataSource.getUserInfo();
+    }
 }

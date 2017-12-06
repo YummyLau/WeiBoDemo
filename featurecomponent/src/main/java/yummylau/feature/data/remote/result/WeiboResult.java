@@ -1,4 +1,4 @@
-package yummylau.feature.repository.remote.api;
+package yummylau.feature.data.remote.result;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,10 +1,10 @@
-package yummylau.feature.repository.remote.api;
+package yummylau.feature.data.remote.result;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import yummylau.feature.repository.local.db.entity.StatusEntity;
+import yummylau.feature.data.local.db.entity.StatusEntity;
 
 /**
  * Created by g8931 on 2017/12/5.

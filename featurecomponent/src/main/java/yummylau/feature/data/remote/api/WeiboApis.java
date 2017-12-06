@@ -1,11 +1,11 @@
-package yummylau.feature.repository.remote.api;
+package yummylau.feature.data.remote.api;
 
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
 import rx.Observable;
-import yummylau.feature.repository.local.db.entity.UserEntity;
+import yummylau.feature.data.local.db.entity.UserEntity;
+import yummylau.feature.data.remote.result.StatusResult;
 
 /**
  * Created by g8931 on 2017/11/24.

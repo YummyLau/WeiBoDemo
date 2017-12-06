@@ -1,16 +1,13 @@
-package yummylau.feature;
+package yummylau.feature.videmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
-import com.google.common.base.Preconditions;
-
-import yummylau.feature.repository.FeatureRepository;
-import yummylau.feature.repository.LocalDataSource;
-import yummylau.feature.repository.RemoteDataSource;
-import yummylau.feature.repository.local.db.AppDataBase;
-import yummylau.feature.videmodel.MainFragmentModel;
+import yummylau.feature.data.FeatureRepository;
+import yummylau.feature.data.local.LocalDataSource;
+import yummylau.feature.data.remote.RemoteDataSource;
+import yummylau.feature.data.local.db.AppDataBase;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -49,8 +46,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(MainFragmentModel.class)) {
-            return (T) new MainFragmentModel(mApplication, mFeatureRepository);
+        if (modelClass.isAssignableFrom(MainViewModel.class)) {
+            return (T) new MainViewModel(mApplication, mFeatureRepository);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }

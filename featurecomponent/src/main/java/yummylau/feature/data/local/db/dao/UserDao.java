@@ -1,4 +1,4 @@
-package yummylau.feature.repository.local.db.dao;
+package yummylau.feature.data.local.db.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -6,7 +6,7 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
-import yummylau.feature.repository.local.db.entity.UserEntity;
+import yummylau.feature.data.local.db.entity.UserEntity;
 
 
 /**

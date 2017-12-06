@@ -2,8 +2,8 @@ package yummylau.feature.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-import yummylau.feature.repository.local.db.entity.StatusEntity;
-import yummylau.feature.repository.local.db.entity.UserEntity;
+import yummylau.feature.data.local.db.entity.StatusEntity;
+import yummylau.feature.data.local.db.entity.UserEntity;
 
 
 /**

@@ -11,8 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import yummylau.feature.R;
-import yummylau.feature.repository.local.db.entity.StatusEntity;
-import yummylau.feature.view.MainActivity;
+import yummylau.feature.data.local.db.entity.StatusEntity;
 
 /**
  * 微博adapter
@@ -28,10 +27,11 @@ public class StatusListAdapter extends BaseQuickAdapter<StatusEntity, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, StatusEntity item) {
         Glide.with(mContext)
-                .load(item.user.profileImageUrl)
+                .load(item.user.avatarLarge)
                 .into((ImageView) helper.getView(R.id.avatar));
         helper.setText(R.id.nick, item.user.name);
         helper.setText(R.id.create_time, item.created_at);
         helper.setText(R.id.content, item.text);
+        helper.setText(R.id.device_info, item.text);
     }
 }

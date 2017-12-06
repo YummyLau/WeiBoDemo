@@ -1,6 +1,5 @@
-package yummylau.feature.repository.local.db.entity;
+package yummylau.feature.data.local.db.entity;
 
-import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 

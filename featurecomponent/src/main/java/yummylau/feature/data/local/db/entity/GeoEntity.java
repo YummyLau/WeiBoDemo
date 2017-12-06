@@ -1,4 +1,4 @@
-package yummylau.feature.repository.local.db.entity;
+package yummylau.feature.data.local.db.entity;
 
 import android.arch.persistence.room.Entity;
 
