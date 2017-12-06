@@ -15,7 +15,7 @@ def pagingRuntimeVersion = "1.0.0-alpha3"
 
 
 
-def supportVersion = "27.0.0"
+def supportVersion = "27.0.2"
 def arouterApiVersion = "1.2.4"
 def arouterCompilerVersion = "1.1.4"
 def rxJavaAndroidVersion = "1.2.1"

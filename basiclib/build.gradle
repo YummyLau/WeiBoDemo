@@ -41,6 +41,7 @@ dependencies {
     api rootProject.ext.dependencies["support-v4"]
     api rootProject.ext.dependencies["appcompat-v7"]
     api rootProject.ext.dependencies["design"]
+    api rootProject.ext.dependencies["cardview"]
 
     //rx
     api rootProject.ext.dependencies["rx-java"]

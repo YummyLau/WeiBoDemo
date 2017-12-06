@@ -52,10 +52,19 @@ Module可以包含创建类实例的方法，这些方法用Provides来标注
 MD快速导入插件    https://github.com/konifar/android-material-design-icon-generator-plugin
 无设计开发漂亮app  https://www.race604.com/develpor-beautiful-app-without-ps/
 卡片风格设计 http://blog.csdn.net/ygilove/article/details/57077745
+cardview 入门： http://yifeng.studio/2016/10/18/android-cardview/
+
+https://github.com/Mike-bel/MDStudySamples  md重点学习
+
+
 https://www.materialpalette.com/icons
 http://www.iconfont.cn/
 https://material.io/icons/
 htps://medium.com/uxabc/designing-for-different-platforms-dc0d40eb18c3t
 http://next.36kr.com/posts/collections/200
 
+
+androidlibrary
+https://github.com/navasmdc/MaterialDesignLibrary
+https://github.com/florent37/MaterialViewPager
 
