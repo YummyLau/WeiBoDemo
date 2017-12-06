@@ -20,6 +20,7 @@ import java.util.List;
 
 import yummylau.common.CommonViewPagerAdapter;
 import yummylau.feature.R;
+import yummylau.feature.ViewModelFactory;
 import yummylau.feature.databinding.FeatureFragmentMainLayoutBinding;
 import yummylau.feature.repository.local.db.entity.StatusEntity;
 import yummylau.feature.videmodel.MainFragmentModel;
@@ -43,7 +44,10 @@ public class MainFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.feature_fragment_main_layout, null, false);
+        final View root = inflater.inflate(R.layout.feature_fragment_main_layout, container, false);
+        if (mBinding == null) {
+            mBinding = FeatureFragmentMainLayoutBinding.bind(root);
+        }
         initView();
         initViewModel();
         return mBinding.getRoot();
@@ -64,9 +68,7 @@ public class MainFragment extends Fragment {
 
     private void initViewModel() {
 
-        MainFragmentModel.Factory factory = new MainFragmentModel
-                .Factory(getActivity().getApplication());
-        mModel = ViewModelProviders.of(this, factory).get(MainFragmentModel.class);
+        mModel = ViewModelProviders.of(this, ViewModelFactory.getInstance(getActivity().getApplication())).get(MainFragmentModel.class);
 
         mModel.getAllStatus().observe(this, new Observer<List<StatusEntity>>() {
             @Override
@@ -77,6 +79,11 @@ public class MainFragment extends Fragment {
                 }
             }
         });
-        mModel.fetchData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mModel.start();
     }
 }

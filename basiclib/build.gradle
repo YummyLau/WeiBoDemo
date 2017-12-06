@@ -74,6 +74,7 @@ dependencies {
     api rootProject.ext.dependencies["baseRecyclerViewAdapterHelper"]
 
     api rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["guaua"]
 
 
     implementation project(':basicres')

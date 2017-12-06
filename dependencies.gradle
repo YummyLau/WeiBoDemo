@@ -44,6 +44,7 @@ def stethoOkhttp3Version = "1.5.0"
 
 def baseRecyclerViewAdapterHelper = "2.9.30"
 def glideVersion = "4.4.0"
+def guauaVersion = "22.0-android"
 
 
 project.ext {
@@ -114,5 +115,6 @@ project.ext {
 
             "glide"                        : "com.github.bumptech.glide:glide:${glideVersion}",
             "glideCompiler"                : "com.github.bumptech.glide:compiler:${glideVersion}",
+            "guaua"                        : "com.google.guava:guava:${guauaVersion}",
     ]
 }

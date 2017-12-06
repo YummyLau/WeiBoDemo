@@ -1,0 +1,57 @@
+package yummylau.feature;
+
+import android.app.Application;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
+
+import com.google.common.base.Preconditions;
+
+import yummylau.feature.repository.FeatureRepository;
+import yummylau.feature.repository.LocalDataSource;
+import yummylau.feature.repository.RemoteDataSource;
+import yummylau.feature.repository.local.db.AppDataBase;
+import yummylau.feature.videmodel.MainFragmentModel;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
+/**
+ * Created by g8931 on 2017/12/6.
+ */
+
+public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+
+    private static volatile ViewModelFactory INSTANCE;
+    private final Application mApplication;
+    private final FeatureRepository mFeatureRepository;
+
+    private ViewModelFactory(Application application, FeatureRepository repository) {
+        mApplication = application;
+        mFeatureRepository = repository;
+    }
+
+
+    public static ViewModelFactory getInstance(Application application) {
+        checkNotNull(application);
+        if (INSTANCE == null) {
+            synchronized (ViewModelFactory.class) {
+                if (INSTANCE == null) {
+                    AppDataBase appDataBase = AppDataBase.getInstance(application);
+                    FeatureRepository featureRepository = FeatureRepository.getInstance(
+                            RemoteDataSource.getInstance(application),
+                            LocalDataSource.getInstance()
+                    );
+                    INSTANCE = new ViewModelFactory(application, featureRepository);
+                }
+            }
+        }
+        return INSTANCE;
+    }
+
+    @Override
+    public <T extends ViewModel> T create(Class<T> modelClass) {
+        if (modelClass.isAssignableFrom(MainFragmentModel.class)) {
+            return (T) new MainFragmentModel(mApplication, mFeatureRepository);
+        }
+        throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
+    }
+}

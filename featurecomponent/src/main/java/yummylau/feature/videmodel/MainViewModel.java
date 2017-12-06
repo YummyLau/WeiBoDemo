@@ -16,18 +16,15 @@ import com.alibaba.android.arouter.launcher.ARouter;
 
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import yummylau.common.bus.CommonBizLogin.ModuleAccountFuns;
 import yummylau.common.net.HttpManager;
 import yummylau.common.net.HttpParam;
 import yummylau.componentlib.router.RouterManager;
 import yummylau.componentservice.bean.Token;
 import yummylau.componentservice.interfaces.IAccountService;
 import yummylau.feature.repository.MainRepository;
-import yummylau.feature.repository.local.db.DBManager;
 import yummylau.feature.repository.local.db.entity.UserEntity;
 import yummylau.feature.repository.remote.api.WeiboApis;
 

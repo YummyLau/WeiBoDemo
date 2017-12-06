@@ -27,6 +27,22 @@ accountcomponent   featurecomponent
 架构
 使用全新的谷歌架构实现
 lifecycle room
+https://medium.com/google-developers/viewmodels-and-livedata-patterns-antipatterns-21efaef74a54
+1. 使用数据仓库：远端数据，本地数据，内存缓存。建议使用分离独立的单例仓库类来处理数据业务
+
+依赖注入框架
+1. dragger2
+http://www.jianshu.com/p/cd2c1c9f68d4
+Inject主要是用来标注目标类的依赖和依赖的构造函数
+Component它是一个桥梁，一端是目标类，另一端是目标类所依赖类的实例，它也是注入器（Injector）负责把目标类所依赖类的实例注入到目标类中，同时它也管理Module。
+Module和Provides是为解决第三方类库而生的，Module是一个简单工厂模式
+Module可以包含创建类实例的方法，这些方法用Provides来标注
+2. 查找顺序：优先查找module暴露的依赖，其次再查找Inject注解的依赖
+3. 如果实例化对象存在多个方法呢，需要用Qualifier注解解决依赖注入迷失
+
+
+
+
 
 设计风格
 快速开发MD设计    https://zhuanlan.zhihu.com/p/20870983
