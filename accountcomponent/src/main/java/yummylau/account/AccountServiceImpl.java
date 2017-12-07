@@ -11,7 +11,11 @@ import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 import io.reactivex.Flowable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import yummylau.account.rxjava.ConsumerThrowable;
+import yummylau.common.view.RoundedDrawable;
+import yummylau.componentlib.router.RouterManager;
 import yummylau.componentservice.exception.TokenInvalidException;
 import yummylau.componentservice.interfaces.IAccountService;
 import yummylau.componentservice.bean.Token;
@@ -31,11 +35,19 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public Flowable<Token> getToken() {
+        return getToken(false);
+    }
+
+    @Override
+    public Flowable<Token> getToken(final boolean checkInvalid) {
         return Flowable.just(AccessTokenKeeper.readAccessToken(getApplication()))
                 .map(new Function<Oauth2AccessToken, Token>() {
                     @Override
                     public Token apply(Oauth2AccessToken oauth2AccessToken) throws Exception {
                         if (!oauth2AccessToken.isSessionValid()) {
+                            if (checkInvalid) {
+                                RouterManager.navigation(getLoginPath());
+                            }
                             throw new TokenInvalidException();
                         }
                         Token token = new Token();
@@ -52,6 +64,12 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public String getLoginPath() {
         return Constants.ROUTER_LOGIN;
+    }
+
+
+    @Override
+    public Consumer<Throwable> CreateConsumerThrowable(Consumer<Throwable> consumer) {
+        return new ConsumerThrowable(consumer);
     }
 
     @Override

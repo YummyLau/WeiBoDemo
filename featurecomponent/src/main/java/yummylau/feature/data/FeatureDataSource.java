@@ -11,13 +11,9 @@ import yummylau.feature.data.local.db.entity.UserEntity;
  */
 public interface FeatureDataSource {
 
-    /**
-     * 获取已关注微博
-     **/
     Flowable<List<StatusEntity>> getFollowedStatus();
 
-    /**
-     * 获取用户信息
-     **/
     Flowable<UserEntity> getUserInfo(long uid);
+
+    Flowable<UserEntity> getOwnInfo();
 }

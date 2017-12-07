@@ -16,7 +16,7 @@ public interface WeiboApis {
     String BASE_URL = "https://api.weibo.com/";
 
     @GET("2/users/show.json")
-    Flowable<UserEntity> getUser(@Query("access_token") String token, @Query("uid") int id);
+    Flowable<UserEntity> getUser(@Query("access_token") String token, @Query("uid") long id);
 
     @GET("2/statuses/home_timeline.json")
     Flowable<StatusResult> getAllStatus(@Query("access_token") String token);

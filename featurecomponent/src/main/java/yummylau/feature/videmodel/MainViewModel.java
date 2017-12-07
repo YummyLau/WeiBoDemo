@@ -11,9 +11,11 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
 
 import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscription;
 
 import java.util.List;
 
+import io.reactivex.FlowableSubscriber;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -55,13 +57,7 @@ public class MainViewModel extends AndroidViewModel {
 
 
     public void loadUserInfo() {
-        accountService.getToken()
-                .flatMap(new Function<Token, Publisher<UserEntity>>() {
-                    @Override
-                    public Publisher<UserEntity> apply(Token token) throws Exception {
-                        return mRepository.getUserInfo(token.uid);
-                    }
-                })
+        mRepository.getOwnInfo()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<UserEntity>() {
@@ -72,7 +68,7 @@ public class MainViewModel extends AndroidViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        throwable.getMessage();
                     }
                 });
     }
@@ -86,24 +82,24 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void fetchData() {
-//        dataLoading.set(true);
-//        mRepository.getAllStatus()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<List<StatusEntity>>() {
-//                    @Override
-//                    public void accept(List<StatusEntity> statusEntities) throws Exception {
-//                        error.set(false);
-//                        dataLoading.set(false);
-//                        mAllStatus.setValue(statusEntities);
-//                    }
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Exception {
-//                        error.set(true);
-//                        dataLoading.set(false);
-//                    }
-//                });
+        dataLoading.set(true);
+        mRepository.getFollowedStatus()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<StatusEntity>>() {
+                    @Override
+                    public void accept(List<StatusEntity> statusEntities) throws Exception {
+                        error.set(false);
+                        dataLoading.set(false);
+                        mAllStatus.setValue(statusEntities);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        error.set(true);
+                        dataLoading.set(false);
+                    }
+                });
     }
 
 }

@@ -6,6 +6,8 @@ import android.content.Context;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
 
+import org.reactivestreams.Publisher;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,74 +59,68 @@ public class RemoteDataSource implements FeatureDataSource {
 
     @Override
     public Flowable<List<StatusEntity>> getFollowedStatus() {
-        return null;
+        return accountService.getToken(true)
+                .flatMap(new Function<Token, Publisher<List<StatusEntity>>>() {
+
+                    @Override
+                    public Publisher<List<StatusEntity>> apply(Token token) throws Exception {
+                        return HttpManager.create(HttpParamCreator.create(), WeiboApis.class)
+                                .getAllStatus(token.accessToken)
+                                .map(new Function<StatusResult, List<StatusEntity>>() {
+                                    @Override
+                                    public List<StatusEntity> apply(StatusResult statusResult) throws Exception {
+                                        if (statusResult != null && statusResult.statusList != null) {
+                                            return statusResult.statusList;
+                                        }
+                                        return null;
+                                    }
+                                });
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .doOnNext(new Consumer<List<StatusEntity>>() {
+                    @Override
+                    public void accept(List<StatusEntity> statusEntities) throws Exception {
+                        mAppDataBase.statusDao().insertStatusEntities(statusEntities);
+                    }
+                });
     }
 
     @Override
-    public Flowable<UserEntity> getUserInfo(long uid) {
-        return null;
+    public Flowable<UserEntity> getUserInfo(final long uid) {
+        return accountService.getToken(true)
+                .flatMap(new Function<Token, Publisher<UserEntity>>() {
+                    @Override
+                    public Publisher<UserEntity> apply(Token token) throws Exception {
+                        return HttpManager.create(HttpParamCreator.create(), WeiboApis.class)
+                                .getUser(token.accessToken, uid);
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .doOnNext(new Consumer<UserEntity>() {
+                    @Override
+                    public void accept(UserEntity userEntity) throws Exception {
+                        mAppDataBase.userDao().insertUser(userEntity);
+                    }
+                });
     }
-//
-//    @Override
-//    public Flowable<List<StatusEntity>> getAllStatus() {
-//        HttpParam httpParam =
-//                new HttpParam.Builder()
-//                        .baseUrl(WeiboApis.BASE_URL)
-//                        .callAdatperFactory(RxJava2CallAdapterFactory.create())
-//                        .converterFactory(GsonConverterFactory.create())
-//                        .build();
-//        Token token = accountService.getToken(mContext);
-//        if (token.accessToken == null) {
-//            RouterManager.navigation(accountService.getLoginPath());
-//        }
-//        return HttpManager.create(httpParam, WeiboApis.class)
-//                .getAllStatus(accountService.getToken(mContext).accessToken)
-//                .map(new Function<StatusResult, List<StatusEntity>>() {
-//                    @Override
-//                    public List<StatusEntity> apply(StatusResult statusResult) throws Exception {
-//                        if (statusResult != null && statusResult.statusList != null) {
-//                            return statusResult.statusList;
-//                        }
-//                        return null;
-//                    }
-//                })
-//                .observeOn(Schedulers.io())
-//                .doOnNext(new Consumer<List<StatusEntity>>() {
-//                    @Override
-//                    public void accept(List<StatusEntity> statusEntities) throws Exception {
-//                        mAppDataBase.statusDao().insertStatusEntities(statusEntities);
-//                    }
-//                });
-//    }
-//
-//    @Override
-//    public Flowable<List<UserEntity>> getUserInfo() {
-//        HttpParam httpParam =
-//                new HttpParam.Builder()
-//                        .baseUrl(WeiboApis.BASE_URL)
-//                        .callAdatperFactory(RxJava2CallAdapterFactory.create())
-//                        .converterFactory(GsonConverterFactory.create())
-//                        .build();
-//        Token token = accountService.getToken(mContext);
-//        if (token.accessToken == null) {
-//            RouterManager.navigation(accountService.getLoginPath());
-//        }
-//        return HttpManager.create(httpParam, WeiboApis.class)
-//                .getUser(accountService.getToken(mContext).accessToken, accountService.getToken(mContext).uid)
-//                .map(new Function<UserEntity, List<UserEntity>>() {
-//                    @Override
-//                    public List<UserEntity> apply(UserEntity userEntity) throws Exception {
-//                        List<UserEntity> entities = new ArrayList<>();
-//                        entities.add(userEntity);
-//                        return entities;
-//                    }
-//                })
-//                .observeOn(Schedulers.io())
-//                .doOnNext(new Consumer<List<UserEntity>>() {
-//                    @Override
-//                    public void accept(List<UserEntity> userEntity) throws Exception {
-//                        mAppDataBase.userDao().insertUser(userEntity);
-//                    }
-//                });
-//    }
+
+    @Override
+    public Flowable<UserEntity> getOwnInfo() {
+        return accountService.getToken(true)
+                .flatMap(new Function<Token, Publisher<UserEntity>>() {
+                    @Override
+                    public Publisher<UserEntity> apply(Token token) throws Exception {
+                        return HttpManager.create(HttpParamCreator.create(), WeiboApis.class)
+                                .getUser(token.accessToken, token.uid);
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .doOnNext(new Consumer<UserEntity>() {
+                    @Override
+                    public void accept(UserEntity userEntity) throws Exception {
+                        mAppDataBase.userDao().insertUser(userEntity);
+                    }
+                });
+    }
 }
