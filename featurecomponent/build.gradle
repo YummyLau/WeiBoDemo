@@ -1,6 +1,6 @@
-if(rootProject.ext.module.openModuleB.toBoolean()){
+if (rootProject.ext.module.openModuleB.toBoolean()) {
     apply plugin: 'com.android.library'
-}else{
+} else {
     apply plugin: 'com.android.application'
 }
 
@@ -26,7 +26,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
+                arguments = [moduleName: project.getName()]
             }
         }
     }
@@ -58,8 +58,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    annotationProcessor rootProject.ext.dependencies["lifecycleCompiler"]
-    annotationProcessor rootProject.ext.dependencies["roomCompiler"]
-    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+    annotationProcessor deps.arouter.compiler
+    annotationProcessor deps.lifecycle.compiler
+    annotationProcessor deps.room.compiler
+    annotationProcessor deps.glideCompiler
     implementation project(':componentservice')
 }

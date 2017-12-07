@@ -82,6 +82,8 @@ public class MainActivity extends BaseActivity {
     }
 
 
+
+
     public static MainViewModel obtainViewModel(FragmentActivity activity) {
         ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
         MainViewModel viewModel =

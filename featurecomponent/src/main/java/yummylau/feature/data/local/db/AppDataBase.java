@@ -5,16 +5,19 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import yummylau.feature.data.local.db.dao.StatusDao;
 import yummylau.feature.data.local.db.dao.UserDao;
+import yummylau.feature.data.local.db.entity.StatusEntity;
 import yummylau.feature.data.local.db.entity.UserEntity;
 
 /**
  * Created by g8931 on 2017/12/4.
  */
-@Database(entities = {UserEntity.class}, version = 1)
+@Database(entities = {UserEntity.class, StatusEntity.class}, version = 1)
 public abstract class AppDataBase extends RoomDatabase {
 
     public abstract UserDao userDao();
+    public abstract StatusDao statusDao();
 
     private static final Object sLock = new Object();
     private static AppDataBase INSTANCE;

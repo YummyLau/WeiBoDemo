@@ -2,6 +2,7 @@ package yummylau.feature.data.local.db.entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -18,6 +19,7 @@ public class StatusEntity {
     public String created_at;
 
     //微博ID
+    @PrimaryKey
     @SerializedName("id")
     public long id;
 

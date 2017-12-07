@@ -1,10 +1,9 @@
 package yummylau.common.net;
 
-import android.util.ArrayMap;
 
 import retrofit2.CallAdapter;
 import retrofit2.Converter;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 /**
  * Created by g8931 on 2017/11/14.
@@ -43,7 +42,7 @@ public class HttpParam {
         String baseUrl;
         boolean supportCache;
         Converter.Factory converterFactory;
-        CallAdapter.Factory callAdapterFactory = RxJavaCallAdapterFactory.create();
+        CallAdapter.Factory callAdapterFactory = RxJava2CallAdapterFactory.create();
 
         public Builder baseUrl(String baseUrl) {
             this.baseUrl = baseUrl;

@@ -62,5 +62,5 @@ dependencies {
         implementation project(':featurecomponent')
     }
 
-    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+    annotationProcessor deps.arouter.compiler
 }

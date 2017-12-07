@@ -24,7 +24,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["support-v4"]
-    implementation rootProject.ext.dependencies["design"]
+    implementation deps.support.v4
+    implementation deps.support.app_compat
+    implementation deps.support.design
+    implementation deps.support.recyclerview
+    implementation deps.support.cardview
 }

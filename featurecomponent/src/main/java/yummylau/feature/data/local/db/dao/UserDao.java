@@ -1,11 +1,14 @@
 package yummylau.feature.data.local.db.dao;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import yummylau.feature.data.local.db.entity.UserEntity;
 
 
@@ -16,5 +19,8 @@ import yummylau.feature.data.local.db.entity.UserEntity;
 public interface UserDao {
 
     @Query("SELECT * FROM user_table")
-    LiveData<List<UserEntity>> getUsers();
+    Flowable<List<UserEntity>> getUsers();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long[] insertUser(List<UserEntity> user);
 }

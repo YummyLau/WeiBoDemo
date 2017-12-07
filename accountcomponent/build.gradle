@@ -61,9 +61,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    annotationProcessor rootProject.ext.dependencies["lifecycleCompiler"]
-    annotationProcessor rootProject.ext.dependencies["roomCompiler"]
-    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+    annotationProcessor deps.arouter.compiler
+    annotationProcessor deps.lifecycle.compiler
+    annotationProcessor deps.room.compiler
 
     implementation 'com.sina.weibo.sdk:core:2.0.3:openDefaultRelease@aar'
     implementation project(':componentservice')

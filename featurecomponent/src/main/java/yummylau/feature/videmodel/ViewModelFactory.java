@@ -34,8 +34,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
                 if (INSTANCE == null) {
                     AppDataBase appDataBase = AppDataBase.getInstance(application);
                     FeatureRepository featureRepository = FeatureRepository.getInstance(
-                            RemoteDataSource.getInstance(application),
-                            LocalDataSource.getInstance()
+                            RemoteDataSource.getInstance(application, appDataBase),
+                            LocalDataSource.getInstance(appDataBase)
                     );
                     INSTANCE = new ViewModelFactory(application, featureRepository);
                 }

@@ -27,9 +27,10 @@ public class StatusListAdapter extends BaseQuickAdapter<StatusEntity, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, StatusEntity item) {
         Glide.with(mContext)
-                .load(item.user.avatarLarge)
+//                .load(item.user.avatarLarge)
+                .load("https://img1.doubanio.com/img/musician/large/22817.jpg")
                 .into((ImageView) helper.getView(R.id.avatar));
-        helper.setText(R.id.nick, item.user.name);
+        helper.setText(R.id.nick, "xxxxx");
         helper.setText(R.id.create_time, item.created_at);
         helper.setText(R.id.content, item.text);
         helper.setText(R.id.device_info, item.text);

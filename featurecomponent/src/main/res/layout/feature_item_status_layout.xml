@@ -7,6 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
         android:clickable="true"
         android:foreground="?selectableItemBackground"
         android:stateListAnimator="@animator/lift_on_touch"
@@ -17,12 +18,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
+
             <yummylau.common.view.RoundedImageView
                 android:id="@+id/avatar"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
                 app:oval="true"
                 app:srcCompat="@color/colorAccent" />
 
