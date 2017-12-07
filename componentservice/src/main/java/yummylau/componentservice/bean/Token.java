@@ -10,7 +10,7 @@ public class Token {
     public int uid;
     public String accessToken;
     public String refreshToken;
-    public long expiresTime;
+    public long expiresTime;        //accessToken生命周期
     public String phoneNum;
 
 }

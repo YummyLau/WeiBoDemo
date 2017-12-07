@@ -3,6 +3,7 @@ package yummylau.componentservice.interfaces;
 import android.content.Context;
 
 
+import io.reactivex.Flowable;
 import yummylau.componentlib.service.IService;
 import yummylau.componentservice.bean.Token;
 
@@ -16,5 +17,6 @@ public interface IAccountService extends IService {
 
     String getLoginPath();
 
-    Token getToken(Context context);
+    Flowable<Token> getToken();
+
 }

@@ -5,7 +5,6 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -18,9 +17,12 @@ import yummylau.feature.data.local.db.entity.UserEntity;
 @Dao
 public interface UserDao {
 
-    @Query("SELECT * FROM user_table")
-    Flowable<List<UserEntity>> getUsers();
+    @Query("SELECT * FROM " + UserEntity.TABLE_NAME + " WHERE " + UserEntity.COLUMN_ID_NAME + " = :uid")
+    Flowable<UserEntity> getUserById(long uid);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long[] insertUser(List<UserEntity> user);
+    long insertUser(UserEntity user);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long[] insertUsers(List<UserEntity> user);
 }

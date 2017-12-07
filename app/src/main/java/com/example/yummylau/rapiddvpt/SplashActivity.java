@@ -35,6 +35,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+
         super.onDestroy();
     }
 }

@@ -10,6 +10,9 @@ import com.sina.weibo.sdk.auth.AccessTokenKeeper;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
+import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
+import yummylau.componentservice.exception.TokenInvalidException;
 import yummylau.componentservice.interfaces.IAccountService;
 import yummylau.componentservice.bean.Token;
 
@@ -20,20 +23,31 @@ import yummylau.componentservice.bean.Token;
 @Route(path = IAccountService.SERVICE_NAME)
 public class AccountServiceImpl implements IAccountService {
 
-    @Override
-    public Token getToken(Context context) {
-        Oauth2AccessToken accessToken = AccessTokenKeeper.readAccessToken(context);
-        Token token = new Token();
-        if (accessToken.isSessionValid()) {
-            token.uid = Integer.valueOf(accessToken.getUid());
-            token.accessToken = accessToken.getToken();
-            token.refreshToken = accessToken.getRefreshToken();
-            token.expiresTime = accessToken.getExpiresTime();
-            token.phoneNum = accessToken.getPhoneNum();
-        }
-        return token;
+    private Application mApplication;
+
+    public Application getApplication() {
+        return mApplication;
     }
 
+    @Override
+    public Flowable<Token> getToken() {
+        return Flowable.just(AccessTokenKeeper.readAccessToken(getApplication()))
+                .map(new Function<Oauth2AccessToken, Token>() {
+                    @Override
+                    public Token apply(Oauth2AccessToken oauth2AccessToken) throws Exception {
+                        if (!oauth2AccessToken.isSessionValid()) {
+                            throw new TokenInvalidException();
+                        }
+                        Token token = new Token();
+                        token.uid = Integer.valueOf(oauth2AccessToken.getUid());
+                        token.accessToken = oauth2AccessToken.getToken();
+                        token.refreshToken = oauth2AccessToken.getRefreshToken();
+                        token.expiresTime = oauth2AccessToken.getExpiresTime();
+                        token.phoneNum = oauth2AccessToken.getPhoneNum();
+                        return token;
+                    }
+                });
+    }
 
     @Override
     public String getLoginPath() {
@@ -47,6 +61,7 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public void createAsLibrary(Application application) {
+        mApplication = application;
         WbSdk.install(application, new AuthInfo(application, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE));
     }
 }

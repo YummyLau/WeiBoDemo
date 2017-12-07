@@ -1,8 +1,5 @@
 package yummylau.account;
 
-
-import android.content.Context;
-
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.auth.AuthInfo;

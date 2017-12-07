@@ -52,34 +52,44 @@ public class FeatureRepository implements FeatureDataSource {
     }
 
     @Override
-    public Flowable<List<StatusEntity>> getAllStatus() {
-        return mLocalDataSource.getAllStatus()
-                .flatMap(new Function<List<StatusEntity>, Publisher<List<StatusEntity>>>() {
-                    @Override
-                    public Publisher<List<StatusEntity>> apply(List<StatusEntity> statusEntities) throws Exception {
-                        if (statusEntities == null || statusEntities.isEmpty()) {
-                            Log.d(TAG, "#getAllStatus()  ->  get data by remote");
-                            return mRemoteDataSource.getAllStatus();
-                        }
-                        Log.d(TAG, "#getAllStatus()  ->  get data by local");
-                        return Flowable.just(statusEntities);
-                    }
-                });
+    public Flowable<List<StatusEntity>> getFollowedStatus() {
+        return null;
     }
 
     @Override
-    public Flowable<List<UserEntity>> getUserInfo() {
-        return mLocalDataSource.getUserInfo()
-                .flatMap(new Function<List<UserEntity>, Publisher<List<UserEntity>>>() {
-                    @Override
-                    public Publisher<List<UserEntity>> apply(List<UserEntity> userEntity) throws Exception {
-                        if (userEntity == null || userEntity.isEmpty()) {
-                            Log.d(TAG, "#getUserInfo()  ->  get data by remote");
-                            return mRemoteDataSource.getUserInfo();
-                        }
-                        Log.d(TAG, "#getUserInfo()  ->  get data by local");
-                        return Flowable.just(userEntity);
-                    }
-                });
+    public Flowable<UserEntity> getUserInfo(long uid) {
+        return null;
     }
+
+//    @Override
+//    public Flowable<List<StatusEntity>> getAllStatus() {
+//        return mLocalDataSource.getAllStatus()
+//                .flatMap(new Function<List<StatusEntity>, Publisher<List<StatusEntity>>>() {
+//                    @Override
+//                    public Publisher<List<StatusEntity>> apply(List<StatusEntity> statusEntities) throws Exception {
+//                        if (statusEntities == null || statusEntities.isEmpty()) {
+//                            Log.d(TAG, "#getAllStatus()  ->  get data by remote");
+//                            return mRemoteDataSource.getAllStatus();
+//                        }
+//                        Log.d(TAG, "#getAllStatus()  ->  get data by local");
+//                        return Flowable.just(statusEntities);
+//                    }
+//                });
+//    }
+//
+//    @Override
+//    public Flowable<List<UserEntity>> getUserInfo() {
+//        return mLocalDataSource.getUserInfo()
+//                .flatMap(new Function<List<UserEntity>, Publisher<List<UserEntity>>>() {
+//                    @Override
+//                    public Publisher<List<UserEntity>> apply(List<UserEntity> userEntity) throws Exception {
+//                        if (userEntity == null || userEntity.isEmpty()) {
+//                            Log.d(TAG, "#getUserInfo()  ->  get data by remote");
+//                            return mRemoteDataSource.getUserInfo();
+//                        }
+//                        Log.d(TAG, "#getUserInfo()  ->  get data by local");
+//                        return Flowable.just(userEntity);
+//                    }
+//                });
+//    }
 }

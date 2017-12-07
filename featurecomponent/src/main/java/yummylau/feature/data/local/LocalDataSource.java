@@ -4,8 +4,6 @@ package yummylau.feature.data.local;
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import yummylau.feature.data.FeatureDataSource;
 import yummylau.feature.data.local.db.AppDataBase;
 import yummylau.feature.data.local.db.entity.StatusEntity;
@@ -31,13 +29,14 @@ public class LocalDataSource implements FeatureDataSource {
         return INSTANCE;
     }
 
+
     @Override
-    public Flowable<List<StatusEntity>> getAllStatus() {
+    public Flowable<List<StatusEntity>> getFollowedStatus() {
         return mAppDataBase.statusDao().getStatus();
     }
 
     @Override
-    public Flowable<List<UserEntity>> getUserInfo() {
-        return mAppDataBase.userDao().getUsers();
+    public Flowable<UserEntity> getUserInfo(long uid) {
+        return mAppDataBase.userDao().getUserById(uid);
     }
 }

@@ -6,31 +6,35 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableBoolean;
 import android.support.annotation.NonNull;
 
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
+
+import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.launcher.ARouter;
+
+import org.reactivestreams.Publisher;
 
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import yummylau.componentservice.bean.Token;
+import yummylau.componentservice.interfaces.IAccountService;
 import yummylau.feature.data.FeatureRepository;
 import yummylau.feature.data.local.db.entity.StatusEntity;
 import yummylau.feature.data.local.db.entity.UserEntity;
-import yummylau.feature.data.remote.result.StatusResult;
 
 /**
  * Created by g8931 on 2017/12/5.
  */
-
 public class MainViewModel extends AndroidViewModel {
 
-
-    private MutableLiveData<UserEntity> ownUserInfo;
-    private MutableLiveData<List<StatusEntity>> mAllStatus;
+    @Autowired(name = IAccountService.SERVICE_NAME)
+    public IAccountService accountService;
     private FeatureRepository mRepository;
 
-
+    private final MutableLiveData<UserEntity> ownUserInfo = new MutableLiveData<>();
+    private final MutableLiveData<List<StatusEntity>> mAllStatus = new MutableLiveData<>();
     public final ObservableBoolean dataLoading = new ObservableBoolean(false);
     public final ObservableBoolean error = new ObservableBoolean(false);
 
@@ -38,8 +42,7 @@ public class MainViewModel extends AndroidViewModel {
     public MainViewModel(@NonNull Application application, FeatureRepository featureRepository) {
         super(application);
         mRepository = featureRepository;
-        mAllStatus = new MutableLiveData<>();
-        ownUserInfo = new MutableLiveData<>();
+        ARouter.getInstance().inject(this);
     }
 
     public MutableLiveData<List<StatusEntity>> getAllStatus() {
@@ -50,23 +53,26 @@ public class MainViewModel extends AndroidViewModel {
         return ownUserInfo;
     }
 
+
     public void loadUserInfo() {
-        mRepository.getUserInfo()
+        accountService.getToken()
+                .flatMap(new Function<Token, Publisher<UserEntity>>() {
+                    @Override
+                    public Publisher<UserEntity> apply(Token token) throws Exception {
+                        return mRepository.getUserInfo(token.uid);
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<UserEntity>>() {
+                .subscribe(new Consumer<UserEntity>() {
                     @Override
-                    public void accept(List<UserEntity> userEntity) throws Exception {
-                        try {
-                            ownUserInfo.setValue(userEntity.get(0));
-                        } catch (Exception e) {
-                            e.getMessage();
-                        }
+                    public void accept(UserEntity userEntity) throws Exception {
+                        ownUserInfo.setValue(userEntity);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        throwable.getMessage();
+
                     }
                 });
     }
@@ -80,24 +86,24 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void fetchData() {
-        dataLoading.set(true);
-        mRepository.getAllStatus()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<StatusEntity>>() {
-                    @Override
-                    public void accept(List<StatusEntity> statusEntities) throws Exception {
-                        error.set(false);
-                        dataLoading.set(false);
-                        mAllStatus.setValue(statusEntities);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        error.set(true);
-                        dataLoading.set(false);
-                    }
-                });
+//        dataLoading.set(true);
+//        mRepository.getAllStatus()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<List<StatusEntity>>() {
+//                    @Override
+//                    public void accept(List<StatusEntity> statusEntities) throws Exception {
+//                        error.set(false);
+//                        dataLoading.set(false);
+//                        mAllStatus.setValue(statusEntities);
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        error.set(true);
+//                        dataLoading.set(false);
+//                    }
+//                });
     }
 
 }
