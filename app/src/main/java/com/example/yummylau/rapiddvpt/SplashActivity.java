@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 
 import com.example.yummylau.rapiddvpt.databinding.AppActivitySplashLayoutBinding;
 
-import yummylau.common.activity.BaseActivity;
+import yummylau.common.activity.BaseActivityOld;
 import yummylau.componentlib.router.RouterManager;
 
 /**
@@ -16,7 +16,7 @@ import yummylau.componentlib.router.RouterManager;
  * Created by g8931 on 2017/11/28.
  */
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseActivityOld {
 
     private AppActivitySplashLayoutBinding mBinding;
 

@@ -46,8 +46,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(MainViewModel.class)) {
-            return (T) new MainViewModel(mApplication, mFeatureRepository);
+        if (modelClass.isAssignableFrom(HomeViewModel.class)) {
+            return (T) new HomeViewModel(mApplication, mFeatureRepository);
         } else if (modelClass.isAssignableFrom(FollowedViewModel.class)) {
             return (T) new FollowedViewModel(mApplication, mFeatureRepository);
         }

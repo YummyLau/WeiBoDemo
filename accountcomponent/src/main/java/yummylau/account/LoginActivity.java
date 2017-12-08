@@ -20,7 +20,7 @@ import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 
-import yummylau.common.activity.BaseActivity;
+import yummylau.common.activity.BaseActivityOld;
 import yummylau.account.databinding.AccountActivityMainLayoutBinding;
 
 
@@ -28,7 +28,7 @@ import yummylau.account.databinding.AccountActivityMainLayoutBinding;
  * Created by g8931 on 2017/11/14.
  */
 @Route(path = Constants.ROUTER_LOGIN)
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivityOld {
 
     public static final String TAG = LoginActivity.class.getSimpleName();
     private AccountActivityMainLayoutBinding mBinding;

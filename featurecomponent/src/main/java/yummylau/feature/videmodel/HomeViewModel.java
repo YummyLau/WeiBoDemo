@@ -3,6 +3,7 @@ package yummylau.feature.videmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.ObservableBoolean;
 import android.support.annotation.NonNull;
 
@@ -14,6 +15,8 @@ import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscription;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.FlowableSubscriber;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -29,7 +32,7 @@ import yummylau.feature.data.local.db.entity.UserEntity;
 /**
  * Created by g8931 on 2017/12/5.
  */
-public class MainViewModel extends AndroidViewModel {
+public class HomeViewModel extends AndroidViewModel {
 
     @Autowired(name = IAccountService.SERVICE_NAME)
     public IAccountService accountService;
@@ -38,7 +41,7 @@ public class MainViewModel extends AndroidViewModel {
     private final MutableLiveData<UserEntity> ownUserInfo = new MutableLiveData<>();
 
 
-    public MainViewModel(@NonNull Application application, FeatureRepository featureRepository) {
+    public HomeViewModel(@NonNull Application application, FeatureRepository featureRepository) {
         super(application);
         mRepository = featureRepository;
         ARouter.getInstance().inject(this);

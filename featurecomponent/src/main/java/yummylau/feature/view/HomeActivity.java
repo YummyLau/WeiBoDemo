@@ -2,6 +2,7 @@ package yummylau.feature.view;
 
 
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -24,16 +25,26 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import yummylau.common.activity.BaseActivity;
+import yummylau.common.activity.BaseActivityOld;
 import yummylau.commonres.ColorGetter;
 import yummylau.feature.Constants;
+import yummylau.feature.data.local.db.AppDataBase;
+import yummylau.feature.videmodel.HomeViewModel;
 import yummylau.feature.videmodel.ViewModelFactory;
 import yummylau.feature.databinding.FeatureActivityMainLayoutBinding;
 import yummylau.feature.data.local.db.entity.UserEntity;
-import yummylau.feature.videmodel.MainViewModel;
 import yummylau.feature.R;
 
 /**
@@ -41,32 +52,37 @@ import yummylau.feature.R;
  */
 
 @Route(path = Constants.ROUTER_MAIN)
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity<FeatureActivityMainLayoutBinding> {
 
     private static final String TAG = HomeActivity.class.getSimpleName();
-    private FeatureActivityMainLayoutBinding mBinding;
-    private MainViewModel mModel;
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+    private HomeViewModel mModel;
 
     private List<Fragment> mFragments;
     private FragmentManager mFragmentManager;
 
     @Override
+    public int getLayoutRes() {
+        return R.layout.feature_activity_main_layout;
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "activity-onCreate");
-        Log.d(TAG, "");
-        mBinding = DataBindingUtil.setContentView(this, R.layout.feature_activity_main_layout);
+        AndroidInjection.inject(this);
         mFragments = new ArrayList<>();
         mFragments.add(new FollowedFragment());
         mFragmentManager = super.getSupportFragmentManager();
         mFragmentManager.beginTransaction().replace(R.id.content_frame, mFragments.get(0), null).commit();
         initView();
-        mModel = obtainViewModel(this);
+        mModel = ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel.class);;
         mModel.getUser().observe(this, new Observer<UserEntity>() {
             @Override
             public void onChanged(@Nullable UserEntity userEntity) {
                 if (userEntity != null) {
-                    View view = mBinding.navigationLayout.getHeaderView(0);
+                    View view = dataBinding.navigationLayout.getHeaderView(0);
                     ((TextView) view.findViewById(R.id.nick)).setText(userEntity.name);
                     ((TextView) view.findViewById(R.id.status_tip)).setText(String.format(HomeActivity.this.getString(R.string.feature_weibo_count_tip), userEntity.statusesCount));
                     ((TextView) view.findViewById(R.id.follow_tip)).setText(String.format(HomeActivity.this.getString(R.string.feature_follows_count_tip), userEntity.friendsCount));
@@ -79,39 +95,77 @@ public class HomeActivity extends BaseActivity {
             }
         });
         mModel.initOwnInfo();
+        AppDataBase.getInstance(HomeActivity.this).userDao().getUsers()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<UserEntity>>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+//                        s.request(Long.MAX_VALUE);
+                        Log.d("HomeActivity", "onSubscribe");
+                    }
+
+                    @Override
+                    public void onNext(List<UserEntity> userEntities) {
+                        if (userEntities != null || !userEntities.isEmpty()) {
+                            for (UserEntity entity : userEntities) {
+                                Log.d("HomeActivity", "entity id-" + entity.id);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        Log.d("HomeActivity", "onError");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d("HomeActivity", "onComplete");
+                    }
+                });
+
+        dataBinding.postBtn.setOnClickListener(new View.OnClickListener() {
+            public int id = 1;
+
+            @Override
+            public void onClick(View view) {
+                final UserEntity userEntity = new UserEntity();
+                userEntity.id = id;
+                id++;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AppDataBase.getInstance(HomeActivity.this).userDao().insertUser(userEntity);
+                    }
+                }).start();
+            }
+        });
     }
 
 
-
-
-    public static MainViewModel obtainViewModel(FragmentActivity activity) {
-        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
-        MainViewModel viewModel =
-                ViewModelProviders.of(activity, factory).get(MainViewModel.class);
-        return viewModel;
-    }
 
     private void initView() {
-        setSupportActionBar(mBinding.toolbar);
-        mBinding.toolbar.setTitle("首页");
-        mBinding.toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorTextIcon));
+        setSupportActionBar(dataBinding.toolbar);
+        dataBinding.toolbar.setTitle("首页");
+        dataBinding.toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorTextIcon));
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,
-                mBinding.drawerLayout,
-                mBinding.toolbar,
+                dataBinding.drawerLayout,
+                dataBinding.toolbar,
                 R.string.feature_navigation_drawer_open,
                 R.string.feature_navigation_drawer_close);
-        mBinding.drawerLayout.addDrawerListener(toggle);
-        mBinding.navigationLayout.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        dataBinding.drawerLayout.addDrawerListener(toggle);
+        dataBinding.navigationLayout.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.nav_main) {
                     mFragmentManager.beginTransaction().replace(R.id.content_frame, mFragments.get(0), null).commit();
                 }
-                mBinding.drawerLayout.closeDrawers();
+                dataBinding.drawerLayout.closeDrawers();
                 return true;
             }
         });
@@ -122,7 +176,7 @@ public class HomeActivity extends BaseActivity {
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
-            mBinding.drawerLayout.openDrawer(GravityCompat.START);//打开侧滑菜单
+            dataBinding.drawerLayout.openDrawer(GravityCompat.START);//打开侧滑菜单
             return true;
         }
 
@@ -135,6 +189,6 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void setStatusBar() {
-        StatusBarUtil.setColorForDrawerLayout(this, mBinding.drawerLayout, ColorGetter.getStatusBarColor(this));
+        StatusBarUtil.setColorForDrawerLayout(this, dataBinding.drawerLayout, ColorGetter.getStatusBarColor(this));
     }
 }

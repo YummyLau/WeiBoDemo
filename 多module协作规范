@@ -48,6 +48,8 @@ Module可以包含创建类实例的方法，这些方法用Provides来标注
 2. 查找顺序：优先查找module暴露的依赖，其次再查找Inject注解的依赖
 3. 如果实例化对象存在多个方法呢，需要用Qualifier注解解决依赖注入迷失
 
+https://github.com/iammert/AndroidArchitecture 参考架构
+
 
 
 

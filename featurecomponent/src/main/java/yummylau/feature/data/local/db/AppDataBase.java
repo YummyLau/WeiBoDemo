@@ -22,7 +22,7 @@ public abstract class AppDataBase extends RoomDatabase {
 
     private static final Object sLock = new Object();
     private static AppDataBase INSTANCE;
-    private static final String DB_FILE_NAME = "feature_component.db";
+    public static final String DB_FILE_NAME = "feature_component.db";
 
     public static AppDataBase getInstance(Context context) {
         synchronized (sLock) {

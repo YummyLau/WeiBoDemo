@@ -29,6 +29,9 @@ public interface UserDao {
     @Query("SELECT * FROM " + UserEntity.TABLE_NAME + " LIMIT 1")
     Flowable<UserEntity> getUser();
 
+    @Query("SELECT * FROM " + UserEntity.TABLE_NAME)
+    Flowable<List<UserEntity>> getUsers();
+
     @Query("DELETE FROM " + UserEntity.TABLE_NAME)
     void deleteAllUsers();
 }
