@@ -17,6 +17,7 @@ import yummylau.feature.data.local.db.entity.UserEntity;
 public abstract class AppDataBase extends RoomDatabase {
 
     public abstract UserDao userDao();
+
     public abstract StatusDao statusDao();
 
     private static final Object sLock = new Object();

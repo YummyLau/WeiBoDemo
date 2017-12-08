@@ -74,7 +74,7 @@ public class FeatureRepository implements FeatureDataSource {
                 .flatMap(new Function<UserEntity, Publisher<UserEntity>>() {
                     @Override
                     public Publisher<UserEntity> apply(UserEntity userEntity) throws Exception {
-                        if (userEntity == null) {
+                        if (userEntity.isEmptyObj()) {
                             Log.d(TAG, "#getUserInfo()  ->  get data by remote");
                             return mRemoteDataSource.getUserInfo(uid);
                         }
@@ -90,7 +90,7 @@ public class FeatureRepository implements FeatureDataSource {
                 .flatMap(new Function<UserEntity, Publisher<UserEntity>>() {
                     @Override
                     public Publisher<UserEntity> apply(UserEntity userEntity) throws Exception {
-                        if (userEntity == null) {
+                        if (userEntity.isEmptyObj()) {
                             Log.d(TAG, "#getUserInfo()  ->  get data by remote");
                             return mRemoteDataSource.getOwnInfo();
                         }

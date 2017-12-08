@@ -33,6 +33,8 @@ android {
             }
         }
 
+        multiDexEnabled true
+
         //配置buildConfig变量
         buildConfigField "boolean", "BUILD_MODULE_ACCOUNT", rootProject.ext.module.openModuleAccount
         buildConfigField "boolean", "BUILD_MODULE_B", rootProject.ext.module.openModuleB

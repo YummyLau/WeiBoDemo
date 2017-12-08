@@ -1,6 +1,7 @@
 package yummylau.feature.view;
 
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,7 +16,8 @@ import java.util.List;
 import yummylau.feature.R;
 import yummylau.feature.databinding.FeatureFragmentMainLayoutBinding;
 import yummylau.feature.data.local.db.entity.StatusEntity;
-import yummylau.feature.videmodel.MainViewModel;
+import yummylau.feature.videmodel.FollowedViewModel;
+import yummylau.feature.videmodel.ViewModelFactory;
 import yummylau.feature.view.adapter.StatusListAdapter;
 
 /**
@@ -23,11 +25,11 @@ import yummylau.feature.view.adapter.StatusListAdapter;
  * Created by g8931 on 2017/12/4.
  */
 
-public class MainFragment extends Fragment {
+public class FollowedFragment extends Fragment {
 
     private FeatureFragmentMainLayoutBinding mBinding;
 
-    private MainViewModel mModel;
+    private FollowedViewModel mModel;
     private LinearLayoutManager mLinearLayoutManager;
     private StatusListAdapter mStatusListAdapter;
 
@@ -35,7 +37,8 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.feature_fragment_main_layout, container, false);
-        mModel = MainActivity.obtainViewModel(getActivity());
+        ViewModelFactory factory = ViewModelFactory.getInstance(getActivity().getApplication());
+        mModel = ViewModelProviders.of(this, factory).get(FollowedViewModel.class);
         if (mBinding == null) {
             mBinding = FeatureFragmentMainLayoutBinding.bind(root);
             mBinding.setViewmodel(mModel);
@@ -60,7 +63,7 @@ public class MainFragment extends Fragment {
         mBinding.swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mModel.fetchData();
+                mModel.start();
             }
         });
         mBinding.statusList.setAdapter(mStatusListAdapter);

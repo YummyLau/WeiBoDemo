@@ -10,8 +10,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
-import yummylau.feature.R;
 import yummylau.feature.data.local.db.entity.StatusEntity;
+import yummylau.feature.R;
 
 /**
  * 微博adapter

@@ -14,6 +14,22 @@ import com.google.gson.annotations.SerializedName;
         primaryKeys = UserEntity.COLUMN_ID_NAME)
 public class UserEntity {
 
+    @Ignore
+    private boolean emptyObj = false;
+
+    public static final UserEntity EMPTY_OBJ = new UserEntity(true);
+
+    public boolean isEmptyObj() {
+        return emptyObj;
+    }
+
+    public UserEntity(boolean emptyObj) {
+        this.emptyObj = emptyObj;
+    }
+
+    public UserEntity() {
+    }
+
     public static final String TABLE_NAME = "user_table";
 
     public static final String COLUMN_ID_NAME = "user_id";

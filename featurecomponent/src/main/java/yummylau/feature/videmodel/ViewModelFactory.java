@@ -48,6 +48,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     public <T extends ViewModel> T create(Class<T> modelClass) {
         if (modelClass.isAssignableFrom(MainViewModel.class)) {
             return (T) new MainViewModel(mApplication, mFeatureRepository);
+        } else if (modelClass.isAssignableFrom(FollowedViewModel.class)) {
+            return (T) new FollowedViewModel(mApplication, mFeatureRepository);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }

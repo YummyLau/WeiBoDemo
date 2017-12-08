@@ -1,0 +1,356 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "a8257a16f3507bcc1ea14f1f3c042e4e",
+    "entities": [
+      {
+        "tableName": "user_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER NOT NULL, `user_id_str` TEXT, `user_screen_name` TEXT, `user_name` TEXT, `user_province` INTEGER NOT NULL, `user_city` INTEGER NOT NULL, `user_location` TEXT, `user_description` TEXT, `user_url` TEXT, `user_image_url` TEXT, `user_profile_url` TEXT, `user_domain` TEXT, `user_weibao` TEXT, `user_gender` TEXT, `user_followers_count` INTEGER NOT NULL, `user_friends_count` INTEGER NOT NULL, `user_statuses_count` INTEGER NOT NULL, `user_favourites_count` INTEGER NOT NULL, `user_created_at` TEXT, `user_allow_all_act_msg` INTEGER NOT NULL, `user_geo_enable` INTEGER NOT NULL, `user_verified` INTEGER NOT NULL, `user_remark` TEXT, `user_allow_all_comment` INTEGER NOT NULL, `user_avatar_large` TEXT, `user_avatar_hd` TEXT, `user_verified_reason` TEXT, `user_follow_me` INTEGER NOT NULL, `user_online_status` INTEGER NOT NULL, `user_bi_followers_count` INTEGER NOT NULL, `user_lang` TEXT, PRIMARY KEY(`user_id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idStr",
+            "columnName": "user_id_str",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nick",
+            "columnName": "user_screen_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "user_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "province",
+            "columnName": "user_province",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "city",
+            "columnName": "user_city",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "location",
+            "columnName": "user_location",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "user_description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "user_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "profileImageUrl",
+            "columnName": "user_image_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "profile_url",
+            "columnName": "user_profile_url",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "domain",
+            "columnName": "user_domain",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "weihao",
+            "columnName": "user_weibao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "gender",
+            "columnName": "user_gender",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "followersCount",
+            "columnName": "user_followers_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "friendsCount",
+            "columnName": "user_friends_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statusesCount",
+            "columnName": "user_statuses_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "favouritesCount",
+            "columnName": "user_favourites_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "user_created_at",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "allowAllActMsg",
+            "columnName": "user_allow_all_act_msg",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "geoEnabled",
+            "columnName": "user_geo_enable",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "verified",
+            "columnName": "user_verified",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remark",
+            "columnName": "user_remark",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "allowAllComment",
+            "columnName": "user_allow_all_comment",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "avatarLarge",
+            "columnName": "user_avatar_large",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "avatarHd",
+            "columnName": "user_avatar_hd",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "verifiedReason",
+            "columnName": "user_verified_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "followMe",
+            "columnName": "user_follow_me",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "onlineStatus",
+            "columnName": "user_online_status",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "biFollowersCount",
+            "columnName": "user_bi_followers_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lang",
+            "columnName": "user_lang",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "user_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_user_table_user_id",
+            "unique": false,
+            "columnNames": [
+              "user_id"
+            ],
+            "createSql": "CREATE  INDEX `index_user_table_user_id` ON `${TABLE_NAME}` (`user_id`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "status_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`created_at` TEXT, `id` INTEGER NOT NULL, `mid` INTEGER NOT NULL, `idstr` TEXT, `text` TEXT, `source` TEXT, `favorited` INTEGER NOT NULL, `truncated` INTEGER NOT NULL, `inReplyToStatusId` TEXT, `inReplyToUserId` TEXT, `inReplyToScreenName` TEXT, `thumbnailPic` TEXT, `bmiddlePic` TEXT, `original_pic` TEXT, `repostsCount` INTEGER NOT NULL, `commentsCount` INTEGER NOT NULL, `attitudesCount` INTEGER NOT NULL, `mlevel` INTEGER NOT NULL, `pic_ids` TEXT, `ad` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "created_at",
+            "columnName": "created_at",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mid",
+            "columnName": "mid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idstr",
+            "columnName": "idstr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "text",
+            "columnName": "text",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "favorited",
+            "columnName": "favorited",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "truncated",
+            "columnName": "truncated",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inReplyToStatusId",
+            "columnName": "inReplyToStatusId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "inReplyToUserId",
+            "columnName": "inReplyToUserId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "inReplyToScreenName",
+            "columnName": "inReplyToScreenName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "thumbnailPic",
+            "columnName": "thumbnailPic",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bmiddlePic",
+            "columnName": "bmiddlePic",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "original_pic",
+            "columnName": "original_pic",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "repostsCount",
+            "columnName": "repostsCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "commentsCount",
+            "columnName": "commentsCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "attitudesCount",
+            "columnName": "attitudesCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mlevel",
+            "columnName": "mlevel",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pic_ids",
+            "columnName": "pic_ids",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ad",
+            "columnName": "ad",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"a8257a16f3507bcc1ea14f1f3c042e4e\")"
+    ]
+  }
+}

@@ -30,20 +30,20 @@ import java.util.List;
 import yummylau.common.activity.BaseActivity;
 import yummylau.commonres.ColorGetter;
 import yummylau.feature.Constants;
-import yummylau.feature.R;
 import yummylau.feature.videmodel.ViewModelFactory;
 import yummylau.feature.databinding.FeatureActivityMainLayoutBinding;
 import yummylau.feature.data.local.db.entity.UserEntity;
 import yummylau.feature.videmodel.MainViewModel;
+import yummylau.feature.R;
 
 /**
  * Created by g8931 on 2017/11/14.
  */
 
 @Route(path = Constants.ROUTER_MAIN)
-public class MainActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = HomeActivity.class.getSimpleName();
     private FeatureActivityMainLayoutBinding mBinding;
     private MainViewModel mModel;
 
@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity {
         Log.d(TAG, "");
         mBinding = DataBindingUtil.setContentView(this, R.layout.feature_activity_main_layout);
         mFragments = new ArrayList<>();
-        mFragments.add(new MainFragment());
+        mFragments.add(new FollowedFragment());
         mFragmentManager = super.getSupportFragmentManager();
         mFragmentManager.beginTransaction().replace(R.id.content_frame, mFragments.get(0), null).commit();
         initView();
@@ -68,17 +68,17 @@ public class MainActivity extends BaseActivity {
                 if (userEntity != null) {
                     View view = mBinding.navigationLayout.getHeaderView(0);
                     ((TextView) view.findViewById(R.id.nick)).setText(userEntity.name);
-                    ((TextView) view.findViewById(R.id.status_tip)).setText(String.format(MainActivity.this.getString(R.string.feature_weibo_count_tip), userEntity.statusesCount));
-                    ((TextView) view.findViewById(R.id.follow_tip)).setText(String.format(MainActivity.this.getString(R.string.feature_follows_count_tip), userEntity.friendsCount));
-                    ((TextView) view.findViewById(R.id.fans_tip)).setText(String.format(MainActivity.this.getString(R.string.feature_fans_count_tip), userEntity.followersCount));
-                    Glide.with(MainActivity.this)
+                    ((TextView) view.findViewById(R.id.status_tip)).setText(String.format(HomeActivity.this.getString(R.string.feature_weibo_count_tip), userEntity.statusesCount));
+                    ((TextView) view.findViewById(R.id.follow_tip)).setText(String.format(HomeActivity.this.getString(R.string.feature_follows_count_tip), userEntity.friendsCount));
+                    ((TextView) view.findViewById(R.id.fans_tip)).setText(String.format(HomeActivity.this.getString(R.string.feature_fans_count_tip), userEntity.followersCount));
+                    Glide.with(HomeActivity.this)
                             .load(userEntity.profileImageUrl)
                             .into((ImageView) view.findViewById(R.id.avatar));
                 }
                 // TODO: 2017/12/5 收到用户信息
             }
         });
-        mModel.loadUserInfo();
+        mModel.initOwnInfo();
     }
 
 

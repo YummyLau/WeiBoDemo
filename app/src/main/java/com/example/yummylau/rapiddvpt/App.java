@@ -1,6 +1,8 @@
 package com.example.yummylau.rapiddvpt;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -23,10 +25,14 @@ public class App extends Application {
     @Autowired(name = IFeatureService.SERVICE_NAME)
     public static IFeatureService featureService;
 
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
-
         ARouter.openDebug();
         ARouter.openLog();
         ARouter.printStackTrace();

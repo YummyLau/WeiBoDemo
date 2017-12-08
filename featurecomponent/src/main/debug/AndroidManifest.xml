@@ -8,7 +8,7 @@
         android:theme="@style/style">
 
         <activity
-            android:name=".view.MainActivity"
+            android:name=".view.HomeActivity"
             android:label="@string/feature_app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

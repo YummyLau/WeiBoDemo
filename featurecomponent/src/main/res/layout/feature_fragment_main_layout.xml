@@ -8,7 +8,7 @@
 
         <variable
             name="viewmodel"
-            type="yummylau.feature.videmodel.MainViewModel" />
+            type="yummylau.feature.videmodel.FollowedViewModel" />
     </data>
 
     <LinearLayout

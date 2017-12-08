@@ -18,11 +18,17 @@ import yummylau.feature.data.local.db.entity.UserEntity;
 public interface UserDao {
 
     @Query("SELECT * FROM " + UserEntity.TABLE_NAME + " WHERE " + UserEntity.COLUMN_ID_NAME + " = :uid")
-    Flowable<UserEntity> getUserById(long uid);
+    Flowable<List<UserEntity>> getUserById(long uid);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertUser(UserEntity user);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long[] insertUsers(List<UserEntity> user);
+
+    @Query("SELECT * FROM " + UserEntity.TABLE_NAME + " LIMIT 1")
+    Flowable<UserEntity> getUser();
+
+    @Query("DELETE FROM " + UserEntity.TABLE_NAME)
+    void deleteAllUsers();
 }
