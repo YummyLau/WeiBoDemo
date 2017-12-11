@@ -10,13 +10,13 @@ import yummylau.feature.view.HomeActivity;
  * Created by yummylau on 2017/12/11.
  */
 @Module
-public abstract class ActivityModule {
+public abstract class ActivityBuildersModule {
 
-    @ContributesAndroidInjector(modules = FragmentModule.class)
+    @ContributesAndroidInjector(modules = FragmentBuildersModule.class)
     abstract HomeActivity homeActivity();
 
 //    这种写法和@ContributesAndroidInjector写法是一致的
-//    @Subcomponent(modules = FragmentModule.class)
+//    @Subcomponent(modules = FragmentBuildersModule.class)
 //    public interface HomeActivitySubcomponent extends AndroidInjector<HomeActivity> {
 //        @Subcomponent.Builder
 //        public abstract class Builder extends AndroidInjector.Builder<HomeActivity> {}

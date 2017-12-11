@@ -8,6 +8,9 @@ import org.reactivestreams.Publisher;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Flowable;
 import io.reactivex.functions.Function;
 import yummylau.componentservice.bean.Token;
@@ -21,26 +24,18 @@ import yummylau.feature.data.local.db.entity.UserEntity;
  * Email yummyl.lau@gmail.com
  * Created by yummylau on 2017/12/11.
  */
-
+@Singleton
 public class LocalDataSource implements FeatureDataSource {
 
-    private static LocalDataSource INSTANCE;
     @Autowired(name = IAccountService.SERVICE_NAME)
     public IAccountService accountService;
     private AppDataBase mAppDataBase;
 
-    private LocalDataSource(AppDataBase appDataBase) {
+    @Inject
+    public LocalDataSource(AppDataBase appDataBase) {
         ARouter.getInstance().inject(this);
         this.mAppDataBase = appDataBase;
     }
-
-    public static LocalDataSource getInstance(AppDataBase appDataBase) {
-        if (INSTANCE == null) {
-            INSTANCE = new LocalDataSource(appDataBase);
-        }
-        return INSTANCE;
-    }
-
 
     @Override
     public Flowable<List<StatusEntity>> getFollowedStatus() {

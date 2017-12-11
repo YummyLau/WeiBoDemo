@@ -37,11 +37,13 @@ public class HomeViewModel extends AndroidViewModel {
 
     @Autowired(name = IAccountService.SERVICE_NAME)
     public IAccountService accountService;
+
     private FeatureRepository mRepository;
 
     private final MutableLiveData<UserEntity> ownUserInfo = new MutableLiveData<>();
 
 
+    @Inject
     public HomeViewModel(@NonNull Application application, FeatureRepository featureRepository) {
         super(application);
         mRepository = featureRepository;

@@ -10,7 +10,7 @@ import yummylau.feature.view.FollowedFragment;
  * Created by yummylau on 2017/12/11.
  */
 @Module
-public abstract class FragmentModule {
+public abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract FollowedFragment contributeFollowedFragment();

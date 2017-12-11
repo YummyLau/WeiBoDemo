@@ -27,8 +27,5 @@ public class FeatureServiceImpl implements IFeatureService {
 
     @Override
     public void createAsLibrary(Application application) {
-        //init database
-//        DBManager.init(application);
-//        DaggerAppC
     }
 }

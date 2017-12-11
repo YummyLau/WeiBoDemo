@@ -31,7 +31,6 @@ import org.reactivestreams.Subscription;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -50,16 +49,16 @@ import yummylau.feature.R;
  */
 
 @Route(path = Constants.ROUTER_MAIN)
-public class HomeActivity extends BaseActivity<FeatureActivityMainLayoutBinding> {
+public class HomeActivity extends BaseActivity<HomeViewModel, FeatureActivityMainLayoutBinding> {
 
-    private static final String TAG = HomeActivity.class.getSimpleName();
-
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
-    private HomeViewModel mModel;
 
     private List<Fragment> mFragments;
     private FragmentManager mFragmentManager;
+
+    @Override
+    public Class<HomeViewModel> getViewModel() {
+        return HomeViewModel.class;
+    }
 
     @Override
     public int getLayoutRes() {
@@ -69,14 +68,12 @@ public class HomeActivity extends BaseActivity<FeatureActivityMainLayoutBinding>
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AndroidInjection.inject(this);
         mFragments = new ArrayList<>();
         mFragments.add(new FollowedFragment());
         mFragmentManager = super.getSupportFragmentManager();
         mFragmentManager.beginTransaction().replace(R.id.content_frame, mFragments.get(0), null).commit();
         initView();
-        mModel = ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel.class);;
-        mModel.getUser().observe(this, new Observer<UserEntity>() {
+        viewModel.getUser().observe(this, new Observer<UserEntity>() {
             @Override
             public void onChanged(@Nullable UserEntity userEntity) {
                 if (userEntity != null) {
@@ -92,7 +89,7 @@ public class HomeActivity extends BaseActivity<FeatureActivityMainLayoutBinding>
                 // TODO: 2017/12/5 收到用户信息
             }
         });
-        mModel.initOwnInfo();
+        viewModel.initOwnInfo();
         AppDataBase.getInstance(HomeActivity.this).userDao().getUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -140,7 +137,6 @@ public class HomeActivity extends BaseActivity<FeatureActivityMainLayoutBinding>
             }
         });
     }
-
 
 
     private void initView() {

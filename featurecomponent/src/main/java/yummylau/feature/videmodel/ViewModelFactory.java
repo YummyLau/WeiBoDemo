@@ -4,6 +4,10 @@ import android.app.Application;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.inject.Singleton;
 
 import yummylau.feature.data.FeatureRepository;
@@ -17,42 +21,35 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Email yummyl.lau@gmail.com
  * Created by yummylau on 2017/12/11.
  */
+@Singleton
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
-    private static volatile ViewModelFactory INSTANCE;
-    private final Application mApplication;
-    private final FeatureRepository mFeatureRepository;
+    private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
 
-    private ViewModelFactory(Application application, FeatureRepository repository) {
-        mApplication = application;
-        mFeatureRepository = repository;
+    @Inject
+    public ViewModelFactory(Map<Class<? extends ViewModel>, Provider<ViewModel>> creators) {
+        this.creators = creators;
     }
 
-
-    public static ViewModelFactory getInstance(Application application) {
-        checkNotNull(application);
-        if (INSTANCE == null) {
-            synchronized (ViewModelFactory.class) {
-                if (INSTANCE == null) {
-                    AppDataBase appDataBase = AppDataBase.getInstance(application);
-                    FeatureRepository featureRepository = FeatureRepository.getInstance(
-                            RemoteDataSource.getInstance(application, appDataBase),
-                            LocalDataSource.getInstance(appDataBase)
-                    );
-                    INSTANCE = new ViewModelFactory(application, featureRepository);
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends ViewModel> T create(Class<T> modelClass) {
+        Provider<? extends ViewModel> creator = creators.get(modelClass);
+        if (creator == null) {
+            for (Map.Entry<Class<? extends ViewModel>, Provider<ViewModel>> entry : creators.entrySet()) {
+                if (modelClass.isAssignableFrom(entry.getKey())) {
+                    creator = entry.getValue();
+                    break;
                 }
             }
         }
-        return INSTANCE;
-    }
-
-    @Override
-    public <T extends ViewModel> T create(Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(HomeViewModel.class)) {
-            return (T) new HomeViewModel(mApplication, mFeatureRepository);
-        } else if (modelClass.isAssignableFrom(FollowedViewModel.class)) {
-            return (T) new FollowedViewModel(mApplication, mFeatureRepository);
+        if (creator == null) {
+            throw new IllegalArgumentException("unknown model class " + modelClass);
         }
-        throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
+        try {
+            return (T) creator.get();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

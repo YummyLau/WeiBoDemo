@@ -11,6 +11,9 @@ import org.reactivestreams.Publisher;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -33,28 +36,19 @@ import yummylau.feature.data.remote.api.WeiboApis;
 /**
  * Created by g8931 on 2017/12/6.
  */
-
+@Singleton
 public class RemoteDataSource implements FeatureDataSource {
 
-    private static RemoteDataSource INSTANCE;
     @Autowired(name = IAccountService.SERVICE_NAME)
     public IAccountService accountService;
     public Context mContext;
     private AppDataBase mAppDataBase;
 
-
-    private RemoteDataSource(Context context, AppDataBase appDataBase) {
+    @Inject
+    public RemoteDataSource(Context context, AppDataBase appDataBase) {
         ARouter.getInstance().inject(this);
         this.mContext = context;
         this.mAppDataBase = appDataBase;
-    }
-
-    public static RemoteDataSource getInstance(Application application, AppDataBase appDataBase) {
-        if (INSTANCE == null) {
-            INSTANCE = new RemoteDataSource(application, appDataBase);
-
-        }
-        return INSTANCE;
     }
 
     @Override

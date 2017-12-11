@@ -11,6 +11,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
@@ -27,7 +29,9 @@ public class FollowedViewModel extends AndroidViewModel {
 
     @Autowired(name = IAccountService.SERVICE_NAME)
     public IAccountService accountService;
-    private FeatureRepository mRepository;
+
+    @Inject
+    public FeatureRepository mRepository;
 
     public final ObservableBoolean dataLoading = new ObservableBoolean(false);
     public final ObservableBoolean error = new ObservableBoolean(false);

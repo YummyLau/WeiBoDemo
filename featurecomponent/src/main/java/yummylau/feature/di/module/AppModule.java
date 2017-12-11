@@ -11,10 +11,13 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import yummylau.common.net.HttpManager;
 import yummylau.common.net.HttpParam;
+import yummylau.feature.data.FeatureRepository;
+import yummylau.feature.data.local.LocalDataSource;
 import yummylau.feature.data.local.db.AppDataBase;
 import yummylau.feature.data.local.db.dao.StatusDao;
 import yummylau.feature.data.local.db.dao.UserDao;
 import yummylau.feature.data.remote.HttpParamCreator;
+import yummylau.feature.data.remote.RemoteDataSource;
 import yummylau.feature.data.remote.api.WeiboApis;
 
 /**
@@ -23,7 +26,13 @@ import yummylau.feature.data.remote.api.WeiboApis;
  * Created by yummylau on 2017/12/11.
  */
 @Module(includes = ViewModelModule.class)
-public class ApplicationModule {
+public class AppModule {
+
+    @Provides
+    @Singleton
+    FeatureRepository provideFeatureRepository(RemoteDataSource remoteDataSource, LocalDataSource localDataSource) {
+        return new FeatureRepository(remoteDataSource, localDataSource);
+    }
 
     @Provides
     @Singleton
@@ -39,7 +48,7 @@ public class ApplicationModule {
                 .callAdatperFactory(RxJava2CallAdapterFactory.create())
                 .converterFactory(GsonConverterFactory.create())
                 .build();
-        return HttpManager.create(HttpParamCreator.create(), WeiboApis.class);
+        return HttpManager.create(httpParam, WeiboApis.class);
     }
 
     @Singleton

@@ -1,5 +1,8 @@
 package yummylau.common.activity;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -25,12 +28,19 @@ import yummylau.commonres.ColorGetter;
  * {@link dagger.android.support.DaggerAppCompatActivity}
  */
 
-public abstract class BaseActivity<DB extends ViewDataBinding> extends AppCompatActivity implements HasSupportFragmentInjector{
+public abstract class BaseActivity<VM extends ViewModel, DB extends ViewDataBinding> extends AppCompatActivity implements HasSupportFragmentInjector {
 
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentAndroidInjector;
 
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+
     public DB dataBinding;
+
+    public VM viewModel;
+
+    public abstract Class<VM> getViewModel();
 
     @LayoutRes
     public abstract int getLayoutRes();
@@ -40,6 +50,7 @@ public abstract class BaseActivity<DB extends ViewDataBinding> extends AppCompat
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         dataBinding = DataBindingUtil.setContentView(this, getLayoutRes());
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModel());
     }
 
     @Override

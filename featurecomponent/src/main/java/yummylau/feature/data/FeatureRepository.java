@@ -8,6 +8,9 @@ import org.reactivestreams.Publisher;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Flowable;
 import io.reactivex.functions.Function;
 import yummylau.feature.data.local.db.entity.StatusEntity;
@@ -17,7 +20,7 @@ import yummylau.feature.data.local.db.entity.UserEntity;
  * Email yummyl.lau@gmail.com
  * Created by yummylau on 2017/12/11.
  */
-
+@Singleton
 public class FeatureRepository implements FeatureDataSource {
 
     private static final String TAG = FeatureRepository.class.getSimpleName();
@@ -27,7 +30,8 @@ public class FeatureRepository implements FeatureDataSource {
     private final FeatureDataSource mRemoteDataSource;
     private final FeatureDataSource mLocalDataSource;
 
-    private FeatureRepository(@NonNull FeatureDataSource remoteDataSource,
+    @Inject
+    public FeatureRepository(@NonNull FeatureDataSource remoteDataSource,
                               @NonNull FeatureDataSource localDataSource) {
         mRemoteDataSource = checkNotNull(remoteDataSource);
         mLocalDataSource = checkNotNull(localDataSource);

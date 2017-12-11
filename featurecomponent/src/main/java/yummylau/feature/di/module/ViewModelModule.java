@@ -22,6 +22,12 @@ import yummylau.feature.videmodel.HomeViewModel;
 @Module
 public abstract class ViewModelModule {
 
+    /**
+     * 该注解告诉我们，ViewModelProvider.Factory 使用ViewModelFactory来实现的
+     *
+     * @param factory
+     * @return
+     */
     @Binds
     abstract ViewModelProvider.Factory bindsViewModelFactory(ViewModelFactory factory);
 
@@ -33,7 +39,7 @@ public abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(FollowedViewModel.class)
-    abstract ViewModel bindFollowedViewModel(HomeViewModel homeViewModel);
+    abstract ViewModel bindFollowedViewModel(FollowedViewModel homeViewModel);
 
 
 }

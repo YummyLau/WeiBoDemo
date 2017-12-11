@@ -7,8 +7,9 @@ import javax.inject.Singleton;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
-import yummylau.feature.di.module.ActivityModule;
-import yummylau.feature.di.module.ApplicationModule;
+import dagger.android.support.AndroidSupportInjectionModule;
+import yummylau.feature.di.module.ActivityBuildersModule;
+import yummylau.feature.di.module.AppModule;
 
 /**
  * @Component 生成Dragger前缀的实现类
@@ -18,10 +19,10 @@ import yummylau.feature.di.module.ApplicationModule;
 
 @Singleton
 @Component(modules = {
-        ApplicationModule.class,
-        AndroidInjectionModule.class,
-        ActivityModule.class})
-public interface ApplicationComponent {
+        AppModule.class,
+        AndroidSupportInjectionModule.class,
+        ActivityBuildersModule.class})
+public interface AppComponent {
 
     @Component.Builder
     interface Builder {
@@ -29,7 +30,7 @@ public interface ApplicationComponent {
         @BindsInstance
         Builder application(Application application);
 
-        ApplicationComponent build();
+        AppComponent build();
     }
 
     void inject(Application application);
