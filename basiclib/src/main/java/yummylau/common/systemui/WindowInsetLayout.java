@@ -13,7 +13,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 /**
- * Created by g8931 on 2017/6/21.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 public class WindowInsetLayout extends FrameLayout {
 

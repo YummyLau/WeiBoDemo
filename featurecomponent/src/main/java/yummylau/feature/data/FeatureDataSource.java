@@ -7,7 +7,8 @@ import yummylau.feature.data.local.db.entity.StatusEntity;
 import yummylau.feature.data.local.db.entity.UserEntity;
 
 /**
- * Created by g8931 on 2017/12/6.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 public interface FeatureDataSource {
 

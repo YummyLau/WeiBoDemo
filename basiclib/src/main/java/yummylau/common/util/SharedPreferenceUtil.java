@@ -12,7 +12,8 @@ import java.util.Set;
 
 /**
  * 轻量级数据存储
- * Created by g8931 on 2017/8/28.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class SharedPreferenceUtil {

@@ -28,7 +28,8 @@ import java.lang.reflect.Method;
  * statusBarView策略：
  * a) 4.4以下设备自动隐藏；
  * b) >=4.4需要高亮场景，自动隐藏（沉浸式取消）
- * Created by g8931 on 2017/9/11.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class StatusbarUtil {

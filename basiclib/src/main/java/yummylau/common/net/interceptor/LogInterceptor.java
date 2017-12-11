@@ -13,7 +13,8 @@ import yummylau.common.Constants;
 
 /**
  * 应用层拦截
- * Created by g8931 on 2017/6/13.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 public class LogInterceptor implements Interceptor {
 

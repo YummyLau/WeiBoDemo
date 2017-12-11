@@ -9,7 +9,8 @@ import java.util.List;
 
 /**
  * 处理app信息
- * Created by g8931 on 2017/11/20.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class AppUtils {

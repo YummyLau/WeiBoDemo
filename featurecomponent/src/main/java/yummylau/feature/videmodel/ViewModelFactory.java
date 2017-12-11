@@ -12,7 +12,8 @@ import yummylau.feature.data.local.db.AppDataBase;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Created by g8931 on 2017/12/6.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {

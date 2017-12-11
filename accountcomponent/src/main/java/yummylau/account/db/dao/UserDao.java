@@ -18,7 +18,8 @@ import yummylau.account.bean.UserItem;
 /**
  * Insert/Update默认发生冲突时终止操作
  * Query，编译器检查查询语句
- * Created by g8931 on 2017/11/22.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 @Dao
 public interface UserDao {

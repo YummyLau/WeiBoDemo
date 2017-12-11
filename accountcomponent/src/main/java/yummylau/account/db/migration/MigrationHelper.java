@@ -5,7 +5,8 @@ import android.arch.persistence.room.migration.Migration;
 import android.support.annotation.NonNull;
 
 /**
- * Created by g8931 on 2017/11/22.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class MigrationHelper {

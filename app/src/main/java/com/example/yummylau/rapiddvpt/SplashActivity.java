@@ -13,7 +13,8 @@ import yummylau.componentlib.router.RouterManager;
 
 /**
  * 启动闪屏
- * Created by g8931 on 2017/11/28.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class SplashActivity extends BaseActivityOld {

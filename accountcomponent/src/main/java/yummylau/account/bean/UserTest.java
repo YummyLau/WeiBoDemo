@@ -11,7 +11,8 @@ import android.graphics.Bitmap;
  * 1. 至少定义一个primary key
  * 2. 默认情况下，使用类名作为表名，也可以通过声明定义表名,不区分大小写
  * 3. 默认情况下，使用变量名作为列名，也可以通过声明定义列名
- * Created by g8931 on 2017/11/21.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 @Entity(primaryKeys = "userId", tableName = "UserTest", indices = {@Index(name = "info", value = {"userName", "userId"})})
 public class UserTest {

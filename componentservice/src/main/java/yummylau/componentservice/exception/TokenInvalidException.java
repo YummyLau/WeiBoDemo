@@ -1,7 +1,8 @@
 package yummylau.componentservice.exception;
 
 /**
- * Created by g8931 on 2017/12/7.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class TokenInvalidException extends IllegalArgumentException {

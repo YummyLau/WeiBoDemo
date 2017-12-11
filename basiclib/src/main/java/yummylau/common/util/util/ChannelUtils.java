@@ -2,8 +2,8 @@ package yummylau.common.util.util;
 
 /**
  * 渠道相关工具处理
- * Created by yummyLau on 17-4-30
- * Email: yummyl.lau@gmail.com
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class ChannelUtils {

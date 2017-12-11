@@ -30,7 +30,8 @@ import java.lang.reflect.Method;
  * 关于windowInsets 参考：https://stackoverflow.com/questions/33585225/what-are-windowinsets
  * CollapsingToolbarLayout，该布局内部会消费掉windowInsets
  * <p>
- * Created by g8931 on 2017/4/19.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 public class SystemUIUtil {
 

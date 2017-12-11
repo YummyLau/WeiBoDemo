@@ -22,7 +22,8 @@ import yummylau.componentservice.bean.Token;
 
 /**
  * 对外暴露的Account接口
- * Created by g8931 on 2017/11/28.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 @Route(path = IAccountService.SERVICE_NAME)
 public class AccountServiceImpl implements IAccountService {

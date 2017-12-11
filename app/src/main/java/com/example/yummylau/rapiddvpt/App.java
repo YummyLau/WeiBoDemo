@@ -14,7 +14,8 @@ import yummylau.componentservice.interfaces.IAccountService;
 import yummylau.componentservice.interfaces.IFeatureService;
 
 /**
- * Created by g8931 on 2017/11/15.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class App extends Application {

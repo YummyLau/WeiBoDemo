@@ -16,9 +16,8 @@ import yummylau.common.R;
 
 
 /**
- * 实现圆角图片，使用开源库
- * @author g8166
- *
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 public class RoundedImageView extends ImageView {
 

@@ -4,7 +4,8 @@ import android.content.Context;
 
 /**
  * 显示转化，dp,sp转成px工具类
- * Created by g8931 on 2017/11/20.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class DisplayUtils {

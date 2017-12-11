@@ -6,7 +6,8 @@ import retrofit2.Converter;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 /**
- * Created by g8931 on 2017/11/14.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class HttpParam {

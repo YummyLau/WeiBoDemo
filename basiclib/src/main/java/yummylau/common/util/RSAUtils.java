@@ -25,6 +25,8 @@ import javax.crypto.NoSuchPaddingException;
 
 /**
  * RSA加密类
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class RSAUtils {

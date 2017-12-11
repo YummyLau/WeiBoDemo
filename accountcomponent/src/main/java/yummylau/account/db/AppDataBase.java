@@ -9,7 +9,8 @@ import yummylau.account.db.converter.Converters;
 import yummylau.account.db.dao.UserDao;
 
 /**
- * Created by g8931 on 2017/11/22.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 @Database(entities = {UserTest.class}, version = 1)

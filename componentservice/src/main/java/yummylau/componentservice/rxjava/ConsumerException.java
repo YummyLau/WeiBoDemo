@@ -5,7 +5,8 @@ import io.reactivex.functions.Consumer;
 import yummylau.componentservice.exception.TokenInvalidException;
 
 /**
- * Created by g8931 on 2017/12/7.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public abstract class ConsumerException implements Consumer<Throwable> {

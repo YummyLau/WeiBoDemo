@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 /**
  * 提供对字符串的全角->半角，半角->全角转换
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 public class CharacterWidthUtils {
 

@@ -9,8 +9,8 @@ import android.view.MotionEvent;
 import android.widget.TextView;
 
 /**
- * 点击长文的时候，内容不滑动
- * Created by g8931 on 2017/11/20.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class LinkMovementMethodForContentNoScroll extends LinkMovementMethod {

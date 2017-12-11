@@ -15,6 +15,10 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
+ */
 public class TimeUtils {
 
     /**

@@ -21,8 +21,8 @@ import yummylau.common.Constants;
 
 /**
  * 动态参数拦截
- * 处理场景：用于请求一边接口失败之后刷新校验，先兼容原来论坛
- * Created by g8931 on 2017/6/13.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 public abstract class AbsParameterInterceptor implements Interceptor {
 

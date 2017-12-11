@@ -4,7 +4,8 @@ import android.app.Application;
 import android.arch.persistence.room.Room;
 /**
  * 数据库助手
- * Created by g8931 on 2017/11/23.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class DBManager {

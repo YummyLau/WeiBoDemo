@@ -28,8 +28,8 @@ import yummylau.common.util.FileUtils;
 
 /**
  * UncaughtException处理类,当程序发生Uncaught异常的时候,有该类来接管程序,并记录发送错误报告.
- *
- * @author g8164
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 public class CrashHandler implements UncaughtExceptionHandler {
 
@@ -54,19 +54,14 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
     public void init(Context context) {
         mContext = context;
-        //获取系统默认的UncaughtException处理器  
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
-        //设置该CrashHandler为程序的默认处理器  
         Thread.setDefaultUncaughtExceptionHandler(this);
     }
 
-    /**
-     * 当UncaughtException发生时会转入该函数来处理
-     */
+
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         if (!handleException(ex) && mDefaultHandler != null) {
-            // 如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler.uncaughtException(thread, ex);
         } else {
             try {
@@ -80,17 +75,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
         }
     }
 
-    /**
-     * 自定义错误处理,收集错误信息 发送错误报告等操作均在此完成.
-     *
-     * @param ex
-     * @return true:如果处理了该异常信息;否则返回false.
-     */
     private boolean handleException(Throwable ex) {
         if (ex == null) {
             return false;
         }
-        //使用Toast来显示异常信息  
         new Thread() {
             @Override
             public void run() {
@@ -110,9 +98,6 @@ public class CrashHandler implements UncaughtExceptionHandler {
         return true;
     }
 
-    /**
-     * @param ctx
-     */
     public void collectDeviceInfo(Context ctx) {
         try {
             PackageManager pm = ctx.getPackageManager();
@@ -141,10 +126,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
         }
     }
 
-    /**
-     * @param ex
-     * @return 返回文件名称, 便于将文件传送到服务器
-     */
+
     private String saveCrashInfo2File(Throwable ex) {
 
         StringBuffer sb = new StringBuffer();
@@ -164,21 +146,16 @@ public class CrashHandler implements UncaughtExceptionHandler {
         }
         printWriter.close();
         String result = writer.toString();
-        //在控制台中打印出log
         Log.e(TAG, result);
-
         sendLog(result);
-
         sb.append(result);
         try {
             long timestamp = System.currentTimeMillis();
             String time = mDateFormat.format(new Date());
             String fileName = "crash-" + time + "-" + timestamp + ".txt";
 
-            //log的保存路径
             String crashCachePath = FileUtils.getCrashLogDir();
             File crashCacheDir = new File(crashCachePath);
-            // 如果文件夹不存在则创建
             if (!crashCacheDir.exists()) {
                 crashCacheDir.mkdirs();
             }

@@ -25,7 +25,8 @@ import yummylau.account.databinding.AccountActivityMainLayoutBinding;
 
 
 /**
- * Created by g8931 on 2017/11/14.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 @Route(path = Constants.ROUTER_LOGIN)
 public class LoginActivity extends BaseActivityOld {

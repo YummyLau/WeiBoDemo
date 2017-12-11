@@ -33,7 +33,8 @@ import java.util.zip.ZipFile;
 
 
 /**
- * 文件操作辅助类
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 public class FileUtils {
 

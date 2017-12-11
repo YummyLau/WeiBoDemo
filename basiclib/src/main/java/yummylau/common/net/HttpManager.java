@@ -19,7 +19,8 @@ import yummylau.common.net.interceptor.CacheInterceptor;
 import yummylau.common.net.interceptor.LogInterceptor;
 
 /**
- * Created by yummylau on 2017/11/14.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 public class HttpManager {
 

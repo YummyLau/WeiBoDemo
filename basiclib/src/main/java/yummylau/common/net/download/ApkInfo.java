@@ -5,7 +5,8 @@ import android.os.Parcelable;
 
 /**
  * 下载apk
- * Created by g8931 on 2017/11/20.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class ApkInfo implements Parcelable {

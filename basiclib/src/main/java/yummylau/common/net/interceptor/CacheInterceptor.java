@@ -1,8 +1,5 @@
 package yummylau.common.net.interceptor;
 
-/**
- * Created by g8931 on 2017/6/13.
- */
 
 
 
@@ -17,6 +14,8 @@ import yummylau.common.Constants;
 
 /**
  * 缓存拦截器
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 public class CacheInterceptor implements Interceptor {
 

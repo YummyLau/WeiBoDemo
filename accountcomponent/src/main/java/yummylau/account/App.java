@@ -8,7 +8,8 @@ import yummylau.common.activity.BaseApplication;
 import yummylau.account.db.DBManager;
 
 /**
- * Created by g8931 on 2017/11/14.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class App extends BaseApplication {

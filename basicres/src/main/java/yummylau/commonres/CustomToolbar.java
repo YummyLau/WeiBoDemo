@@ -12,7 +12,8 @@ import android.util.AttributeSet;
  * 标题和子标题
  * 自定义空间
  * ActionMenu
- * Created by g8931 on 2017/11/27.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class CustomToolbar extends Toolbar {

@@ -3,7 +3,8 @@ package yummylau.account.bean;
 import android.arch.persistence.room.Entity;
 
 /**
- * Created by g8931 on 2017/11/21.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 @Entity(tableName = "address")
 public class Address {

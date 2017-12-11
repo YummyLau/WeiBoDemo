@@ -6,7 +6,8 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
- * Created by g8931 on 2017/11/21.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 @Entity(tableName = "book",foreignKeys = @ForeignKey(entity = UserTest.class,parentColumns = "id",childColumns = "user_id"))
 public class Book {

@@ -8,7 +8,8 @@ import yummylau.feature.data.local.db.entity.UserEntity;
 
 /**
  * 微博评论
- * Created by g8931 on 2017/11/24.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/11/15.
  */
 
 public class Comment {

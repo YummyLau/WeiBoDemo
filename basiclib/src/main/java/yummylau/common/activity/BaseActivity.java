@@ -19,7 +19,8 @@ import yummylau.common.systemui.StatusbarUtil;
 import yummylau.commonres.ColorGetter;
 
 /**
- * Created by g8931 on 2017/12/8.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public abstract class BaseActivity<DB extends ViewDataBinding> extends AppCompatActivity implements HasSupportFragmentInjector{

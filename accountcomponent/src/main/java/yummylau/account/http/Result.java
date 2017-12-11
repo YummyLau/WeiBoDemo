@@ -4,7 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * http请求返回
- * Created by g8931 on 2017/11/24.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class Result {

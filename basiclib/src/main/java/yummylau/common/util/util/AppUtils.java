@@ -23,8 +23,8 @@ import yummylau.common.R;
 import yummylau.common.util.util.common.StringUtils;
 
 /**
- * Created by yummyLau on 17-4-30
- * Email: yummyl.lau@gmail.com
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class AppUtils {

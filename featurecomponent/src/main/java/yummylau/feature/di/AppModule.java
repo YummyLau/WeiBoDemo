@@ -10,7 +10,8 @@ import yummylau.feature.data.local.db.AppDataBase;
 
 /**
  * app依赖管理
- * Created by g8931 on 2017/12/8.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class AppModule {

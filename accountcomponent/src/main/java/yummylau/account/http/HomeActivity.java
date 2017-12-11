@@ -7,7 +7,8 @@ import yummylau.common.activity.BaseActivityOld;
 
 /**
  * 主界面
- * Created by g8931 on 2017/11/27.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class HomeActivity extends BaseActivityOld {

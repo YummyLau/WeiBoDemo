@@ -34,7 +34,8 @@ import yummylau.common.util.FileUtils;
 
 /**
  * 使用时在xml配置使用
- * Created by g8931 on 2017/11/20.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class DownloadApkService extends Service {

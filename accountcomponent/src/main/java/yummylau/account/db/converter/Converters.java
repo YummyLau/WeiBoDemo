@@ -6,7 +6,8 @@ import java.util.Date;
 
 /**
  * 类型转化，兼容room存储
- * Created by g8931 on 2017/11/22.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class Converters {

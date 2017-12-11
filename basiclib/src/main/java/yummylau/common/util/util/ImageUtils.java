@@ -28,8 +28,8 @@ import yummylau.common.util.util.common.NetUtils;
 
 /**
  *  图片utils
- * Created by yummyLau on 17-4-30
- * Email: yummyl.lau@gmail.com
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 public class ImageUtils {

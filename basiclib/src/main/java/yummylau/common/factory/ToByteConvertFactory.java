@@ -14,7 +14,8 @@ import retrofit2.Retrofit;
 
 /**
  * 接收字节数组
- * Created by g8931 on 2017/11/3.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 public class ToByteConvertFactory extends Converter.Factory {
 

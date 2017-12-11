@@ -1,9 +1,8 @@
 package yummylau.common.util;
 
 /**
- * Created by g8165 on 2016/6/16.
- *
- * 各种类型之间的转换公共函数，不用每次都进行判断
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 public class ConvertUtils {
 

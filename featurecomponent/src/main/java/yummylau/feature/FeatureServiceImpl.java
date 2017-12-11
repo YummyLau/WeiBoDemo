@@ -9,7 +9,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import yummylau.componentservice.interfaces.IFeatureService;
 
 /**
- * Created by g8931 on 2017/11/29.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 @Route(path = IFeatureService.SERVICE_NAME)
 public class FeatureServiceImpl implements IFeatureService {

@@ -9,7 +9,8 @@ import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 
 /**
- * Created by g8931 on 2017/12/8.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/11.
  */
 
 @Singleton
