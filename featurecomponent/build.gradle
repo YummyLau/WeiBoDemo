@@ -73,6 +73,8 @@ dependencies {
     annotationProcessor deps.lifecycle.compiler
     annotationProcessor deps.room.compiler
     annotationProcessor deps.glideCompiler
+    annotationProcessor deps.dagger.compiler
+    annotationProcessor deps.dagger.androidProcessor
     implementation project(':componentservice')
 
     // Espresso UI Testing

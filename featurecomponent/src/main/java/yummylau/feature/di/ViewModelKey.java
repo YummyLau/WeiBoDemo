@@ -11,14 +11,15 @@ import java.lang.annotation.Target;
 import dagger.MapKey;
 
 /**
- * Email yummyl.lau@gmail.com
- * Created by yummylau on 2017/12/11.
+ * Created by g8931 on 2017/12/11.
  */
+
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @MapKey
-@interface ViewModelKey {
+public @interface ViewModelKey {
 
     Class<? extends ViewModel> value();
 }
+

@@ -1,4 +1,4 @@
-package yummylau.feature.di;
+package yummylau.feature.di.module;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -10,7 +10,7 @@ import yummylau.feature.view.FollowedFragment;
  * Created by yummylau on 2017/12/11.
  */
 @Module
-public abstract class FragmentBuilderModule {
+public abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract FollowedFragment contributeFollowedFragment();

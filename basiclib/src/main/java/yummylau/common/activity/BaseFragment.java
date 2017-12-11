@@ -3,6 +3,7 @@ package yummylau.common.activity;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import dagger.android.support.AndroidSupportInjection;
 /**
  * Email yummyl.lau@gmail.com
  * Created by yummylau on 2017/12/11.
+ * {@link dagger.android.support.DaggerFragment}
  */
 
 public abstract class BaseFragment<VM extends ViewModel, DB extends ViewDataBinding> extends Fragment {
@@ -42,6 +44,7 @@ public abstract class BaseFragment<VM extends ViewModel, DB extends ViewDataBind
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModel());
     }
+
 
     @Nullable
     @Override

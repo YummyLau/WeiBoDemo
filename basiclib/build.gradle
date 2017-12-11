@@ -76,11 +76,10 @@ dependencies {
     api deps.constraintLayout
     api deps.baseRecyclerViewAdapterHelper
 
-    api  "com.google.dagger:dagger:2.11"
-    annotationProcessor  "com.google.dagger:dagger-compiler:2.11"
-    api "com.google.dagger:dagger-android:2.11"
-    api  "com.google.dagger:dagger-android-support:2.11"
-    annotationProcessor  "com.google.dagger:dagger-android-processor:2.11"
+    api deps.dagger.runtime
+    api deps.dagger.android
+    api deps.dagger.androidSupport
+
 
     implementation project(':basicres')
 }

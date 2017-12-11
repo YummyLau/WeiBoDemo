@@ -18,7 +18,7 @@ import yummylau.componentservice.interfaces.IFeatureService;
  * Created by yummylau on 2017/12/11.
  */
 
-public class App extends Application {
+public class App extends BaseApplication {
 
     @Autowired(name = IAccountService.SERVICE_NAME)
     public static IAccountService accountService;

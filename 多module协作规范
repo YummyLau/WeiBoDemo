@@ -39,6 +39,20 @@ https://medium.com/google-developers/room-rxjava-acb0cd4f3757
 1. 如果使用Flowable，则在查询未到的情况下，Flowable不会被emit
 
 依赖注入框架
+dagger2文档 https://google.github.io/dagger/users-guide.html
+
+
+@Module用于标记提供依赖的类，Dagger就知道在那里需要构造对象
+@Provides 标记Module中返回依赖的方法
+
+@Inject注解。作为JSR-330标准的一部分，标记那些依赖注入框架提供的依赖。有3种不同的方式提供依赖：
+    1. 构造器注入
+    2. 域注入
+    3. 方法注入
+
+@Component : 这个注解用于构建接口，该接口把所有封装在一起。
+    连接 @Module 和 @Inject
+
 1. dragger2
 http://www.jianshu.com/p/cd2c1c9f68d4
 Inject主要是用来标注目标类的依赖和依赖的构造函数

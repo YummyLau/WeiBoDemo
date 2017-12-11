@@ -4,6 +4,8 @@ import android.app.Application;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
+import javax.inject.Singleton;
+
 import yummylau.feature.data.FeatureRepository;
 import yummylau.feature.data.local.LocalDataSource;
 import yummylau.feature.data.remote.RemoteDataSource;
@@ -15,7 +17,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Email yummyl.lau@gmail.com
  * Created by yummylau on 2017/12/11.
  */
-
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private static volatile ViewModelFactory INSTANCE;

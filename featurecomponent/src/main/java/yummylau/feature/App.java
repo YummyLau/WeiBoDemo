@@ -1,9 +1,10 @@
 package yummylau.feature;
 
 
+import android.app.Application;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 
-import yummylau.common.activity.BaseApplication;
 import yummylau.feature.data.local.db.AppDataBase;
 
 /**
@@ -11,7 +12,7 @@ import yummylau.feature.data.local.db.AppDataBase;
  * Created by yummylau on 2017/12/11.
  */
 
-public class App extends BaseApplication {
+public class App extends Application {
 
     private static AppDataBase sInstance = null;
 

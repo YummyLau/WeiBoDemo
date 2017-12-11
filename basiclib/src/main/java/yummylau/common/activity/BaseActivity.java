@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasFragmentInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import yummylau.common.systemui.StatusbarUtil;
 import yummylau.commonres.ColorGetter;
@@ -21,6 +22,7 @@ import yummylau.commonres.ColorGetter;
 /**
  * Email yummyl.lau@gmail.com
  * Created by yummylau on 2017/12/11.
+ * {@link dagger.android.support.DaggerAppCompatActivity}
  */
 
 public abstract class BaseActivity<DB extends ViewDataBinding> extends AppCompatActivity implements HasSupportFragmentInjector{

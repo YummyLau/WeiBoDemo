@@ -1,10 +1,11 @@
 package yummylau.account;
 
+import android.app.Application;
+
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.auth.AuthInfo;
 
-import yummylau.common.activity.BaseApplication;
 import yummylau.account.db.DBManager;
 
 /**
@@ -12,7 +13,7 @@ import yummylau.account.db.DBManager;
  * Created by yummylau on 2017/12/11.
  */
 
-public class App extends BaseApplication {
+public class App extends Application {
 
     @Override
     public void onCreate() {
