@@ -2,6 +2,8 @@ package yummylau.feature.di.module;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
+import yummylau.common.activity.BaseActivity;
+import yummylau.common.activity.BaseFragment;
 import yummylau.feature.view.HomeActivity;
 
 /**
@@ -14,6 +16,7 @@ public abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector(modules = FragmentBuildersModule.class)
     abstract HomeActivity homeActivity();
+
 
 //    这种写法和@ContributesAndroidInjector写法是一致的
 //    @Subcomponent(modules = FragmentBuildersModule.class)

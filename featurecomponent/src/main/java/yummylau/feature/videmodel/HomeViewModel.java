@@ -3,6 +3,7 @@ package yummylau.feature.videmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.ObservableBoolean;
 import android.support.annotation.NonNull;
@@ -33,7 +34,7 @@ import yummylau.feature.data.local.db.entity.UserEntity;
  * Email yummyl.lau@gmail.com
  * Created by yummylau on 2017/12/11.
  */
-public class HomeViewModel extends AndroidViewModel {
+public class HomeViewModel extends ViewModel {
 
     @Autowired(name = IAccountService.SERVICE_NAME)
     public IAccountService accountService;
@@ -44,8 +45,7 @@ public class HomeViewModel extends AndroidViewModel {
 
 
     @Inject
-    public HomeViewModel(@NonNull Application application, FeatureRepository featureRepository) {
-        super(application);
+    public HomeViewModel(FeatureRepository featureRepository) {
         mRepository = featureRepository;
         ARouter.getInstance().inject(this);
     }

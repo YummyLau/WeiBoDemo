@@ -40,18 +40,27 @@ https://medium.com/google-developers/room-rxjava-acb0cd4f3757
 
 依赖注入框架
 dagger2文档 https://google.github.io/dagger/users-guide.html
+AndroidInjector https://android.jlelse.eu/android-and-dagger-2-10-androidinjector-5e9c523679a3
+dagger2进阶 http://talentprince.github.io/2017/09/30/Advanced-Dagger2-Skills/
+scope详解 http://www.cnblogs.com/tiantianbyconan/p/5095426.html、
 
 
+Dagger2基础注解
 @Module用于标记提供依赖的类，Dagger就知道在那里需要构造对象
 @Provides 标记Module中返回依赖的方法
-
 @Inject注解。作为JSR-330标准的一部分，标记那些依赖注入框架提供的依赖。有3种不同的方式提供依赖：
     1. 构造器注入
     2. 域注入
     3. 方法注入
-
 @Component : 这个注解用于构建接口，该接口把所有封装在一起。
     连接 @Module 和 @Inject
+
+Dagger2多module实践
+DaggerComponent为主壳app注入
+AppComponent为主module注入
+
+Subcomponents可以访问它们parent的所有对象图表，而Component依赖只能访问通过Component接口暴露的对象。
+
 
 1. dragger2
 http://www.jianshu.com/p/cd2c1c9f68d4

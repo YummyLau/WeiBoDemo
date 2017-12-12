@@ -34,12 +34,10 @@ public abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(HomeViewModel.class)
-    abstract ViewModel bindHomeViewModel(HomeViewModel homeViewModel);
+    abstract ViewModel bindsHomeViewModel(HomeViewModel homeViewModel);
 
     @Binds
     @IntoMap
     @ViewModelKey(FollowedViewModel.class)
-    abstract ViewModel bindFollowedViewModel(FollowedViewModel homeViewModel);
-
-
+    abstract ViewModel bindsFollowedViewModel(FollowedViewModel homeViewModel);
 }

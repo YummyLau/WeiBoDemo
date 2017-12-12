@@ -3,6 +3,7 @@ package yummylau.feature.videmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 import android.support.annotation.NonNull;
 
@@ -25,7 +26,7 @@ import yummylau.feature.data.local.db.entity.StatusEntity;
  * Created by yummylau on 2017/12/11.
  */
 
-public class FollowedViewModel extends AndroidViewModel {
+public class FollowedViewModel extends ViewModel {
 
     @Autowired(name = IAccountService.SERVICE_NAME)
     public IAccountService accountService;
@@ -37,8 +38,8 @@ public class FollowedViewModel extends AndroidViewModel {
     public final ObservableBoolean error = new ObservableBoolean(false);
     private final MutableLiveData<List<StatusEntity>> mAllStatus = new MutableLiveData<>();
 
-    public FollowedViewModel(@NonNull Application application, FeatureRepository featureRepository) {
-        super(application);
+    @Inject
+    public FollowedViewModel(FeatureRepository featureRepository) {
         mRepository = featureRepository;
         ARouter.getInstance().inject(this);
     }

@@ -37,7 +37,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     api project(':componentlib')
-    api project(':basicres')
-    api project(':basiclib')
+    annotationProcessor deps.dagger.compiler
+    annotationProcessor deps.dagger.androidProcessor
 }

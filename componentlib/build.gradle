@@ -37,6 +37,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    api deps.arouter.runtime
-    api deps.eventbus
+    api project(':basicres')
+    api project(':basiclib')
+
+    annotationProcessor deps.dagger.compiler
+    annotationProcessor deps.dagger.androidProcessor
 }

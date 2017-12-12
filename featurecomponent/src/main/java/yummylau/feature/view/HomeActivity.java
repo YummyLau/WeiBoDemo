@@ -31,8 +31,6 @@ import org.reactivestreams.Subscription;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import dagger.android.AndroidInjection;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import yummylau.common.activity.BaseActivity;

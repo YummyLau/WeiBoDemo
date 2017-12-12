@@ -2,6 +2,7 @@ package yummylau.feature.di.module;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
+import yummylau.common.activity.BaseFragment;
 import yummylau.feature.view.FollowedFragment;
 
 /**
@@ -11,6 +12,7 @@ import yummylau.feature.view.FollowedFragment;
  */
 @Module
 public abstract class FragmentBuildersModule {
+
 
     @ContributesAndroidInjector
     abstract FollowedFragment contributeFollowedFragment();
