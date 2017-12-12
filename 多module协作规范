@@ -75,6 +75,11 @@ https://github.com/iammert/AndroidArchitecture 参考架构
 
 
 
+databinding 技术
+实现原理 http://www.jianshu.com/p/de4d50b88437
+Observable同步原理 http://www.jianshu.com/p/7c8b484cda91
+BindingAdapter原理 http://www.jianshu.com/p/686bfc58bbb0
+各个注解的含义 http://blog.csdn.net/qiang_xi/article/details/75379321
 
 
 设计风格
