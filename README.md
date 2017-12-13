@@ -1,88 +1,77 @@
 # RapidDvpt
-## 工具类
-* Base64Utils
-	* decode解码base64编码后的字符串
-	* encode对字节数组进行base64编码
-	* 支持把文件读取成base64字符串
-* MD5Utils
-	* 支持根据字符串生成32位MD5
-* RSAUtils
-	* 支持根据key对公钥进行RSA加密
-	* 支持根据key对私钥进行RSA加密
-	* 支持根据key对加密字节数组进行RC4解密
-* RC4Utils
-	* 支持根据key对字符串进行RC4加密
-	* 支持根据key对字符串进行RC4解密
-	* 根据随机数生成RC4key
-* BitmapUtils
-	* 支持按照特定宽高或者倍数scale缩放
-	* 支持rotate旋转
-	* 支持把bitmap读取成byte[]
-	* 支持对bitmap高斯模糊处理
-	* 支持给定宽高计算bitmap的压缩比率
-	* 支持防止oom的读取bitmap方式
-* ResourceUtils
-	* 根据资源类型和名称返回资源id
-	* 从assets中读取文件返回字符串
-	* 从assets中bitmap图片
-* CrashUtils
-	* 需要在application初始化
-	* 支持捕获crash异常并toast提示，收集crash异常日志保存本地
-* DisplayUtils
-	* 支持sp/dp与px的相互转换
-	* 支持获取屏幕/屏幕水平/屏幕竖直dpi
-	* 支持获取屏幕密度比(0.5,1.0,1.5等)
-	* 支持获取屏幕每英寸的像素点(120,160,240,320等)
-* FileUtils
-	* 支持判断文件是否存在
-	* 支持递归删除文件
-	* 支持获取一个文件的大小，小于１Ｍ返回ｎＫ，否则返回ｎM
-	* 支持获取一个文件的字节大小
-	* 支持获取一个文件的大小，可选择返回B,KB,MB,GB为单位
-	* 支持根据uri获取path
-	* 支持把文件解压到特定路径
-	* 支持把字符串以文件形式保存于特定路径
-	* 支持从压缩文件中读取特定的文件，以字符串的形式返回 
-* HtmlUtils
-	* 支持过滤特定字符串中的特殊字符
-	* 支持判断一个字符是否是字母
-	* 支持判断一个字符是否是数字
-	* 支持判断一个字符是否是16进制字符
-	* 支持判断一个字符是否是空白字符
-* JsonUtils
-	* 支持根据map生成json格式的字符串
-	* 支持根据key从JSONObject中读取JSONObject或者JSONArray
-	* 支持读取所有基本类型，防止异常且支持默认值
-* KeyboardUtils
-	* 支持展开软键盘
-	* 支持关闭软键盘
-* NetUtils
-	* 支持判断是否是wifi连接
-	* 支持判断是否是GPRS连接
-	* 支持判断是否是网络连接
-	* 支持网络传输大数据时是否流量敏感
-	* 支持获取当前网络状态，2G/3G/4G/WIFI
-* ParseUtils
-	* 支持字符串转化为short，支持默认值
-	* 支持字符串转化为int，支持默认值
-	* 支持字符串转化为long，支持默认值
-	* 支持字符串转化为double，支持默认值
-	* 支持字符串转化为float，支持默认值
-	* 支持字符串转化为boolean，支持默认值
-* ScreenUtils
-	* 支持判断当前横竖屏
-	* 支持测量整个界面
-	* 支持判断是否有导航栏
-	* 支持获取导航栏/状态栏高度
-	* 支持获取屏幕可操作的宽度/高度，包括状态栏不包括导航栏
-	* 支持获取屏幕真实的宽度/高度，包含状态栏和导航栏
-	* 支持获取屏幕的物理尺寸，以英寸为单位
-	* 支持获取当前屏幕截图，支持包含状态栏
+>RapidDvpt项目持续集成
+>采用谷歌 AppArchitecture 作为实践，借助微博api快速迭代客户端。
 
-	
-	
-	
+# App架构设计
+
+## 技术选型
+* 设计模式：MVVM
+* 依赖注入：Dagger2
+* 网络处理：Retrofit + Rxjava2
+* 数据库管理：Room
+
+## 项目基础结构
+* 最上层-壳App，集成（component组件1，component组件2...）
+    * 组件层-component（component组件xxx）
+        * 组件服务层-componentservice（提供组件公用服务）
+            * 组件依赖层-这部分是同底层lib抽离独立，专门处理组件间业务交互所提供的依赖工具
+                * basiclib-基础sdk（包含第三方开源库+私有工具类）
+                * basicres-基础资源（处理公用的基础资源）
+
+## 模块内设计
+* [Architecture Components](https://developer.android.com/topic/libraries/architecture/guide.html)
 
 
-	
-	
+* [Data Binding with Android Architecture Components Preview](http://bytes.schibsted.com/data-binding-android-architecture-components-preview/)
+
+
+**优秀文章链接**
+* [LiveData（官方）](https://developer.android.com/topic/libraries/architecture/livedata.html)
+* [ViewModels and LiveData: Patterns + AntiPatterns](https://medium.com/google-developers/viewmodels-and-livedata-patterns-antipatterns-21efaef74a54)
+* [Room-Rxjava](https://medium.com/google-developers/room-rxjava-acb0cd4f3757)
+
+* [Dagger2（官方）](https://google.github.io/dagger/users-guide.html)
+* [Android and Dagger 2.10 AndroidInjector](https://android.jlelse.eu/android-and-dagger-2-10-androidinjector-5e9c523679a3)
+* [Dagger2进阶必备技能](http://talentprince.github.io/2017/09/30/Advanced-Dagger2-Skills/)
+* [Dependency injection with Dagger 2 - Custom scopes](http://frogermcs.github.io/dependency-injection-with-dagger-2-custom-scopes/)
+* [Dependency injection with Dagger 2 - the API](http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/)
+
+* [DataBinding实现原理探析](http://www.jianshu.com/p/de4d50b88437)
+* [DataBinding难点解析之Observable和BindingAdapter（一）](http://www.jianshu.com/p/7c8b484cda91)
+* [DataBinding难点解析之Observable和BindingAdapter（二）](http://www.jianshu.com/p/686bfc58bbb0)
+* [DataBinding使用教程（三）：各个注解详解](http://blog.csdn.net/qiang_xi/article/details/75379321)
+
+
+* [如何快速做Android MD风格的APP？](https://zhuanlan.zhihu.com/p/20870983)
+* [android-material-design-icon-generator-plugin](https://github.com/konifar/android-material-design-icon-generator-plugin)
+* [MDStudySamples](https://github.com/Mike-bel/MDStudySamples)
+* [MaterialDesignLibrary](https://github.com/navasmdc/MaterialDesignLibrary)
+* [MaterialViewPager](https://github.com/florent37/MaterialViewPager)
+* [无设计开发漂亮App](https://www.race604.com/develpor-beautiful-app-without-ps/)
+* [卡片式布局 MD风格设计 卡片式背景](http://blog.csdn.net/ygilove/article/details/57077745)
+* [Android 使用CardView轻松实现卡片式设计](http://yifeng.studio/2016/10/18/android-cardview/)
+
+* [material design icons](https://www.materialpalette.com/icons)
+* [iconfont](http://www.iconfont.cn/)
+* [material](https://material.io/)
+
+
+
+
+
+* [参考开源项目1-AndroidArchitecture](https://github.com/iammert/AndroidArchitecture)
+
+
+
+
+## 模块化设计
+1. 第三方依赖统一管理
+配置dependencies.gradle，里面统一配置依赖版本及公用变量定义。
+2. 模块资源命名冲突
+在每一个子模块的build.gradle加上对应资源文件标识符resourcePrefix "xxx_"前缀，建议xxx以模块名命名即可。
+3. App模块通过buildWithOtherModule动态build其他模块，module模块通过buildModule打开是否作为module使用。
+4. 开源库的代码隔离设计（待补充）
+5. DI管理（待补充）
+    * Dagger2多module实践
+    * DaggerComponent为主壳app注入
+    * AppComponent为主module注入
