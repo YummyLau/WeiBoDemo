@@ -16,6 +16,7 @@ import java.util.List;
 
 import yummylau.common.activity.BaseFragment;
 import yummylau.feature.R;
+import yummylau.feature.data.Resource;
 import yummylau.feature.databinding.FeatureFragmentMainLayoutBinding;
 import yummylau.feature.data.local.db.entity.StatusEntity;
 import yummylau.feature.videmodel.FollowedViewModel;
@@ -35,14 +36,16 @@ public class FollowedFragment extends BaseFragment<FollowedViewModel, FeatureFra
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        //设置viewmodel
         dataBinding.setViewmodel(viewModel);
         initView();
-        viewModel.getAllStatus().observe(this, new Observer<List<StatusEntity>>() {
+        viewModel.getAllStatus().observe(this, new Observer<Resource<List<StatusEntity>>>() {
             @Override
-            public void onChanged(@Nullable List<StatusEntity> statusEntity) {
-                if (statusEntity != null) {
-                    mStatusListAdapter.addData(statusEntity);
+            public void onChanged(@Nullable Resource<List<StatusEntity>> listResource) {
+                if (listResource.data != null) {
+                    mStatusListAdapter.addData(listResource.data);
                 }
+                dataBinding.swipeLayout.setRefreshing(listResource.loading());
             }
         });
         return dataBinding.getRoot();
@@ -66,7 +69,7 @@ public class FollowedFragment extends BaseFragment<FollowedViewModel, FeatureFra
         dataBinding.swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                viewModel.start();
+                viewModel.refresh();
             }
         });
         dataBinding.statusList.setAdapter(mStatusListAdapter);
@@ -75,6 +78,6 @@ public class FollowedFragment extends BaseFragment<FollowedViewModel, FeatureFra
     @Override
     public void onResume() {
         super.onResume();
-        viewModel.start();
+        viewModel.refresh();
     }
 }

@@ -1,11 +1,11 @@
 package yummylau.feature.videmodel;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
+import android.arch.core.util.Function;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
-import android.support.annotation.NonNull;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -18,7 +18,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import yummylau.componentservice.interfaces.IAccountService;
+import yummylau.feature.AbsentLiveData;
 import yummylau.feature.data.FeatureRepository;
+import yummylau.feature.data.Resource;
 import yummylau.feature.data.local.db.entity.StatusEntity;
 
 /**
@@ -32,40 +34,31 @@ public class FollowedViewModel extends ViewModel {
     public IAccountService accountService;
 
     @Inject
-    public FeatureRepository mRepository;
+    public FeatureRepository featureRepository;
 
-    public final ObservableBoolean dataLoading = new ObservableBoolean(false);
-    public final ObservableBoolean error = new ObservableBoolean(false);
-    private final MutableLiveData<List<StatusEntity>> mAllStatus = new MutableLiveData<>();
+    private final LiveData<Resource<List<StatusEntity>>> mAllStatus;
+    private final MutableLiveData<Boolean> commandRefresh = new MutableLiveData<>();
 
     @Inject
-    public FollowedViewModel(FeatureRepository featureRepository) {
-        mRepository = featureRepository;
+    public FollowedViewModel() {
         ARouter.getInstance().inject(this);
+        mAllStatus = Transformations.switchMap(commandRefresh, new Function<Boolean, LiveData<Resource<List<StatusEntity>>>>() {
+            @Override
+            public LiveData<Resource<List<StatusEntity>>> apply(Boolean toFreshList) {
+                if (toFreshList) {
+                    return featureRepository.getFollowedStatus();
+                } else {
+                    return AbsentLiveData.create();
+                }
+            }
+        });
     }
 
-    public MutableLiveData<List<StatusEntity>> getAllStatus() {
+    public LiveData<Resource<List<StatusEntity>>> getAllStatus() {
         return mAllStatus;
     }
 
-    public void start() {
-        dataLoading.set(true);
-        mRepository.getFollowedStatus()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<StatusEntity>>() {
-                    @Override
-                    public void accept(List<StatusEntity> statusEntities) throws Exception {
-                        error.set(false);
-                        dataLoading.set(false);
-                        mAllStatus.setValue(statusEntities);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        error.set(true);
-                        dataLoading.set(false);
-                    }
-                });
+    public void refresh() {
+        commandRefresh.setValue(true);
     }
 }

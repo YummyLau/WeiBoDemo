@@ -36,6 +36,7 @@ import io.reactivex.schedulers.Schedulers;
 import yummylau.common.activity.BaseActivity;
 import yummylau.commonres.ColorGetter;
 import yummylau.feature.Constants;
+import yummylau.feature.data.Resource;
 import yummylau.feature.data.local.db.AppDataBase;
 import yummylau.feature.videmodel.HomeViewModel;
 import yummylau.feature.databinding.FeatureActivityMainLayoutBinding;
@@ -71,69 +72,22 @@ public class HomeActivity extends BaseActivity<HomeViewModel, FeatureActivityMai
         mFragmentManager = super.getSupportFragmentManager();
         mFragmentManager.beginTransaction().replace(R.id.content_frame, mFragments.get(0), null).commit();
         initView();
-        viewModel.getUser().observe(this, new Observer<UserEntity>() {
+        viewModel.getUser().observe(this, new Observer<Resource<UserEntity>>() {
             @Override
-            public void onChanged(@Nullable UserEntity userEntity) {
-                if (userEntity != null) {
+            public void onChanged(@Nullable Resource<UserEntity> userEntityResource) {
+                if (userEntityResource.data != null) {
                     View view = dataBinding.navigationLayout.getHeaderView(0);
-                    ((TextView) view.findViewById(R.id.nick)).setText(userEntity.name);
-                    ((TextView) view.findViewById(R.id.status_tip)).setText(String.format(HomeActivity.this.getString(R.string.feature_weibo_count_tip), userEntity.statusesCount));
-                    ((TextView) view.findViewById(R.id.follow_tip)).setText(String.format(HomeActivity.this.getString(R.string.feature_follows_count_tip), userEntity.friendsCount));
-                    ((TextView) view.findViewById(R.id.fans_tip)).setText(String.format(HomeActivity.this.getString(R.string.feature_fans_count_tip), userEntity.followersCount));
+                    ((TextView) view.findViewById(R.id.nick)).setText(userEntityResource.data.name);
+                    ((TextView) view.findViewById(R.id.status_tip)).setText(String.format(HomeActivity.this.getString(R.string.feature_weibo_count_tip), userEntityResource.data.statusesCount));
+                    ((TextView) view.findViewById(R.id.follow_tip)).setText(String.format(HomeActivity.this.getString(R.string.feature_follows_count_tip), userEntityResource.data.friendsCount));
+                    ((TextView) view.findViewById(R.id.fans_tip)).setText(String.format(HomeActivity.this.getString(R.string.feature_fans_count_tip), userEntityResource.data.followersCount));
                     Glide.with(HomeActivity.this)
-                            .load(userEntity.profileImageUrl)
+                            .load(userEntityResource.data.profileImageUrl)
                             .into((ImageView) view.findViewById(R.id.avatar));
                 }
-                // TODO: 2017/12/5 收到用户信息
             }
         });
-        viewModel.initOwnInfo();
-        AppDataBase.getInstance(HomeActivity.this).userDao().getUsers()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<UserEntity>>() {
-                    @Override
-                    public void onSubscribe(Subscription s) {
-//                        s.request(Long.MAX_VALUE);
-                        Log.d("HomeActivity", "onSubscribe");
-                    }
-
-                    @Override
-                    public void onNext(List<UserEntity> userEntities) {
-                        if (userEntities != null || !userEntities.isEmpty()) {
-                            for (UserEntity entity : userEntities) {
-                                Log.d("HomeActivity", "entity id-" + entity.id);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable t) {
-                        Log.d("HomeActivity", "onError");
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.d("HomeActivity", "onComplete");
-                    }
-                });
-
-        dataBinding.postBtn.setOnClickListener(new View.OnClickListener() {
-            public int id = 1;
-
-            @Override
-            public void onClick(View view) {
-                final UserEntity userEntity = new UserEntity();
-                userEntity.id = id;
-                id++;
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        AppDataBase.getInstance(HomeActivity.this).userDao().insertUser(userEntity);
-                    }
-                }).start();
-            }
-        });
+        viewModel.initInfo();
     }
 
 

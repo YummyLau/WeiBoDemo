@@ -1,5 +1,6 @@
 package yummylau.feature.data.local.db.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -27,7 +28,7 @@ public interface UserDao {
     long[] insertUsers(List<UserEntity> user);
 
     @Query("SELECT * FROM " + UserEntity.TABLE_NAME + " LIMIT 1")
-    Flowable<UserEntity> getUser();
+    LiveData<UserEntity> getUser();
 
     @Query("SELECT * FROM " + UserEntity.TABLE_NAME)
     Flowable<List<UserEntity>> getUsers();

@@ -10,12 +10,6 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
-import yummylau.feature.data.FeatureRepository;
-import yummylau.feature.data.local.LocalDataSource;
-import yummylau.feature.data.remote.RemoteDataSource;
-import yummylau.feature.data.local.db.AppDataBase;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Email yummyl.lau@gmail.com

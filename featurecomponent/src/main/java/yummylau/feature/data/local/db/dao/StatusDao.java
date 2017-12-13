@@ -1,5 +1,6 @@
 package yummylau.feature.data.local.db.dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -18,7 +19,7 @@ import yummylau.feature.data.local.db.entity.StatusEntity;
 public interface StatusDao {
 
     @Query("SELECT * FROM status_table")
-    Flowable<List<StatusEntity>> getStatus();
+    LiveData<List<StatusEntity>> getStatus();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long[] insertStatusEntities(List<StatusEntity> statusEntities);

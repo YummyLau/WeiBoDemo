@@ -2,7 +2,9 @@ package yummylau.feature.videmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.ObservableBoolean;
@@ -26,7 +28,9 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import yummylau.componentservice.bean.Token;
 import yummylau.componentservice.interfaces.IAccountService;
+import yummylau.feature.AbsentLiveData;
 import yummylau.feature.data.FeatureRepository;
+import yummylau.feature.data.Resource;
 import yummylau.feature.data.local.db.entity.StatusEntity;
 import yummylau.feature.data.local.db.entity.UserEntity;
 
@@ -39,38 +43,33 @@ public class HomeViewModel extends ViewModel {
     @Autowired(name = IAccountService.SERVICE_NAME)
     public IAccountService accountService;
 
-    private FeatureRepository mRepository;
+    @Inject
+    public FeatureRepository featureRepository;
 
-    private final MutableLiveData<UserEntity> ownUserInfo = new MutableLiveData<>();
-
+    private final LiveData<Resource<UserEntity>> ownUserInfo;
+    private final MutableLiveData<Boolean> commandInitInfo = new MutableLiveData<>();
 
     @Inject
-    public HomeViewModel(FeatureRepository featureRepository) {
-        mRepository = featureRepository;
+    public HomeViewModel() {
         ARouter.getInstance().inject(this);
+        ownUserInfo = Transformations.switchMap(commandInitInfo, new android.arch.core.util.Function<Boolean, LiveData<Resource<UserEntity>>>() {
+            @Override
+            public LiveData<Resource<UserEntity>> apply(Boolean commandInitInfo) {
+                if (commandInitInfo) {
+                    return featureRepository.getUserInfo(11l);
+                } else {
+                    return AbsentLiveData.create();
+                }
+            }
+        });
     }
 
-    public MutableLiveData<UserEntity> getUser() {
+    public LiveData<Resource<UserEntity>> getUser() {
         return ownUserInfo;
     }
 
-    /**
-     * 初始化用户信息
-     */
-    public void initOwnInfo() {
-        mRepository.getOwnInfo()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<UserEntity>() {
-                    @Override
-                    public void accept(UserEntity userEntity) throws Exception {
-                        ownUserInfo.setValue(userEntity);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        throwable.getMessage();
-                    }
-                });
+    public void initInfo() {
+        commandInitInfo.setValue(true);
     }
+
 }

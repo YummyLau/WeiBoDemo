@@ -14,14 +14,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import yummylau.common.net.HttpManager;
 import yummylau.common.net.HttpParam;
 import yummylau.componentservice.di.SingletonModule;
-import yummylau.feature.App;
 import yummylau.feature.data.FeatureRepository;
-import yummylau.feature.data.local.LocalDataSource;
 import yummylau.feature.data.local.db.AppDataBase;
 import yummylau.feature.data.local.db.dao.StatusDao;
 import yummylau.feature.data.local.db.dao.UserDao;
-import yummylau.feature.data.remote.HttpParamCreator;
-import yummylau.feature.data.remote.RemoteDataSource;
 import yummylau.feature.data.remote.api.WeiboApis;
 
 /**
@@ -35,20 +31,8 @@ public class FeatureModule {
 
     @Provides
     @Singleton
-    FeatureRepository provideFeatureRepository(RemoteDataSource remoteDataSource, LocalDataSource localDataSource) {
-        return new FeatureRepository(remoteDataSource, localDataSource);
-    }
-
-    @Provides
-    @Singleton
-    RemoteDataSource provideRemoteDataSource(Application application, AppDataBase db) {
-        return new RemoteDataSource(application, db);
-    }
-
-    @Provides
-    @Singleton
-    LocalDataSource provideLocalDataSource(AppDataBase db) {
-        return new LocalDataSource(db);
+    FeatureRepository provideFeatureRepository(AppDataBase appDataBase, WeiboApis weiboApis) {
+        return new FeatureRepository(appDataBase, weiboApis);
     }
 
     @Provides

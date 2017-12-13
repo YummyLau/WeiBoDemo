@@ -1,8 +1,10 @@
 package yummylau.feature.data;
 
+
+import android.arch.lifecycle.LiveData;
+
 import java.util.List;
 
-import io.reactivex.Flowable;
 import yummylau.feature.data.local.db.entity.StatusEntity;
 import yummylau.feature.data.local.db.entity.UserEntity;
 
@@ -12,9 +14,7 @@ import yummylau.feature.data.local.db.entity.UserEntity;
  */
 public interface FeatureDataSource {
 
-    Flowable<List<StatusEntity>> getFollowedStatus();
+    LiveData<Resource<List<StatusEntity>>> getFollowedStatus();
 
-    Flowable<UserEntity> getUserInfo(long uid);
-
-    Flowable<UserEntity> getOwnInfo();
+    LiveData<Resource<UserEntity>> getUserInfo(long uid);
 }

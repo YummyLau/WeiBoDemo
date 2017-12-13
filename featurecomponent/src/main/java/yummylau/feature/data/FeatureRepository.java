@@ -1,8 +1,13 @@
 package yummylau.feature.data;
 
 
+import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.launcher.ARouter;
 
 import org.reactivestreams.Publisher;
 
@@ -13,8 +18,17 @@ import javax.inject.Singleton;
 
 import io.reactivex.Flowable;
 import io.reactivex.functions.Function;
+import yummylau.common.net.HttpManager;
+import yummylau.componentservice.bean.Token;
+import yummylau.componentservice.interfaces.IAccountService;
+import yummylau.feature.data.local.db.AppDataBase;
 import yummylau.feature.data.local.db.entity.StatusEntity;
 import yummylau.feature.data.local.db.entity.UserEntity;
+import yummylau.feature.data.remote.HttpParamCreator;
+import yummylau.feature.data.remote.api.WeiboApis;
+import yummylau.feature.data.remote.result.StatusResult;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Email yummyl.lau@gmail.com
@@ -23,85 +37,94 @@ import yummylau.feature.data.local.db.entity.UserEntity;
 @Singleton
 public class FeatureRepository implements FeatureDataSource {
 
-    private static final String TAG = FeatureRepository.class.getSimpleName();
-
-    private volatile static FeatureRepository INSTANCE = null;
-
-    private final FeatureDataSource mRemoteDataSource;
-    private final FeatureDataSource mLocalDataSource;
+    @Autowired(name = IAccountService.SERVICE_NAME)
+    public IAccountService accountService;
+    private AppDataBase mAppDataBase;
+    private WeiboApis mWeiboApis;
 
     @Inject
-    public FeatureRepository(@NonNull FeatureDataSource remoteDataSource,
-                              @NonNull FeatureDataSource localDataSource) {
-        mRemoteDataSource = checkNotNull(remoteDataSource);
-        mLocalDataSource = checkNotNull(localDataSource);
+    public FeatureRepository(AppDataBase appDataBase, WeiboApis weiboApis) {
+        this.mAppDataBase = appDataBase;
+        this.mWeiboApis = weiboApis;
+        ARouter.getInstance().inject(this);
     }
 
-    public static FeatureRepository getInstance(FeatureDataSource remoteDataSource,
-                                                FeatureDataSource localDataSource) {
-        if (INSTANCE == null) {
-            synchronized (FeatureRepository.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new FeatureRepository(remoteDataSource, localDataSource);
+    @Override
+    public LiveData<Resource<List<StatusEntity>>> getFollowedStatus() {
+        return new NetworkBoundResource<List<StatusEntity>, List<StatusEntity>>() {
+            @NonNull
+            @Override
+            protected Flowable<List<StatusEntity>> createApi() {
+                return accountService.getToken(true)
+                        .flatMap(new Function<Token, Publisher<List<StatusEntity>>>() {
+                            @Override
+                            public Publisher<List<StatusEntity>> apply(Token token) throws Exception {
+                                return mWeiboApis
+                                        .getAllStatus(token.accessToken)
+                                        .map(new Function<StatusResult, List<StatusEntity>>() {
+                                            @Override
+                                            public List<StatusEntity> apply(StatusResult statusResult) throws Exception {
+                                                if (statusResult != null && statusResult.statusList != null) {
+                                                    return statusResult.statusList;
+                                                }
+                                                return null;
+                                            }
+                                        });
+                            }
+                        });
+            }
+
+            @Override
+            protected void saveCallResult(@NonNull List<StatusEntity> item) {
+                mAppDataBase.statusDao().insertStatusEntities(item);
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable List<StatusEntity> data) {
+                return data == null || data.isEmpty();
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<List<StatusEntity>> loadFromDb() {
+                return mAppDataBase.statusDao().getStatus();
+            }
+        }.getAsLiveData();
+    }
+
+    @Override
+    public LiveData<Resource<UserEntity>> getUserInfo(long uid) {
+
+        return new NetworkBoundResource<UserEntity, UserEntity>() {
+            @NonNull
+            @Override
+            protected Flowable<UserEntity> createApi() {
+                return accountService.getToken(true)
+                        .flatMap(new Function<Token, Publisher<UserEntity>>() {
+                            @Override
+                            public Publisher<UserEntity> apply(Token token) throws Exception {
+                                return mWeiboApis.getUser(token.accessToken, token.uid);
+                            }
+                        });
+            }
+
+            @Override
+            protected void saveCallResult(@NonNull UserEntity item) {
+                if (item != null) {
+                    mAppDataBase.userDao().insertUser(item);
                 }
             }
-        }
-        return INSTANCE;
-    }
 
-    private static <T> T checkNotNull(T reference) {
-        if (reference == null) {
-            throw new NullPointerException();
-        }
-        return reference;
-    }
+            @Override
+            protected boolean shouldFetch(@Nullable UserEntity data) {
+                return data == null;
+            }
 
-
-    @Override
-    public Flowable<List<StatusEntity>> getFollowedStatus() {
-        return mLocalDataSource.getFollowedStatus()
-                .flatMap(new Function<List<StatusEntity>, Publisher<List<StatusEntity>>>() {
-                    @Override
-                    public Publisher<List<StatusEntity>> apply(List<StatusEntity> statusEntities) throws Exception {
-                        if (statusEntities == null || statusEntities.isEmpty()) {
-                            Log.d(TAG, "#getAllStatus()  ->  get data by remote");
-                            return mRemoteDataSource.getFollowedStatus();
-                        }
-                        Log.d(TAG, "#getAllStatus()  ->  get data by local");
-                        return Flowable.just(statusEntities);
-                    }
-                });
-    }
-
-    @Override
-    public Flowable<UserEntity> getUserInfo(final long uid) {
-        return mLocalDataSource.getUserInfo(uid)
-                .flatMap(new Function<UserEntity, Publisher<UserEntity>>() {
-                    @Override
-                    public Publisher<UserEntity> apply(UserEntity userEntity) throws Exception {
-                        if (userEntity.isEmptyObj()) {
-                            Log.d(TAG, "#getUserInfo()  ->  get data by remote");
-                            return mRemoteDataSource.getUserInfo(uid);
-                        }
-                        Log.d(TAG, "#getUserInfo()  ->  get data by local");
-                        return Flowable.just(userEntity);
-                    }
-                });
-    }
-
-    @Override
-    public Flowable<UserEntity> getOwnInfo() {
-        return mLocalDataSource.getOwnInfo()
-                .flatMap(new Function<UserEntity, Publisher<UserEntity>>() {
-                    @Override
-                    public Publisher<UserEntity> apply(UserEntity userEntity) throws Exception {
-                        if (userEntity.isEmptyObj()) {
-                            Log.d(TAG, "#getUserInfo()  ->  get data by remote");
-                            return mRemoteDataSource.getOwnInfo();
-                        }
-                        Log.d(TAG, "#getUserInfo()  ->  get data by local");
-                        return Flowable.just(userEntity);
-                    }
-                });
+            @NonNull
+            @Override
+            protected LiveData<UserEntity> loadFromDb() {
+                return mAppDataBase.userDao().getUser();
+            }
+        }.getAsLiveData();
     }
 }
