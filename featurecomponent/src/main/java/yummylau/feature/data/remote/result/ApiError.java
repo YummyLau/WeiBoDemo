@@ -3,10 +3,13 @@ package yummylau.feature.data.remote.result;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by g8931 on 2017/12/5.
+ * 微博接口错误代码说明
+ * <a href="http://open.weibo.com/wiki/Error_code">Error code</a>
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/14.
  */
 
-public class WeiboResult {
+public class ApiError {
 
     @SerializedName("request")
     public String request;

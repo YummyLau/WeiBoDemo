@@ -7,10 +7,12 @@ import java.util.List;
 import yummylau.feature.data.local.db.entity.StatusEntity;
 
 /**
- * Created by g8931 on 2017/12/5.
+ * 获取关注微博列表
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/14.
  */
 
-public class StatusResult extends WeiboResult {
+public class StatusResult extends ApiError {
 
     @SerializedName("total_number")
     public int totalNum;
