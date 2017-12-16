@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import yummylau.feature.data.local.db.entity.StatusEntity;
 import yummylau.feature.data.local.db.entity.UserEntity;
+import yummylau.feature.data.remote.result.ApiResult;
 
 
 /**
@@ -12,7 +13,7 @@ import yummylau.feature.data.local.db.entity.UserEntity;
  * Created by yummylau on 2017/11/15.
  */
 
-public class Comment {
+public class Comment extends ApiResult {
 
     //评论创建时间
     @SerializedName("created_at")

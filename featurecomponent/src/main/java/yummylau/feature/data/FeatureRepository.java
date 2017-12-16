@@ -4,7 +4,6 @@ package yummylau.feature.data;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -18,13 +17,11 @@ import javax.inject.Singleton;
 
 import io.reactivex.Flowable;
 import io.reactivex.functions.Function;
-import yummylau.common.net.HttpManager;
 import yummylau.componentservice.bean.Token;
 import yummylau.componentservice.interfaces.IAccountService;
 import yummylau.feature.data.local.db.AppDataBase;
 import yummylau.feature.data.local.db.entity.StatusEntity;
 import yummylau.feature.data.local.db.entity.UserEntity;
-import yummylau.feature.data.remote.HttpParamCreator;
 import yummylau.feature.data.remote.api.WeiboApis;
 import yummylau.feature.data.remote.result.StatusResult;
 

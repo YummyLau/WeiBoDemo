@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by yummylau on 2017/12/14.
  */
 
-public class ApiError {
+public class ApiResult {
 
     @SerializedName("request")
     public String request;

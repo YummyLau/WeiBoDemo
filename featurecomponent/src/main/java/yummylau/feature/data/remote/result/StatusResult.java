@@ -12,7 +12,7 @@ import yummylau.feature.data.local.db.entity.StatusEntity;
  * Created by yummylau on 2017/12/14.
  */
 
-public class StatusResult extends ApiError {
+public class StatusResult extends ApiResult {
 
     @SerializedName("total_number")
     public int totalNum;
