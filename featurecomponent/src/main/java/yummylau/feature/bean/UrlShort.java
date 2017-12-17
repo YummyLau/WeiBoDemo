@@ -25,4 +25,7 @@ public class UrlShort {
     //短链的可用状态，true：可用、false：不可用。
     @SerializedName("result")
     public boolean result;
+
+    @SerializedName("share_count")
+    public int shareCount;
 }
