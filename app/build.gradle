@@ -40,11 +40,39 @@ android {
         buildConfigField "boolean", "BUILD_MODULE_B", rootProject.ext.module.openModuleB
 
     }
+
+    //编译类型
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    flavorDimensions "default"
+
+    //渠道包
+    productFlavors {
+        GooglePlay {
+            manifestPlaceholders = [UMENG_CHANNEL: "GooglePlay"]
+            dimension "default"
+        }
+        Baidu {
+            manifestPlaceholders = [UMENG_CHANNEL: "Baidu"]
+            dimension "default"
+        }
+//        Wandoujia {
+//            manifestPlaceholders = [UMENG_CHANNEL: "Wandoujia"]
+//            dimension "default"
+//        }
+//        Xiaomi {
+//            manifestPlaceholders = [UMENG_CHANNEL: "Xiaomi"]
+//            dimension "default"
+//        }
     }
 
     resourcePrefix "app_"
