@@ -1,6 +1,5 @@
 .gradle
-/local.properties
-local.properties
+
 .DS_Store # only needed under mac os
 /build
 /captures
