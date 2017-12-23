@@ -90,4 +90,43 @@
 [编译时替换资源 - Android重叠包与资源合并一见](http://blog.zhaiyifan.cn/2016/02/18/android-resource-overlay/)
 http://unclechen.github.io/2015/10/22/Android%20Studio%20Gradle%E5%AE%9E%E8%B7%B5%E4%B9%8B%E5%A4%9A%E6%B8%A0%E9%81%93%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%93%E5%8C%85+%E7%89%88%E6%9C%AC%E5%8F%B7%E7%AE%A1%E7%90%86/
 
-jenkins token a6b72c3574fcda540ea774e5d363fa4bcb4af6b0
+
+1.  安装Jenkis - ubuntu 14
+[Installing Jenkins on Ubuntu](https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Ubuntu)
+针对服务器上Jdk1.7 需要安装较低版本的Jenkins
+2. gradle下载失败
+```
+[Gradle] - Launching build.
+FATAL: Failed to install https://services.gradle.org/distributions/gradle-4.1-bin.zip to /root/.jenkins/tools/hudson.plugins.gradle.GradleInstallation/gradle4.1_toolbuildgradle3.0.1
+java.io.IOException: Failed to install https://services.gradle.org/distributions/gradle-4.1-bin.zip to /root/.jenkins/tools/hudson.plugins.gradle.GradleInstallation/gradle4.1_toolbuildgradle3.0.1
+	at hudson.FilePath.installIfNecessaryFrom(FilePath.java:854)
+	at hudson.FilePath.installIfNecessaryFrom(FilePath.java:762)
+	at hudson.tools.DownloadFromUrlInstaller.performInstallation(DownloadFromUrlInstaller.java:76)
+	at hudson.tools.InstallerTranslator.getToolHome(InstallerTranslator.java:72)
+	at hudson.tools.ToolLocationNodeProperty.getToolHome(ToolLocationNodeProperty.java:109)
+	at hudson.tools.ToolInstallation.translateFor(ToolInstallation.java:206)
+	at hudson.plugins.gradle.GradleInstallation.forNode(GradleInstallation.java:94)
+	at hudson.plugins.gradle.Gradle.performTask(Gradle.java:268)
+	at hudson.plugins.gradle.Gradle.perform(Gradle.java:225)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:779)
+	at hudson.model.Build$BuildExecution.build(Build.java:205)
+	at hudson.model.Build$BuildExecution.doRun(Build.java:162)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.run(AbstractBuild.java:534)
+	at hudson.model.Run.execute(Run.java:1728)
+	at hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:43)
+	at hudson.model.ResourceController.execute(ResourceController.java:98)
+	at hudson.model.Executor.run(Executor.java:404)
+Caused by: javax.net.ssl.SSLException: java.security.ProviderException: java.security.InvalidKeyException: EC parameters error
+	at sun.security.ssl.Alerts.getSSLException(Alerts.java:208)
+	at sun.security.ssl.SSLSocketImpl.fatal(SSLSocketImpl.java:1914)
+	at sun.security.ssl.SSLSocketImpl.fatal(SSLSocketImpl.java:1872)
+	at sun.security.ssl.SSLSocketImpl.handleException(SSLSocketImpl.java:1855)
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1376)
+	at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1353)
+	at sun.net.www.protocol.https.HttpsClient.afterConnect(HttpsClient.java:559)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:185)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:162)
+	at hudson.FilePath.installIfNecessaryFrom(FilePath.java:775)
+	... 17 more
+```
