@@ -110,4 +110,10 @@
 [编译时替换资源 - Android重叠包与资源合并一见](http://blog.zhaiyifan.cn/2016/02/18/android-resource-overlay/)
 [Android Studio Gradle实践之多渠道自动化打包+版本号管理](http://unclechen.github.io/2015/10/22/Android%20Studio%20Gradle%E5%AE%9E%E8%B7%B5%E4%B9%8B%E5%A4%9A%E6%B8%A0%E9%81%93%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%93%E5%8C%85+%E7%89%88%E6%9C%AC%E5%8F%B7%E7%AE%A1%E7%90%86/)
 
+九宫格
+https://jaeger.itscoder.com/android/2016/03/06/nine-grid-iamge-view-libaray.html
 
+Storing Java objects other than primitive types in Room Database
+https://medium.com/@amit.bhandari/storing-java-objects-other-than-primitive-types-in-room-database-11e45f4f6d22
+
+http://www.open-open.com/jsoup/

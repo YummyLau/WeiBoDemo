@@ -6,7 +6,8 @@
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:foreground="?selectableItemBackground"
@@ -55,12 +56,27 @@
 
             <TextView
                 android:id="@+id/create_time"
+                android:maxLines="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/avatar"
                 android:layout_alignLeft="@+id/nick"
                 android:layout_marginBottom="5dp"
-                android:text="TextView"
+                android:text="今天 14:44"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/source"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/avatar"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@+id/create_time"
+                android:text="iPhone客户端"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="10sp" />
 
@@ -70,29 +86,30 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/avatar"
                 android:layout_below="@+id/avatar"
+                android:layout_marginBottom="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
                 android:textColor="@color/colorTextPrimary" />
 
-
-            <TextView
-                android:id="@+id/device_info"
-                android:layout_width="wrap_content"
+            <com.jaeger.ninegridimageview.NineGridImageView
+                android:id="@+id/image_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/content"
                 android:layout_below="@+id/content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:text="TextView"
-                android:textColor="@color/colorTextSecondary" />
+                android:layout_marginRight="16dp"
+                app:imgGap="4dp"
+                app:maxSize="9"
+                app:showStyle="grid" />
 
             <RelativeLayout
                 android:id="@+id/action_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/content"
-                android:layout_below="@+id/device_info"
+                android:layout_below="@+id/image_layout"
                 android:layout_marginRight="16dp">
 
                 <LinearLayout

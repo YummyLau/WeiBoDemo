@@ -8,7 +8,8 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by g8931 on 2017/11/24.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/11/24.
  */
 @Entity(tableName = UserEntity.TABLE_NAME,
         primaryKeys = UserEntity.COLUMN_ID_NAME)

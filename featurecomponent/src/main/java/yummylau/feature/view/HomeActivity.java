@@ -31,13 +31,10 @@ import org.reactivestreams.Subscription;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import yummylau.common.activity.BaseActivity;
 import yummylau.commonres.ColorGetter;
 import yummylau.feature.Constants;
 import yummylau.feature.data.Resource;
-import yummylau.feature.data.local.db.AppDataBase;
 import yummylau.feature.videmodel.HomeViewModel;
 import yummylau.feature.databinding.FeatureActivityMainLayoutBinding;
 import yummylau.feature.data.local.db.entity.UserEntity;

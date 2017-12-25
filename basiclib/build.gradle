@@ -66,6 +66,8 @@ dependencies {
     api deps.paging
     api deps.log
     api deps.statusbar
+    api deps.ninegridimageview
+    api deps.jsoup
     api deps.eventbus
     api deps.multiDex
     api deps.gson

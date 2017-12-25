@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "ad28e377f59c0ac823e48026c88759b3",
+    "version": 2,
+    "identityHash": "365e1b0330935b9cabf105c82b8e1bc6",
     "entities": [
       {
         "tableName": "user_table",
@@ -215,7 +215,7 @@
       },
       {
         "tableName": "status_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`created_at` TEXT, `id` INTEGER NOT NULL, `mid` INTEGER NOT NULL, `idstr` TEXT, `text` TEXT, `source` TEXT, `favorited` INTEGER NOT NULL, `truncated` INTEGER NOT NULL, `inReplyToStatusId` TEXT, `inReplyToUserId` TEXT, `inReplyToScreenName` TEXT, `repostsCount` INTEGER NOT NULL, `commentsCount` INTEGER NOT NULL, `attitudesCount` INTEGER NOT NULL, `mlevel` INTEGER NOT NULL, `pic_ids` TEXT, `ad` TEXT, `pics` TEXT, `thumbnailPic` TEXT, `bmiddlePic` TEXT, `original_pic` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`created_at` TEXT, `id` INTEGER NOT NULL, `mid` INTEGER NOT NULL, `idstr` TEXT, `text` TEXT, `source` TEXT, `favorited` INTEGER NOT NULL, `truncated` INTEGER NOT NULL, `inReplyToStatusId` TEXT, `inReplyToUserId` TEXT, `inReplyToScreenName` TEXT, `repostsCount` INTEGER NOT NULL, `commentsCount` INTEGER NOT NULL, `attitudesCount` INTEGER NOT NULL, `mlevel` INTEGER NOT NULL, `pic_ids` TEXT, `ad` TEXT, `sqlPics` TEXT, `thumbnailPic` TEXT, `bmiddlePic` TEXT, `original_pic` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "created_at",
@@ -320,8 +320,8 @@
             "notNull": false
           },
           {
-            "fieldPath": "pics",
-            "columnName": "pics",
+            "fieldPath": "sqlPics",
+            "columnName": "sqlPics",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -356,7 +356,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ad28e377f59c0ac823e48026c88759b3\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"365e1b0330935b9cabf105c82b8e1bc6\")"
     ]
   }
 }

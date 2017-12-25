@@ -3,13 +3,22 @@ package yummylau.feature.data.local.db.entity;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+import yummylau.feature.bean.Pic;
+import yummylau.feature.bean.assist.AssistPicList;
+import yummylau.feature.data.local.db.converter.PicConverters;
 
 
 /**
  * 微博实体
- * Created by g8931 on 2017/11/24.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/24.
  */
 @Entity(tableName = "status_table")
 public class StatusEntity {
@@ -59,18 +68,6 @@ public class StatusEntity {
     @SerializedName("in_reply_to_screen_name")
     public String inReplyToScreenName;
 
-    //缩略图片地址，没有时不返回此字段
-    @SerializedName("thumbnail_pic")
-    public String thumbnailPic;
-
-    //中等尺寸图片地址，没有时不返回此字段
-    @SerializedName("bmiddle_pic")
-    public String bmiddlePic;
-
-    //原始图片地址，没有时不返回此字段
-    @SerializedName("original_pic")
-    public String original_pic;
-
     //地理信息字段
     @Ignore
     @SerializedName("geo")
@@ -113,4 +110,19 @@ public class StatusEntity {
     //微博流内的推广微博ID
     @SerializedName("ad")
     public String ad;
+
+    @SerializedName("pic_urls")
+    @TypeConverters(PicConverters.class)
+    public List<Pic> pics;
+
+    @SerializedName("thumbnail_pic")
+    public String thumbnailPic;
+
+    //中等尺寸图片地址，没有时不返回此字段
+    @SerializedName("bmiddle_pic")
+    public String bmiddlePic;
+
+    //原始图片地址，没有时不返回此字段
+    @SerializedName("original_pic")
+    public String original_pic;
 }
