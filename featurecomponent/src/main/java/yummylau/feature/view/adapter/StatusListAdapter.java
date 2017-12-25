@@ -10,6 +10,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
+import yummylau.common.activity.BaseActivity;
+import yummylau.common.util.imageloader.ImageLoader;
 import yummylau.feature.data.local.db.entity.StatusEntity;
 import yummylau.feature.R;
 
@@ -26,13 +28,13 @@ public class StatusListAdapter extends BaseQuickAdapter<StatusEntity, BaseViewHo
 
     @Override
     protected void convert(BaseViewHolder helper, StatusEntity item) {
-        Glide.with(mContext)
-//                .load(item.user.avatarLarge)
-                .load("https://img1.doubanio.com/img/musician/large/22817.jpg")
-                .into((ImageView) helper.getView(R.id.avatar));
-        helper.setText(R.id.nick, "xxxxx");
+        ImageLoader.getInstance().load(mContext, "https://img1.doubanio.com/img/musician/large/22817.jpg", (ImageView) helper.getView(R.id.avatar));
+        helper.setText(R.id.nick, "周杰伦");
         helper.setText(R.id.create_time, item.created_at);
         helper.setText(R.id.content, item.text);
         helper.setText(R.id.device_info, item.text);
+        helper.setText(R.id.relay_count, String.valueOf(item.repostsCount));
+        helper.setText(R.id.comment_count, String.valueOf(item.commentsCount));
+        helper.setText(R.id.like_count, String.valueOf(item.attitudesCount));
     }
 }

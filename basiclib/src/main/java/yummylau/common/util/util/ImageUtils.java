@@ -453,6 +453,6 @@ public class ImageUtils {
 //        });
 //        observable.subscribeOn(RxUtils.workScheduler())
 //                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(func, RxUtils.emptyThrowable(ImageUtils.class));
+//                .subscribe(func, RxUtils.emptyThrowable(ImageLoader.class));
 //    }
 }

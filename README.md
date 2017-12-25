@@ -51,7 +51,8 @@
 * [卡片式布局 MD风格设计 卡片式背景](http://blog.csdn.net/ygilove/article/details/57077745)
 * [Android 使用CardView轻松实现卡片式设计](http://yifeng.studio/2016/10/18/android-cardview/)
 
-* [material design icons](https://www.materialpalette.com/icons)
+* [material图标在线](https://www.materialpalette.com/icons)
+* [material配色工具](https://www.materialui.co/colors)
 * [iconfont](http://www.iconfont.cn/)
 * [material](https://material.io/)
 
