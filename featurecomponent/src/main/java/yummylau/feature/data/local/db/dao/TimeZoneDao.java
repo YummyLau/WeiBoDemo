@@ -8,19 +8,18 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
-import yummylau.feature.data.local.db.entity.StatusEntity;
+import yummylau.feature.data.local.db.entity.TimeZoneEntity;
 
 /**
  * Email yummyl.lau@gmail.com
- * Created by yummylau on 2017/12/7.
+ * Created by yummylau on 2017/12/26.
  */
-
 @Dao
-public interface StatusDao {
+public interface TimeZoneDao {
 
-    @Query("SELECT * FROM status_table")
-    LiveData<List<StatusEntity>> getStatus();
+    @Query("SELECT * FROM " + TimeZoneEntity.TABLE_NAME)
+    LiveData<List<TimeZoneEntity>> getTimeZones();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long[] insertStatusEntities(List<StatusEntity> statusEntities);
+    long[] insertTimeZoneEntities(List<TimeZoneEntity> timeZoneEntities);
 }

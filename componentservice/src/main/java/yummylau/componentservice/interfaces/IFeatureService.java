@@ -1,6 +1,5 @@
 package yummylau.componentservice.interfaces;
 
-
 import yummylau.componentlib.service.IService;
 
 /**

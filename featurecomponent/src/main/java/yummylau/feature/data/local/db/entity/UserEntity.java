@@ -15,24 +15,7 @@ import com.google.gson.annotations.SerializedName;
         primaryKeys = UserEntity.COLUMN_ID_NAME)
 public class UserEntity {
 
-    @Ignore
-    private boolean emptyObj = false;
-
-    public static final UserEntity EMPTY_OBJ = new UserEntity(true);
-
-    public boolean isEmptyObj() {
-        return emptyObj;
-    }
-
-    public UserEntity(boolean emptyObj) {
-        this.emptyObj = emptyObj;
-    }
-
-    public UserEntity() {
-    }
-
     public static final String TABLE_NAME = "user_table";
-
     public static final String COLUMN_ID_NAME = "user_id";
     public static final String COLUMN_IDSTR_NAME = "user_id_str";
     public static final String COLUMN_SCREEN_NAME = "user_screen_name";
@@ -64,6 +47,22 @@ public class UserEntity {
     public static final String COLUMN_ONLINE_STATUS_NAME = "user_online_status";
     public static final String COLUMN_BI_FOLLOWERS_COUNT_NAME = "user_bi_followers_count";
     public static final String COLUMN_LANG_NAME = "user_lang";
+
+    @Ignore
+    private boolean emptyObj = false;
+
+    public static final UserEntity EMPTY_OBJ = new UserEntity(true);
+
+    public boolean isEmptyObj() {
+        return emptyObj;
+    }
+
+    public UserEntity(boolean emptyObj) {
+        this.emptyObj = emptyObj;
+    }
+
+    public UserEntity() {
+    }
 
     //用户UID
     @ColumnInfo(index = true, name = COLUMN_ID_NAME)

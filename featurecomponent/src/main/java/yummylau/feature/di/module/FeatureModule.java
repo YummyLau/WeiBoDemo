@@ -14,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import yummylau.common.net.HttpManager;
 import yummylau.common.net.HttpParam;
 import yummylau.componentservice.di.SingletonModule;
+import yummylau.feature.data.DataHelper;
 import yummylau.feature.data.FeatureRepository;
 import yummylau.feature.data.local.db.AppDataBase;
 import yummylau.feature.data.local.db.dao.StatusDao;
@@ -40,6 +41,7 @@ public class FeatureModule {
     AppDataBase provideDB(Application application) {
         return Room.databaseBuilder(application, AppDataBase.class, AppDataBase.DB_FILE_NAME).build();
     }
+
 
     @Singleton
     @Provides

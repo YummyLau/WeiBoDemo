@@ -2,6 +2,7 @@ package yummylau.account;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -16,6 +17,7 @@ import io.reactivex.functions.Function;
 import yummylau.account.rxjava.ConsumerThrowable;
 import yummylau.common.view.RoundedDrawable;
 import yummylau.componentlib.router.RouterManager;
+import yummylau.componentlib.service.IService;
 import yummylau.componentservice.exception.TokenInvalidException;
 import yummylau.componentservice.interfaces.IAccountService;
 import yummylau.componentservice.bean.Token;
@@ -80,6 +82,8 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public void createAsLibrary(Application application) {
+        Log.d(IService.class.getSimpleName(), "account create as library...");
+        Log.d(IService.class.getSimpleName(), "account init wbsdk...");
         mApplication = application;
         WbSdk.install(application, new AuthInfo(application, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE));
     }

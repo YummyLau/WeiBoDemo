@@ -6,20 +6,26 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
+import java.util.TimeZone;
+
 import yummylau.feature.data.local.db.converter.Converters;
 import yummylau.feature.data.local.db.dao.StatusDao;
+import yummylau.feature.data.local.db.dao.TimeZoneDao;
 import yummylau.feature.data.local.db.dao.UserDao;
 import yummylau.feature.data.local.db.entity.StatusEntity;
+import yummylau.feature.data.local.db.entity.TimeZoneEntity;
 import yummylau.feature.data.local.db.entity.UserEntity;
 
 /**
  * Email yummyl.lau@gmail.com
  * Created by yummylau on 2017/12/4.
  */
-@Database(entities = {UserEntity.class, StatusEntity.class}, version = 1)
+@Database(entities = {UserEntity.class, StatusEntity.class, TimeZoneEntity.class}, version = 1)
 public abstract class AppDataBase extends RoomDatabase {
 
     public abstract UserDao userDao();
+
+    public abstract TimeZoneDao timeZoneDao();
 
     public abstract StatusDao statusDao();
 

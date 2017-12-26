@@ -2,11 +2,18 @@ package yummylau.feature;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 
+import javax.inject.Inject;
+
+import io.reactivex.Flowable;
+import yummylau.componentlib.service.IService;
 import yummylau.componentservice.interfaces.IFeatureService;
+import yummylau.feature.data.DataHelper;
+import yummylau.feature.data.FeatureRepository;
 
 /**
  * Email yummyl.lau@gmail.com
@@ -27,6 +34,9 @@ public class FeatureServiceImpl implements IFeatureService {
 
     @Override
     public void createAsLibrary(Application application) {
-
+        //初始化时区
+        Log.d(IService.class.getSimpleName(), "feature create as library...");
+        Log.d(IService.class.getSimpleName(), "feature init timezone...");
     }
+
 }

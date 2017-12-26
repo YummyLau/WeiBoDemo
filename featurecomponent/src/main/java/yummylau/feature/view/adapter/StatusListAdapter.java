@@ -17,11 +17,15 @@ import org.jsoup.select.Elements;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import yummylau.common.util.imageloader.ImageLoader;
 import yummylau.feature.bean.Pic;
+import yummylau.feature.data.DataHelper;
 import yummylau.feature.data.local.db.converter.Converters;
 import yummylau.feature.data.local.db.entity.StatusEntity;
 import yummylau.feature.R;
+import yummylau.feature.di.component.DaggerFeatureComponent;
 
 /**
  * 微博adapter
@@ -41,7 +45,7 @@ public class StatusListAdapter extends BaseQuickAdapter<StatusEntity, BaseViewHo
         ImageLoader.getInstance().load(mContext, "https://img1.doubanio.com/img/musician/large/22817.jpg", (ImageView) helper.getView(R.id.avatar));
         helper.setText(R.id.nick, "周杰伦");
         //创建时间
-        helper.setText(R.id.create_time, item.created_at);
+        helper.setText(R.id.create_time, DataHelper.transformTime(item.created_at));
         //来源
         Elements aTag = Jsoup.parse(item.source).select("a");
         if (aTag != null) {

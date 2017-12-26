@@ -1,6 +1,10 @@
 package yummylau.feature.data.remote.api;
 
 
+import android.support.annotation.Nullable;
+
+import java.util.Map;
+
 import io.reactivex.Flowable;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
@@ -143,7 +147,7 @@ public interface WeiboApis {
 
     //获取时区配置
     @GET("common/get_timezone.json")
-    Flowable<String> getTimezone(@Query("access_token") String token,
-                                 @Query("language") String language);
+    Flowable<Map<Integer, String>> getTimezone(@Query("access_token") String token,
+                                               @Nullable @Query("language") String language);
 }
 

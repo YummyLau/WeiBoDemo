@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ad28e377f59c0ac823e48026c88759b3",
+    "identityHash": "7fdd7dde55f41eb648a423c02291e040",
     "entities": [
       {
         "tableName": "user_table",
@@ -352,11 +352,68 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "timezone_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`time_zone_id` INTEGER NOT NULL, `time_zone_str` TEXT, `time_zone_msg` TEXT, PRIMARY KEY(`time_zone_id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "time_zone_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weiboStr",
+            "columnName": "time_zone_str",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "msg",
+            "columnName": "time_zone_msg",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "time_zone_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_timezone_table_time_zone_id",
+            "unique": false,
+            "columnNames": [
+              "time_zone_id"
+            ],
+            "createSql": "CREATE  INDEX `index_timezone_table_time_zone_id` ON `${TABLE_NAME}` (`time_zone_id`)"
+          },
+          {
+            "name": "index_timezone_table_time_zone_str",
+            "unique": false,
+            "columnNames": [
+              "time_zone_str"
+            ],
+            "createSql": "CREATE  INDEX `index_timezone_table_time_zone_str` ON `${TABLE_NAME}` (`time_zone_str`)"
+          },
+          {
+            "name": "index_timezone_table_time_zone_msg",
+            "unique": false,
+            "columnNames": [
+              "time_zone_msg"
+            ],
+            "createSql": "CREATE  INDEX `index_timezone_table_time_zone_msg` ON `${TABLE_NAME}` (`time_zone_msg`)"
+          }
+        ],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ad28e377f59c0ac823e48026c88759b3\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"7fdd7dde55f41eb648a423c02291e040\")"
     ]
   }
 }
