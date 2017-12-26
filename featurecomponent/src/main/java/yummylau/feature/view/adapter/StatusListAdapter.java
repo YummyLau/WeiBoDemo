@@ -13,6 +13,7 @@ import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.util.List;
 
@@ -42,7 +43,16 @@ public class StatusListAdapter extends BaseQuickAdapter<StatusEntity, BaseViewHo
         //创建时间
         helper.setText(R.id.create_time, item.created_at);
         //来源
-        helper.setText(R.id.source, Jsoup.parse(item.source).select("a").first().text());
+        Elements aTag = Jsoup.parse(item.source).select("a");
+        if (aTag != null) {
+            if (aTag.first() == null) {
+                helper.getView(R.id.source).setVisibility(View.GONE);
+            } else {
+                helper.getView(R.id.source).setVisibility(View.VISIBLE);
+                helper.setText(R.id.source, aTag.text());
+            }
+        }
+
         mStringNineGridImageView = helper.getView(R.id.image_layout);
         //图片列表
         if (item.pics != null && !item.pics.isEmpty()) {

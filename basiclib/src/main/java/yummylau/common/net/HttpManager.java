@@ -17,6 +17,7 @@ import retrofit2.Retrofit;
 import yummylau.common.BuildConfig;
 import yummylau.common.net.interceptor.CacheInterceptor;
 import yummylau.common.net.interceptor.LogInterceptor;
+import yummylau.common.net.interceptor.WeiboResultInterceptor;
 
 /**
  * Email yummyl.lau@gmail.com
@@ -52,6 +53,7 @@ public class HttpManager {
         } else {
             sHttpClientBuilder.addInterceptor(new CacheInterceptor(false, NetworkUtils.networkAvailable(sContext)));
         }
+        sHttpClientBuilder.addInterceptor(new WeiboResultInterceptor());
         if (BuildConfig.DEBUG) {
             sHttpClientBuilder.addInterceptor(new LogInterceptor());
         }

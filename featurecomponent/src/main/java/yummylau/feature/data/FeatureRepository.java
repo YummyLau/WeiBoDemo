@@ -80,6 +80,7 @@ public class FeatureRepository implements FeatureDataSource {
             @Override
             protected boolean shouldFetch(@Nullable List<StatusEntity> data) {
                 return data == null || data.isEmpty();
+//                return true;
             }
 
             @NonNull
