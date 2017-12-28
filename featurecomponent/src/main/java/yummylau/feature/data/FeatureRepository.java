@@ -96,7 +96,9 @@ public class FeatureRepository implements FeatureDataSource {
             @Override
             protected boolean shouldFetch(@Nullable List<TimeZoneEntity> data) {
                 return data == null || data.isEmpty();
+//                return true;
             }
+
 
             @NonNull
             @Override

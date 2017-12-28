@@ -25,6 +25,7 @@ import yummylau.feature.data.DataHelper;
 import yummylau.feature.data.local.db.converter.Converters;
 import yummylau.feature.data.local.db.entity.StatusEntity;
 import yummylau.feature.R;
+import yummylau.feature.data.local.db.entity.UserEntity;
 import yummylau.feature.di.component.DaggerFeatureComponent;
 
 /**
@@ -42,8 +43,9 @@ public class StatusListAdapter extends BaseQuickAdapter<StatusEntity, BaseViewHo
 
     @Override
     protected void convert(BaseViewHolder helper, StatusEntity item) {
-        ImageLoader.getInstance().load(mContext, "https://img1.doubanio.com/img/musician/large/22817.jpg", (ImageView) helper.getView(R.id.avatar));
-        helper.setText(R.id.nick, "周杰伦");
+        UserEntity userEntity = item.user;
+        ImageLoader.getInstance().load(mContext, userEntity.avatarLarge, (ImageView) helper.getView(R.id.avatar));
+        helper.setText(R.id.nick, userEntity.name);
         //创建时间
         helper.setText(R.id.create_time, DataHelper.transformTime(item.created_at));
         //来源
