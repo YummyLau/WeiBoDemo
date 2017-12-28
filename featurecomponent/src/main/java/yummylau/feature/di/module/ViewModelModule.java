@@ -3,13 +3,11 @@ package yummylau.feature.di.module;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
-import javax.inject.Inject;
-
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
 import yummylau.common.viewmodel.ViewModelFactory;
-import yummylau.feature.di.ViewModelKey;
+import yummylau.componentlib.di.ViewModelKey;
 import yummylau.feature.videmodel.FollowedViewModel;
 import yummylau.feature.videmodel.HomeViewModel;
 

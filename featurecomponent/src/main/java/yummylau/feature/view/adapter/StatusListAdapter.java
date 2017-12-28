@@ -22,11 +22,9 @@ import javax.inject.Inject;
 import yummylau.common.util.imageloader.ImageLoader;
 import yummylau.feature.bean.Pic;
 import yummylau.feature.data.DataHelper;
-import yummylau.feature.data.local.db.converter.Converters;
 import yummylau.feature.data.local.db.entity.StatusEntity;
 import yummylau.feature.R;
 import yummylau.feature.data.local.db.entity.UserEntity;
-import yummylau.feature.di.component.DaggerFeatureComponent;
 
 /**
  * 微博adapter

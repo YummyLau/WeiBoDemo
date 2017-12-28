@@ -18,7 +18,8 @@ import yummylau.feature.data.remote.result.StatusResult;
 import yummylau.feature.data.remote.result.UrlResult;
 
 /**
- * Created by g8931 on 2017/11/24.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/11/24.
  */
 
 public interface WeiboApis {

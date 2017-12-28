@@ -44,6 +44,7 @@ android {
         //配置buildConfig变量
         buildConfigField "boolean", "BUILD_MODULE_ACCOUNT", rootProject.ext.module.openModuleAccount
         buildConfigField "boolean", "BUILD_MODULE_B", rootProject.ext.module.openModuleB
+        buildConfigField "boolean", "BUILD_MODULE_Init", rootProject.ext.module.openModuleInit
 
     }
 

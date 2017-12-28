@@ -64,7 +64,7 @@ public class FeatureRepository implements FeatureDataSource {
             @NonNull
             @Override
             protected Flowable<Map<Integer, String>> createApi() {
-                return accountService.getToken(true)
+                return accountService.getToken()
                         .flatMap(new Function<Token, Publisher<Map<Integer, String>>>() {
                             @Override
                             public Publisher<Map<Integer, String>> apply(Token token) throws Exception {
@@ -115,7 +115,7 @@ public class FeatureRepository implements FeatureDataSource {
             @NonNull
             @Override
             protected Flowable<List<StatusEntity>> createApi() {
-                return accountService.getToken(true)
+                return accountService.getToken()
                         .flatMap(new Function<Token, Publisher<List<StatusEntity>>>() {
                             @Override
                             public Publisher<List<StatusEntity>> apply(Token token) throws Exception {
@@ -159,7 +159,7 @@ public class FeatureRepository implements FeatureDataSource {
             @NonNull
             @Override
             protected Flowable<UserEntity> createApi() {
-                return accountService.getToken(true)
+                return accountService.getToken()
                         .flatMap(new Function<Token, Publisher<UserEntity>>() {
                             @Override
                             public Publisher<UserEntity> apply(Token token) throws Exception {

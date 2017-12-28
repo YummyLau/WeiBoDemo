@@ -12,6 +12,8 @@ import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.RequestOptions;
 
 
+import javax.inject.Inject;
+
 import yummylau.common.interfaces.IImageLoader;
 
 /**

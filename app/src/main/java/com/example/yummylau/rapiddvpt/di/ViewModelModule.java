@@ -1,19 +1,25 @@
 package com.example.yummylau.rapiddvpt.di;
 
 import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
 
 import com.example.yummylau.rapiddvpt.SplashViewModel;
 
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
-import yummylau.feature.di.ViewModelKey;
+import yummylau.common.viewmodel.ViewModelFactory;
+import yummylau.componentlib.di.ViewModelKey;
 
 /**
- * Created by g8931 on 2017/12/12.
+ * Email yummyl.lau@gmail.com
+ * Created by yummylau on 2017/12/12.
  */
 @Module
-public abstract class SplashViewModelModule {
+public abstract class ViewModelModule {
+
+    @Binds
+    abstract ViewModelProvider.Factory bindsViewModelFactory(ViewModelFactory factory);
 
 
     @Binds

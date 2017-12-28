@@ -7,7 +7,6 @@ import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.example.yummylau.rapiddvpt.di.Dagger2Component;
 import com.example.yummylau.rapiddvpt.di.DaggerDagger2Component;
 import com.facebook.stetho.Stetho;
 
@@ -20,8 +19,6 @@ import yummylau.common.crash.CrashHandler;
 import yummylau.common.net.HttpManager;
 import yummylau.componentservice.interfaces.IAccountService;
 import yummylau.componentservice.interfaces.IFeatureService;
-import yummylau.feature.di.component.DaggerFeatureComponent;
-import yummylau.feature.di.module.FeatureModule;
 
 /**
  * Email yummyl.lau@gmail.com
@@ -52,9 +49,10 @@ public class App extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
-        DaggerDagger2Component.builder()
+      DaggerDagger2Component.builder()
                 .application(this)
                 .build().inject(this);
+
 
         ARouter.openDebug();
         ARouter.openLog();
@@ -64,10 +62,12 @@ public class App extends Application implements HasActivityInjector {
         //crash收集
         CrashHandler.getInstance().init(this);
 
-
         HttpManager.init(this);
         //初始化库
         ARouter.getInstance().inject(this);
+
+//        dagger2Component.inject((AccountServiceImpl) accountService);
+//        dagger2Component.inject((FeatureServiceImpl) featureService);
         accountService.createAsLibrary(this);
         featureService.createAsLibrary(this);
     }

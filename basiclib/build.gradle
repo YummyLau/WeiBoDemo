@@ -84,4 +84,7 @@ dependencies {
 
     annotationProcessor deps.glideCompiler
     implementation project(':basicres')
+
+    annotationProcessor deps.dagger.compiler
+    annotationProcessor deps.dagger.androidProcessor
 }

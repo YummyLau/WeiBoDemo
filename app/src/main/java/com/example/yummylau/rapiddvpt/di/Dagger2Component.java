@@ -10,8 +10,6 @@ import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 import dagger.android.support.AndroidSupportInjectionModule;
-import yummylau.feature.di.module.ActivityBuildersModule;
-import yummylau.feature.di.module.FeatureModule;
 
 /**
  * 顶级注入，用于壳app处理
@@ -23,12 +21,11 @@ import yummylau.feature.di.module.FeatureModule;
 @Singleton
 @Component(
         modules = {
-                FeatureModule.class,
                 AndroidSupportInjectionModule.class,
+                yummylau.feature.di.module.ActivityBuildersModule.class,
+                AndroidInjectionModule.class,
                 ActivityBuildersModule.class,
-
-                SplashActivityModule.class,
-                SplashViewModelModule.class
+                ViewModelModule.class
         })
 public interface Dagger2Component {
 

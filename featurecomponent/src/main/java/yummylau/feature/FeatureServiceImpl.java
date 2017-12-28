@@ -7,13 +7,9 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 
-import javax.inject.Inject;
-
-import io.reactivex.Flowable;
 import yummylau.componentlib.service.IService;
 import yummylau.componentservice.interfaces.IFeatureService;
-import yummylau.feature.data.DataHelper;
-import yummylau.feature.data.FeatureRepository;
+import yummylau.feature.di.component.DaggerFeatureComponent;
 
 /**
  * Email yummyl.lau@gmail.com
@@ -34,6 +30,12 @@ public class FeatureServiceImpl implements IFeatureService {
 
     @Override
     public void createAsLibrary(Application application) {
+
+        DaggerFeatureComponent.builder()
+                .context(application)
+                .build()
+                .inject(this);
+
         //初始化时区
         Log.d(IService.class.getSimpleName(), "feature create as library...");
         Log.d(IService.class.getSimpleName(), "feature init timezone...");

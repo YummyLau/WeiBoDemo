@@ -1,4 +1,4 @@
-package yummylau.componentservice.di;
+package yummylau.componentservice.di.module;
 
 import android.app.Application;
 import android.content.Context;
@@ -7,9 +7,11 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
+import yummylau.componentservice.di.module.SingletonModule;
 
 /**
- * 组件appmodule
+ * 每一个组件
  * Email yummyl.lau@gmail.com
  * Created by yummylau on 2017/12/11.
  */

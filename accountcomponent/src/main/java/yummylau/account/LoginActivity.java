@@ -68,6 +68,7 @@ public class LoginActivity extends BaseActivityOld {
                         if (mAccessToken.isSessionValid()) {
                             AccessTokenKeeper.writeAccessToken(LoginActivity.this, mAccessToken);
                         }
+                        // TODO: 2017/12/28 初始化信息 
                     }
 
                     @Override

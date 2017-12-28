@@ -29,11 +29,6 @@
 * [ViewModels and LiveData: Patterns + AntiPatterns](https://medium.com/google-developers/viewmodels-and-livedata-patterns-antipatterns-21efaef74a54)
 * [Room-Rxjava](https://medium.com/google-developers/room-rxjava-acb0cd4f3757)
 
-* [Dagger2（官方）](https://google.github.io/dagger/users-guide.html)
-* [Android and Dagger 2.10 AndroidInjector](https://android.jlelse.eu/android-and-dagger-2-10-androidinjector-5e9c523679a3)
-* [Dagger2进阶必备技能](http://talentprince.github.io/2017/09/30/Advanced-Dagger2-Skills/)
-* [Dependency injection with Dagger 2 - Custom scopes](http://frogermcs.github.io/dependency-injection-with-dagger-2-custom-scopes/)
-* [Dependency injection with Dagger 2 - the API](http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/)
 
 * [DataBinding实现原理探析](http://www.jianshu.com/p/de4d50b88437)
 * [DataBinding难点解析之Observable和BindingAdapter（一）](http://www.jianshu.com/p/7c8b484cda91)
@@ -71,10 +66,26 @@
 在每一个子模块的build.gradle加上对应资源文件标识符resourcePrefix "xxx_"前缀，建议xxx以模块名命名即可。
 3. App模块通过buildWithOtherModule动态build其他模块，module模块通过buildModule打开是否作为module使用。
 4. 开源库的代码隔离设计（待补充）
-5. DI管理（待补充）
-    * Dagger2多module实践
-    * DaggerComponent为主壳app注入
-    * AppComponent为主module注入
+### DI管理-Dagger2
+1. ```Scope```的实践
+2. @Module 有两个注解元素 include subcomponents
+    include：其他module类
+    subcomponent：子component中的module类
+
+3. @Component 只能获取到Component暴露出来的对象，比如dependencies一个BaseComponent，如果BaseComponent没有显示申明暴露对象，则无法获取得到
+4. @Subcomponents，则效果和dependencies一样，则是BaseComponent
+3. inject(X x),为x提供依赖
+2. Dagger2多module实践
+3. DaggerComponent为主壳app注入
+4. AppComponent为主module注入
+
+* [Dagger2（官方）](https://google.github.io/dagger/users-guide.html)
+* [Android and Dagger 2.10 AndroidInjector](https://android.jlelse.eu/android-and-dagger-2-10-androidinjector-5e9c523679a3)
+* [Dagger2进阶必备技能](http://talentprince.github.io/2017/09/30/Advanced-Dagger2-Skills/)
+* [Dependency injection with Dagger 2 - Custom scopes](http://frogermcs.github.io/dependency-injection-with-dagger-2-custom-scopes/)
+* [Dependency injection with Dagger 2 - the API](http://frogermcs.github.io/dependency-injection-with-dagger-2-the-api/)
+
+
 
 
 # 打包构建

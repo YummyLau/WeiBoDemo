@@ -160,5 +160,6 @@ project.ext {
     module = [
             openModuleAccount: "true",
             openModuleB      : "true",
+            openModuleInit: "true",
     ]
 }

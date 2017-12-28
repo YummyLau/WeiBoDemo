@@ -18,7 +18,5 @@ public interface IAccountService extends IService {
 
     Flowable<Token> getToken();
 
-    Flowable<Token> getToken(boolean checkInvalid);
-
     Consumer<Throwable> CreateConsumerThrowable(Consumer<Throwable> consumer);
 }

@@ -6,15 +6,13 @@ import android.content.Context;
 
 import javax.inject.Singleton;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import yummylau.common.net.HttpManager;
 import yummylau.common.net.HttpParam;
-import yummylau.componentservice.di.SingletonModule;
-import yummylau.feature.data.DataHelper;
+import yummylau.componentservice.di.module.SingletonModule;
 import yummylau.feature.data.FeatureRepository;
 import yummylau.feature.data.local.db.AppDataBase;
 import yummylau.feature.data.local.db.dao.StatusDao;
@@ -38,8 +36,8 @@ public class FeatureModule {
 
     @Provides
     @Singleton
-    AppDataBase provideDB(Application application) {
-        return Room.databaseBuilder(application, AppDataBase.class, AppDataBase.DB_FILE_NAME).build();
+    AppDataBase provideDB(Context context) {
+        return Room.databaseBuilder(context, AppDataBase.class, AppDataBase.DB_FILE_NAME).build();
     }
 
 

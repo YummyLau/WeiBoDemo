@@ -1,4 +1,4 @@
-package yummylau.feature.di;
+package yummylau.componentlib.di;
 
 import android.arch.lifecycle.ViewModel;
 
