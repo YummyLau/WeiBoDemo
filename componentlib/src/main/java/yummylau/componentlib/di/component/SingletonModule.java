@@ -1,4 +1,4 @@
-package yummylau.componentservice.di.module;
+package yummylau.componentlib.di.component;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 

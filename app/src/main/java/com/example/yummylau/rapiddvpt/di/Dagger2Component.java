@@ -1,6 +1,7 @@
 package com.example.yummylau.rapiddvpt.di;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.example.yummylau.rapiddvpt.App;
 
@@ -8,8 +9,10 @@ import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
-import dagger.android.AndroidInjectionModule;
 import dagger.android.support.AndroidSupportInjectionModule;
+import yummylau.account.di.module.AccountModule;
+import yummylau.componentlib.di.module.ViewModelFactoryModule;
+import yummylau.feature.di.module.FeatureModule;
 
 /**
  * 顶级注入，用于壳app处理
@@ -21,16 +24,23 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Singleton
 @Component(
         modules = {
+                ViewModelFactoryModule.class,
+
+                FeatureModule.class,
+                AccountModule.class,
+
                 AndroidSupportInjectionModule.class,
-                yummylau.feature.di.module.ActivityBuildersModule.class,
-                AndroidInjectionModule.class,
                 ActivityBuildersModule.class,
+
                 ViewModelModule.class
         })
 public interface Dagger2Component {
 
     @Component.Builder
     interface Builder {
+
+        @BindsInstance
+        Builder context(Context context);
 
         @BindsInstance
         Builder application(Application application);

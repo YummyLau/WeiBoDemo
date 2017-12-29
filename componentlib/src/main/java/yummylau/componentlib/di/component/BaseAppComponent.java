@@ -1,12 +1,10 @@
-package yummylau.componentservice.di.component;
+package yummylau.componentlib.di.component;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
 import yummylau.common.interfaces.IImageLoader;
-import yummylau.componentservice.di.module.AppModule;
-import yummylau.componentservice.di.module.SingletonModule;
-
+import yummylau.componentlib.di.scope.AppModule;
 /**
  * 公用模块，被依赖的时需要显示暴露对象 如IImageLoader IImageLoader()
  * Email yummyl.lau@gmail.com

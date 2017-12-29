@@ -2,16 +2,14 @@ package yummylau.account.di.component;
 
 import android.app.Application;
 
-import javax.inject.Singleton;
-
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 import dagger.android.support.AndroidSupportInjectionModule;
-import yummylau.account.AccountServiceImpl;
 import yummylau.account.di.module.AccountModule;
-import yummylau.account.di.module.ActivityBuildersModule;
-import yummylau.componentservice.di.component.BaseAppComponent;
+import yummylau.componentlib.di.component.BaseAppComponent;
+import yummylau.componentlib.di.module.ViewModelFactoryModule;
+import yummylau.componentlib.di.scope.FeatureScope;
 
 /**
  * account 注入器
@@ -20,12 +18,12 @@ import yummylau.componentservice.di.component.BaseAppComponent;
  * Created by yummylau on 2017/12/11.
  */
 
-@Singleton
+@FeatureScope
 @Component(modules = {AccountModule.class,
+        ViewModelFactoryModule.class,
         AndroidSupportInjectionModule.class,
-        AndroidInjectionModule.class,
-        ActivityBuildersModule.class})
-public interface AccountComponent{
+        AndroidInjectionModule.class})
+public interface AccountComponent {
 
     @Component.Builder
     interface Builder {
@@ -33,8 +31,12 @@ public interface AccountComponent{
         @BindsInstance
         Builder context(Application application);
 
+        @BindsInstance
+        Builder application(Application application);
+
         AccountComponent build();
     }
 
-    void inject(AccountServiceImpl accountService);
+    //    void inject(AccountServiceImpl accountService);
+    void inject(Application application);
 }

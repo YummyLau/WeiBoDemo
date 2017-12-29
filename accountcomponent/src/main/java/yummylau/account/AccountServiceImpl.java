@@ -7,17 +7,18 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.sina.weibo.sdk.WbSdk;
+import com.sina.weibo.sdk.auth.AccessTokenKeeper;
 import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
-import javax.inject.Inject;
 
 import io.reactivex.Flowable;
 import io.reactivex.functions.Consumer;
-import yummylau.account.data.AccountRepository;
-import yummylau.account.di.component.AccountComponent;
-import yummylau.account.di.component.DaggerAccountComponent;
+import io.reactivex.functions.Function;
+
 import yummylau.account.rxjava.ConsumerThrowable;
 import yummylau.componentlib.service.IService;
+import yummylau.componentservice.exception.TokenInvalidException;
 import yummylau.componentservice.interfaces.IAccountService;
 import yummylau.componentservice.bean.Token;
 
@@ -31,12 +32,24 @@ public class AccountServiceImpl implements IAccountService {
 
     public Context mApplication;
 
-    @Inject
-    public AccountRepository mAccountRepository;
-
     @Override
     public Flowable<Token> getToken() {
-        return mAccountRepository.getToken();
+        return Flowable.just(AccessTokenKeeper.readAccessToken(mApplication))
+                .map(new Function<Oauth2AccessToken, Token>() {
+                    @Override
+                    public Token apply(Oauth2AccessToken oauth2AccessToken) throws Exception {
+                        if (!oauth2AccessToken.isSessionValid()) {
+                            throw new TokenInvalidException();
+                        }
+                        Token token = new Token();
+                        token.uid = Integer.valueOf(oauth2AccessToken.getUid());
+                        token.accessToken = oauth2AccessToken.getToken();
+                        token.refreshToken = oauth2AccessToken.getRefreshToken();
+                        token.expiresTime = oauth2AccessToken.getExpiresTime();
+                        token.phoneNum = oauth2AccessToken.getPhoneNum();
+                        return token;
+                    }
+                });
     }
 
     @Override
@@ -59,12 +72,6 @@ public class AccountServiceImpl implements IAccountService {
     public void createAsLibrary(Application application) {
         Log.d(IService.class.getSimpleName(), "account create as library...");
         Log.d(IService.class.getSimpleName(), "account init wbsdk...");
-        AccountComponent accountComponent = DaggerAccountComponent.builder()
-                .context(application)
-//                .application(application)
-                .build();
-//        accountComponent.inject(application);
-        accountComponent.inject(this);
         mApplication = application;
         WbSdk.install(application, new AuthInfo(application, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE));
     }

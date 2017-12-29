@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModelProvider;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
-import yummylau.common.viewmodel.ViewModelFactory;
 import yummylau.componentlib.di.ViewModelKey;
 import yummylau.feature.videmodel.FollowedViewModel;
 import yummylau.feature.videmodel.HomeViewModel;
@@ -19,15 +18,6 @@ import yummylau.feature.videmodel.HomeViewModel;
 
 @Module
 public abstract class ViewModelModule {
-
-    /**
-     * 该注解告诉我们，ViewModelProvider.Factory 使用ViewModelFactory来实现的
-     *
-     * @param factory
-     * @return
-     */
-    @Binds
-    abstract ViewModelProvider.Factory bindsViewModelFactory(ViewModelFactory factory);
 
     @Binds
     @IntoMap

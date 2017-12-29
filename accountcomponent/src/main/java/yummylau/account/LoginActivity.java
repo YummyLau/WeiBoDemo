@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.sina.weibo.sdk.auth.AccessTokenKeeper;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WbAuthListener;
@@ -22,6 +24,9 @@ import com.sina.weibo.sdk.net.RequestListener;
 
 import yummylau.common.activity.BaseActivityOld;
 import yummylau.account.databinding.AccountActivityMainLayoutBinding;
+import yummylau.componentlib.router.RouterManager;
+import yummylau.componentservice.interfaces.IAccountService;
+import yummylau.componentservice.interfaces.IFeatureService;
 
 
 /**
@@ -31,6 +36,8 @@ import yummylau.account.databinding.AccountActivityMainLayoutBinding;
 @Route(path = Constants.ROUTER_LOGIN)
 public class LoginActivity extends BaseActivityOld {
 
+    @Autowired(name = IFeatureService.SERVICE_NAME)
+    public IFeatureService featureService;
     public static final String TAG = LoginActivity.class.getSimpleName();
     private AccountActivityMainLayoutBinding mBinding;
     private SsoHandler mSsoHandler;
@@ -39,6 +46,7 @@ public class LoginActivity extends BaseActivityOld {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ARouter.getInstance().inject(this);
         mBinding = DataBindingUtil.setContentView(this, R.layout.account_activity_main_layout);
         mSsoHandler = new SsoHandler(this);
         mAccessToken = AccessTokenKeeper.readAccessToken(this);
@@ -68,7 +76,9 @@ public class LoginActivity extends BaseActivityOld {
                         if (mAccessToken.isSessionValid()) {
                             AccessTokenKeeper.writeAccessToken(LoginActivity.this, mAccessToken);
                         }
-                        // TODO: 2017/12/28 初始化信息 
+                        Log.d(TAG, "当前用户已登录，跳转feature组件...");
+                        RouterManager.navigation(featureService.getMainPath());
+                        finish();
                     }
 
                     @Override

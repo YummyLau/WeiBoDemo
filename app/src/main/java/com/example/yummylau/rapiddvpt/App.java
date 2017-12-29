@@ -49,7 +49,10 @@ public class App extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
-      DaggerDagger2Component.builder()
+
+
+        DaggerDagger2Component.builder()
+                .context(this)
                 .application(this)
                 .build().inject(this);
 
@@ -66,8 +69,6 @@ public class App extends Application implements HasActivityInjector {
         //初始化库
         ARouter.getInstance().inject(this);
 
-//        dagger2Component.inject((AccountServiceImpl) accountService);
-//        dagger2Component.inject((FeatureServiceImpl) featureService);
         accountService.createAsLibrary(this);
         featureService.createAsLibrary(this);
     }

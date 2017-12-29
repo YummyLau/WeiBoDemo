@@ -1,4 +1,4 @@
-package yummylau.common.viewmodel;
+package yummylau.componentlib.di;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

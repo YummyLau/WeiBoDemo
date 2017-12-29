@@ -8,7 +8,6 @@ import com.example.yummylau.rapiddvpt.SplashViewModel;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
-import yummylau.common.viewmodel.ViewModelFactory;
 import yummylau.componentlib.di.ViewModelKey;
 
 /**
@@ -17,10 +16,6 @@ import yummylau.componentlib.di.ViewModelKey;
  */
 @Module
 public abstract class ViewModelModule {
-
-    @Binds
-    abstract ViewModelProvider.Factory bindsViewModelFactory(ViewModelFactory factory);
-
 
     @Binds
     @IntoMap
