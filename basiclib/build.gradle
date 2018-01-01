@@ -77,10 +77,14 @@ dependencies {
     api deps.guaua
     api deps.constraintLayout
     api deps.baseRecyclerViewAdapterHelper
+    api deps.matisse
+    api deps.ucrop
+    api deps.photoview
 
     api deps.dagger.runtime
     api deps.dagger.android
     api deps.dagger.androidSupport
+
 
     annotationProcessor deps.glideCompiler
     implementation project(':basicres')

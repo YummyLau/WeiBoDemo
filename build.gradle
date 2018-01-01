@@ -6,6 +6,7 @@ buildscript {
 
         //谷歌仓库
         maven {
+
             url 'https://maven.google.com/'
             name 'Google'
         }

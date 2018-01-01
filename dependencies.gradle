@@ -55,6 +55,9 @@ versions.baseRecyclerViewAdapterHelper = "2.9.30"
 versions.glide = "4.4.0"
 versions.glideCompiler = "4.4.0"
 versions.guaua = "22.0-android"
+versions.matisse = "0.4.3"
+versions.ucrop = "2.2.1"
+versions.photoview = "2.1.3"
 
 
 def support = [:]
@@ -144,7 +147,9 @@ deps.glideCompiler = "com.github.bumptech.glide:compiler:$versions.glideCompiler
 deps.guaua = "com.google.guava:guava:$versions.guaua"
 deps.constraintLayout = "com.android.support.constraint:constraint-layout:$versions.constraintLayout"
 deps.baseRecyclerViewAdapterHelper = "com.github.CymChad:BaseRecyclerViewAdapterHelper:$versions.baseRecyclerViewAdapterHelper"
-
+deps.matisse = "com.zhihu.android:matisse:$versions.matisse"
+deps.ucrop = "com.github.yalantis:ucrop:$versions.ucrop"
+deps.photoview = "com.github.chrisbanes:PhotoView:$versions.photoview"
 
 project.ext {
     android = [
