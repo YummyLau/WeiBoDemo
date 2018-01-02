@@ -1,4 +1,4 @@
-package com.example.yummylau.rapiddvpt;
+package com.example.rapiddvpt;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -6,10 +6,9 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 
-import com.example.yummylau.rapiddvpt.databinding.AppActivitySplashLayoutBinding;
+import com.example.rapiddvpt.databinding.AppActivitySplashLayoutBinding;
 
 import io.reactivex.functions.Consumer;
-import io.reactivex.internal.functions.Functions;
 import yummylau.common.activity.BaseActivity;
 import yummylau.componentlib.router.RouterManager;
 import yummylau.componentservice.bean.Token;

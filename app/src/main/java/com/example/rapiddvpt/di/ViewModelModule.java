@@ -1,9 +1,8 @@
-package com.example.yummylau.rapiddvpt.di;
+package com.example.rapiddvpt.di;
 
 import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 
-import com.example.yummylau.rapiddvpt.SplashViewModel;
+import com.example.rapiddvpt.SplashViewModel;
 
 import dagger.Binds;
 import dagger.Module;

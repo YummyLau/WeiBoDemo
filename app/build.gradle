@@ -60,27 +60,27 @@ android {
         }
     }
 
-    flavorDimensions "default"
+//    flavorDimensions "default"
 
-    //渠道包
-    productFlavors {
-        GooglePlay {
-            manifestPlaceholders = [UMENG_CHANNEL: "GooglePlay"]
-            dimension "default"
-        }
-        Baidu {
-            manifestPlaceholders = [UMENG_CHANNEL: "Baidu"]
-            dimension "default"
-        }
-//        Wandoujia {
-//            manifestPlaceholders = [UMENG_CHANNEL: "Wandoujia"]
+//    //渠道包
+//    productFlavors {
+//        GooglePlay {
+//            manifestPlaceholders = [UMENG_CHANNEL: "GooglePlay"]
 //            dimension "default"
 //        }
-//        Xiaomi {
-//            manifestPlaceholders = [UMENG_CHANNEL: "Xiaomi"]
+//        Baidu {
+//            manifestPlaceholders = [UMENG_CHANNEL: "Baidu"]
 //            dimension "default"
 //        }
-    }
+////        Wandoujia {
+////            manifestPlaceholders = [UMENG_CHANNEL: "Wandoujia"]
+////            dimension "default"
+////        }
+////        Xiaomi {
+////            manifestPlaceholders = [UMENG_CHANNEL: "Xiaomi"]
+////            dimension "default"
+////        }
+//    }
 
     resourcePrefix "app_"
 }

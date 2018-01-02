@@ -25,7 +25,6 @@ import com.sina.weibo.sdk.net.RequestListener;
 import yummylau.common.activity.BaseActivityOld;
 import yummylau.account.databinding.AccountActivityMainLayoutBinding;
 import yummylau.componentlib.router.RouterManager;
-import yummylau.componentservice.interfaces.IAccountService;
 import yummylau.componentservice.interfaces.IFeatureService;
 
 

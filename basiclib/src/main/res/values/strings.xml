@@ -5,6 +5,9 @@
     <string name="library_net_download_finish">下载完成,点击安装</string>
     <string name="library_net_downloaing">正在下载</string>
 
+    <!-- imageviewer -->
+    <string name="library_transition_name">name:%1$d</string>
+
     <!-- crash -->
     <string name="library_crash_toast">程序异常，已为您重新启动...</string>
 </resources>

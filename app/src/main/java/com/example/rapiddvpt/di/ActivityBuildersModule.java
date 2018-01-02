@@ -1,6 +1,6 @@
-package com.example.yummylau.rapiddvpt.di;
+package com.example.rapiddvpt.di;
 
-import com.example.yummylau.rapiddvpt.SplashActivity;
+import com.example.rapiddvpt.SplashActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

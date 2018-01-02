@@ -155,7 +155,7 @@ project.ext {
     android = [
             compileSdkVersion: 27,
             buildToolsVersion: "27.0.0",
-            applicationId    : "com.example.yummylau.rapiddvpt",
+            applicationId    : "com.example.rapiddvpt",
             minSdkVersion    : 15,
             targetSdkVersion : 26,
             versionCode      : 1,
