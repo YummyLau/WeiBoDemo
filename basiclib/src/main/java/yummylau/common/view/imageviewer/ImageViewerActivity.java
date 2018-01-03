@@ -3,6 +3,7 @@ package yummylau.common.view.imageviewer;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,6 +41,11 @@ public class ImageViewerActivity extends BaseBindingActivity<LibraryActivityImag
     }
 
     @Override
+    public int getStatusBarColor() {
+        return Color.BLACK;
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportPostponeEnterTransition();
@@ -50,6 +56,22 @@ public class ImageViewerActivity extends BaseBindingActivity<LibraryActivityImag
         mPagerAdapter = new ImageViewerAdapter(this, mUrls, startIndex);
         dataBinding.viewpager.setAdapter(mPagerAdapter);
         dataBinding.viewpager.setCurrentItem(startIndex);
+        dataBinding.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                dataBinding.pageIndicatorView.setSelection(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
