@@ -72,6 +72,6 @@ dependencies {
     annotationProcessor deps.dagger.compiler
     annotationProcessor deps.dagger.androidProcessor
 
-    implementation 'com.sina.weibo.sdk:core:2.0.3:openDefaultRelease@aar'
+    compile 'com.sina.weibo.sdk:core:4.1.0:openDefaultRelease@aar'
     implementation project(':componentservice')
 }

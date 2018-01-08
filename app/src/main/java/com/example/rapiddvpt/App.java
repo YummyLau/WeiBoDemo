@@ -1,4 +1,4 @@
-package com.example.yummylau.rapiddvpt;
+package com.example.rapiddvpt;
 
 import android.app.Activity;
 import android.app.Application;
@@ -7,7 +7,7 @@ import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.example.yummylau.rapiddvpt.di.DaggerDagger2Component;
+import com.example.rapiddvpt.di.DaggerDagger2Component;
 import com.facebook.stetho.Stetho;
 
 import javax.inject.Inject;

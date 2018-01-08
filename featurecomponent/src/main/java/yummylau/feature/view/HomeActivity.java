@@ -4,6 +4,7 @@ package yummylau.feature.view;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import yummylau.common.activity.BaseActivity;
+import yummylau.common.view.imageviewer.ImageViewer;
 import yummylau.commonres.ColorGetter;
 import yummylau.feature.Constants;
 import yummylau.feature.data.Resource;
@@ -50,6 +53,7 @@ public class HomeActivity extends BaseActivity<HomeViewModel, FeatureActivityMai
 
     private List<Fragment> mFragments;
     private FragmentManager mFragmentManager;
+    private FollowedFragment mFollowedFragment;
 
     @Override
     public Class<HomeViewModel> getViewModel() {
@@ -63,9 +67,11 @@ public class HomeActivity extends BaseActivity<HomeViewModel, FeatureActivityMai
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         mFragments = new ArrayList<>();
-        mFragments.add(new FollowedFragment());
+        mFollowedFragment = new FollowedFragment();
+        mFragments.add(mFollowedFragment);
         mFragmentManager = super.getSupportFragmentManager();
         mFragmentManager.beginTransaction().replace(R.id.content_frame, mFragments.get(0), null).commit();
         initView();
@@ -133,5 +139,11 @@ public class HomeActivity extends BaseActivity<HomeViewModel, FeatureActivityMai
     @Override
     public void setStatusBar() {
         StatusBarUtil.setColorForDrawerLayout(this, dataBinding.drawerLayout, ColorGetter.getStatusBarColor(this));
+    }
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
+        mFollowedFragment.statusListAdapter.setExitPostion(ImageViewer.getExitPostion(resultCode, data, 0));
     }
 }

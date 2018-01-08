@@ -1,9 +1,9 @@
-package com.example.yummylau.rapiddvpt.di;
+package com.example.rapiddvpt.di;
 
 import android.app.Application;
 import android.content.Context;
 
-import com.example.yummylau.rapiddvpt.App;
+import com.example.rapiddvpt.App;
 
 import javax.inject.Singleton;
 

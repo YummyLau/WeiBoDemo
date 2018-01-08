@@ -92,7 +92,7 @@
                 android:text="TextView"
                 android:textColor="@color/colorTextPrimary" />
 
-            <com.jaeger.ninegridimageview.NineGridImageView
+            <yummylau.common.view.nineimage.NineImageView
                 android:id="@+id/image_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

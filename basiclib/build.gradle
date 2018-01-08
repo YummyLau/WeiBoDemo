@@ -84,6 +84,7 @@ dependencies {
     api deps.matisse
     api deps.ucrop
     api deps.photoview
+    api deps.pageindicatorview
 
     api deps.dagger.runtime
     api deps.dagger.android

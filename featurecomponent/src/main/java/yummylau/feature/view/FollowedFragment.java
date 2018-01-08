@@ -1,8 +1,6 @@
 package yummylau.feature.view;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -30,7 +28,7 @@ import yummylau.feature.view.adapter.StatusListAdapter;
 public class FollowedFragment extends BaseFragment<FollowedViewModel, FeatureFragmentMainLayoutBinding> {
 
     private LinearLayoutManager mLinearLayoutManager;
-    private StatusListAdapter mStatusListAdapter;
+    public StatusListAdapter statusListAdapter;
 
     @Nullable
     @Override
@@ -43,7 +41,7 @@ public class FollowedFragment extends BaseFragment<FollowedViewModel, FeatureFra
             @Override
             public void onChanged(@Nullable Resource<List<StatusEntity>> listResource) {
                 if (listResource.data != null) {
-                    mStatusListAdapter.addData(listResource.data);
+                    statusListAdapter.addData(listResource.data);
                 }
                 dataBinding.swipeLayout.setRefreshing(listResource.loading());
             }
@@ -63,8 +61,8 @@ public class FollowedFragment extends BaseFragment<FollowedViewModel, FeatureFra
 
     private void initView() {
         mLinearLayoutManager = new LinearLayoutManager(getContext());
-        mStatusListAdapter = new StatusListAdapter(R.layout.feature_item_status_layout, null);
-        mStatusListAdapter.openLoadAnimation(StatusListAdapter.SLIDEIN_LEFT);
+        statusListAdapter = new StatusListAdapter(R.layout.feature_item_status_layout, null);
+        statusListAdapter.openLoadAnimation(StatusListAdapter.SLIDEIN_LEFT);
         dataBinding.statusList.setLayoutManager(mLinearLayoutManager);
         dataBinding.swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -72,12 +70,12 @@ public class FollowedFragment extends BaseFragment<FollowedViewModel, FeatureFra
                 viewModel.refresh();
             }
         });
-        dataBinding.statusList.setAdapter(mStatusListAdapter);
+        dataBinding.statusList.setAdapter(statusListAdapter);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        viewModel.refresh();
+//        viewModel.refresh();
     }
 }
