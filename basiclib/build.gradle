@@ -63,6 +63,10 @@ dependencies {
     api deps.room.runtime
     api deps.room.rxjava2
 
+    //ijkplayer
+    api deps.ijkplayer.java
+    api deps.ijkplayer.armv7a
+
     api deps.paging
     api deps.log
     api deps.statusbar

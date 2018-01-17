@@ -30,6 +30,8 @@ versions.rxAndroid = "2.0.1"
 
 versions.dagger = "2.11"
 
+versions.ijkplayer = "0.8.4"
+
 versions.espresso = "3.0.1"
 versions.junit = "4.12"
 versions.dexmaker = "2.2.0"
@@ -128,6 +130,11 @@ dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
 dagger.androidSupport = "com.google.dagger:dagger-android-support:$versions.dagger"
 dagger.androidProcessor = "com.google.dagger:dagger-android-processor:$versions.dagger"
 deps.dagger = dagger
+
+def ijkplayer = [:]
+ijkplayer.java = "tv.danmaku.ijk.media:ijkplayer-java:$versions.ijkplayer"
+ijkplayer.armv7a = "tv.danmaku.ijk.media:ijkplayer-armv7a:$versions.ijkplayer"
+deps.ijkplayer = ijkplayer
 
 deps.junit = "junit:junit:$versions.junit"
 deps.dexmaker = "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexmaker"
