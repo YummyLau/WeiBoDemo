@@ -20,7 +20,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
-                        moduleName           : project.getName(),
+                        moduleName: project.getName(),
                 ]
             }
         }

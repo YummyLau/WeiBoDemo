@@ -94,9 +94,7 @@ dependencies {
     annotationProcessor deps.dagger.compiler
     annotationProcessor deps.dagger.androidProcessor
 
-    if(rootProject.ext.module.openModuleAccount.toBoolean()){
-        implementation project(':accountcomponent')
-    }
+    implementation project(':accountService')
 
     if(rootProject.ext.module.openModuleB.toBoolean()){
         implementation project(':featurecomponent')

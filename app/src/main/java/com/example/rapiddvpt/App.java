@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.rapiddvpt.di.DaggerDagger2Component;
 import com.facebook.stetho.Stetho;
@@ -15,10 +14,12 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import yummylau.account.AccountServiceImpl;
 import yummylau.common.crash.CrashHandler;
 import yummylau.common.net.HttpManager;
-import yummylau.componentservice.interfaces.IAccountService;
-import yummylau.componentservice.interfaces.IFeatureService;
+import yummylau.componentlib.component.ComponentManager;
+import yummylau.componentlib.service.ServiceManager;
+import yummylau.feature.FeatureComponentImpl;
 
 /**
  * Email yummyl.lau@gmail.com
@@ -27,11 +28,6 @@ import yummylau.componentservice.interfaces.IFeatureService;
 
 public class App extends Application implements HasActivityInjector {
 
-    @Autowired(name = IAccountService.SERVICE_NAME)
-    public static IAccountService accountService;
-
-    @Autowired(name = IFeatureService.SERVICE_NAME)
-    public static IFeatureService featureService;
 
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -64,13 +60,14 @@ public class App extends Application implements HasActivityInjector {
         Stetho.initializeWithDefaults(this);
         //crash收集
         CrashHandler.getInstance().init(this);
-
         HttpManager.init(this);
         //初始化库
         ARouter.getInstance().inject(this);
 
-        accountService.createAsLibrary(this);
-        featureService.createAsLibrary(this);
+        //初始化基础服务
+        ServiceManager.register(this, AccountServiceImpl.SERVICE_NAME, new AccountServiceImpl());
+        //初始化组件
+        ComponentManager.register(this, FeatureComponentImpl.SERVICE_NAME, new FeatureComponentImpl());
     }
 
 }

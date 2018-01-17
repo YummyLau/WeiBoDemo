@@ -1,16 +1,16 @@
 package yummylau.componentlib.service;
 
 import android.app.Application;
-import android.content.Context;
-
-import com.alibaba.android.arouter.facade.template.IProvider;
 
 /**
+ * 服务实现接口
  * Email yummyl.lau@gmail.com
- * Created by yummylau on 2017/12/11.
+ * Created by g8931 on 2018/1/17.
  */
 
-public interface IService extends IProvider {
+public interface IService {
 
     void createAsLibrary(Application application);
+
+    void release();
 }

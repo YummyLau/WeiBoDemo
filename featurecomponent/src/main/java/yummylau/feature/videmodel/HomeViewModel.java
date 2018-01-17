@@ -12,9 +12,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 
 import javax.inject.Inject;
 
-import yummylau.componentservice.interfaces.IAccountService;
+import yummylau.componentservice.services.IAccountService;
 import yummylau.feature.AbsentLiveData;
-import yummylau.feature.data.DataHelper;
 import yummylau.feature.data.FeatureRepository;
 import yummylau.feature.data.Resource;
 import yummylau.feature.data.local.db.entity.UserEntity;
@@ -24,9 +23,6 @@ import yummylau.feature.data.local.db.entity.UserEntity;
  * Created by yummylau on 2017/12/11.
  */
 public class HomeViewModel extends ViewModel {
-
-    @Autowired(name = IAccountService.SERVICE_NAME)
-    public IAccountService accountService;
 
     @Inject
     public FeatureRepository featureRepository;
