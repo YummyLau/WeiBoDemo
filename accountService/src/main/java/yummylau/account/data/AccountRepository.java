@@ -32,7 +32,6 @@ public class AccountRepository implements AccountDataSource {
     private WeiboApis mWeiboApis;
     private Application mApplication;
 
-
     @Inject
     public AccountRepository(WeiboApis weiboApis, Application application) {
         this.mWeiboApis = weiboApis;
@@ -40,33 +39,48 @@ public class AccountRepository implements AccountDataSource {
     }
 
     @Override
-    public Flowable<Boolean> isLogin() {
-        return Flowable.just(AccessTokenKeeper.readAccessToken(mApplication))
-                .map(new Function<Oauth2AccessToken, Boolean>() {
-                    @Override
-                    public Boolean apply(Oauth2AccessToken oauth2AccessToken) throws Exception {
-                        return oauth2AccessToken != null && oauth2AccessToken.isSessionValid();
-                    }
-                });
+    public void login() {
+
     }
 
     @Override
-    public Flowable<Token> getToken() {
-        return Flowable.just(AccessTokenKeeper.readAccessToken(mApplication))
-                .map(new Function<Oauth2AccessToken, Token>() {
-                    @Override
-                    public Token apply(Oauth2AccessToken oauth2AccessToken) throws Exception {
-                        if (!oauth2AccessToken.isSessionValid()) {
-                            throw new TokenInvalidException();
-                        }
-                        Token token = new Token();
-                        token.uid = Integer.valueOf(oauth2AccessToken.getUid());
-                        token.accessToken = oauth2AccessToken.getToken();
-                        token.refreshToken = oauth2AccessToken.getRefreshToken();
-                        token.expiresTime = oauth2AccessToken.getExpiresTime();
-                        token.phoneNum = oauth2AccessToken.getPhoneNum();
-                        return token;
-                    }
-                });
+    public void logout() {
+
     }
+
+    @Override
+    public void refreshToken() {
+
+    }
+
+//    @Override
+//    public Flowable<Boolean> isLogin() {
+//        return Flowable.just(AccessTokenKeeper.readAccessToken(mApplication))
+//                .map(new Function<Oauth2AccessToken, Boolean>() {
+//                    @Override
+//                    public Boolean apply(Oauth2AccessToken oauth2AccessToken) throws Exception {
+//                        return oauth2AccessToken != null && oauth2AccessToken.isSessionValid();
+//                    }
+//                });
+//    }
+//
+//    @Override
+//    public Flowable<Token> getToken() {
+//        return Flowable.just(AccessTokenKeeper.readAccessToken(mApplication))
+//                .map(new Function<Oauth2AccessToken, Token>() {
+//                    @Override
+//                    public Token apply(Oauth2AccessToken oauth2AccessToken) throws Exception {
+//                        if (!oauth2AccessToken.isSessionValid()) {
+//                            throw new TokenInvalidException();
+//                        }
+//                        Token token = new Token();
+//                        token.uid = Integer.valueOf(oauth2AccessToken.getUid());
+//                        token.accessToken = oauth2AccessToken.getToken();
+//                        token.refreshToken = oauth2AccessToken.getRefreshToken();
+//                        token.expiresTime = oauth2AccessToken.getExpiresTime();
+//                        token.phoneNum = oauth2AccessToken.getPhoneNum();
+//                        return token;
+//                    }
+//                });
+//    }
 }

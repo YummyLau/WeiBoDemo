@@ -13,9 +13,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
  */
 @Singleton
 @Module(includes = {AppModule.class,
-        ActivityBuildersModule.class,
-//        AndroidSupportInjectionModule.class,
-//        AndroidInjectionModule.class
+        ActivityBuildersModule.class
 })
 public class AccountModule {
 }

@@ -15,10 +15,12 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import yummylau.account.AccountServiceImpl;
+import yummylau.account.di.component.AccountComponent;
 import yummylau.common.crash.CrashHandler;
 import yummylau.common.net.HttpManager;
 import yummylau.componentlib.component.ComponentManager;
 import yummylau.componentlib.service.ServiceManager;
+import yummylau.componentservice.services.IAccountService;
 import yummylau.feature.FeatureComponentImpl;
 
 /**
@@ -65,9 +67,9 @@ public class App extends Application implements HasActivityInjector {
         ARouter.getInstance().inject(this);
 
         //初始化基础服务
-        ServiceManager.register(this, AccountServiceImpl.SERVICE_NAME, new AccountServiceImpl());
+        ServiceManager.register(this, AccountServiceImpl.class);
         //初始化组件
-        ComponentManager.register(this, FeatureComponentImpl.SERVICE_NAME, new FeatureComponentImpl());
+        ComponentManager.bind(this, FeatureComponentImpl.class);
     }
 
 }

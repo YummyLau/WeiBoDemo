@@ -13,8 +13,6 @@ import yummylau.componentservice.bean.Token;
 
 public interface IAccountService extends IService {
 
-    String SERVICE_NAME = "/account/service";
-
     void login(String returnActivityPath);
 
     String getLoginPath();

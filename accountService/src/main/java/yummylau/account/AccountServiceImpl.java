@@ -31,6 +31,11 @@ public class AccountServiceImpl implements IAccountService {
     public Context mApplication;
 
     @Override
+    public Class register() {
+        return AccountServiceImpl.class;
+    }
+
+    @Override
     public void login(String returnActivityPath) {
         ARouter.getInstance().build(getLoginPath())
                 .withString(Constants.RETURN_ACTIVITY_PATH, returnActivityPath)

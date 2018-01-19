@@ -21,6 +21,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Flowable;
 import io.reactivex.functions.Function;
+import yummylau.componentlib.service.ServiceManager;
 import yummylau.componentservice.bean.Token;
 import yummylau.componentservice.services.IAccountService;
 import yummylau.feature.data.local.db.AppDataBase;
@@ -39,8 +40,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Singleton
 public class FeatureRepository implements FeatureDataSource {
 
-    @Autowired(name = IAccountService.SERVICE_NAME)
-    public IAccountService accountService;
     private AppDataBase mAppDataBase;
     private WeiboApis mWeiboApis;
 
@@ -58,7 +57,7 @@ public class FeatureRepository implements FeatureDataSource {
             @NonNull
             @Override
             protected Flowable<Map<Integer, String>> createApi() {
-                return accountService.getToken()
+                return ServiceManager.getService(IAccountService.class).getToken()
                         .flatMap(new Function<Token, Publisher<Map<Integer, String>>>() {
                             @Override
                             public Publisher<Map<Integer, String>> apply(Token token) throws Exception {
@@ -109,7 +108,7 @@ public class FeatureRepository implements FeatureDataSource {
             @NonNull
             @Override
             protected Flowable<List<StatusEntity>> createApi() {
-                return accountService.getToken()
+                return ServiceManager.getService(IAccountService.class).getToken()
                         .flatMap(new Function<Token, Publisher<List<StatusEntity>>>() {
                             @Override
                             public Publisher<List<StatusEntity>> apply(Token token) throws Exception {
@@ -153,7 +152,7 @@ public class FeatureRepository implements FeatureDataSource {
             @NonNull
             @Override
             protected Flowable<UserEntity> createApi() {
-                return accountService.getToken()
+                return ServiceManager.getService(IAccountService.class).getToken()
                         .flatMap(new Function<Token, Publisher<UserEntity>>() {
                             @Override
                             public Publisher<UserEntity> apply(Token token) throws Exception {

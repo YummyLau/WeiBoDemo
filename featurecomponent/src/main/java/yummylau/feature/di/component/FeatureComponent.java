@@ -39,6 +39,5 @@ public interface FeatureComponent {
         FeatureComponent build();
     }
 
-    //        void inject(FeatureConponentImpl featureService);
     void inject(Application application);
 }

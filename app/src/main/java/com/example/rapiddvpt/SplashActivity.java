@@ -10,8 +10,12 @@ import com.example.rapiddvpt.databinding.AppActivitySplashLayoutBinding;
 
 import io.reactivex.functions.Consumer;
 import yummylau.common.activity.BaseActivity;
+import yummylau.componentlib.component.ComponentManager;
 import yummylau.componentlib.router.RouterManager;
+import yummylau.componentlib.service.ServiceManager;
 import yummylau.componentservice.bean.Token;
+import yummylau.componentservice.component.IFeatureComponent;
+import yummylau.componentservice.services.IAccountService;
 
 /**
  * 启动闪屏
@@ -41,19 +45,24 @@ public class SplashActivity extends BaseActivity<SplashViewModel, AppActivitySpl
             @Override
             public void run() {
                 //检测用户是否登录
-                App.accountService.getToken()
+                ServiceManager.getService(IAccountService.class)
+                        .getToken()
                         .subscribe(new Consumer<Token>() {
                                        @Override
                                        public void accept(Token token) throws Exception {
                                            Log.d(TAG, "当前用户已登录，跳转feature组件...");
-                                           RouterManager.navigation(App.featureService.getMainPath());
+                                           RouterManager.navigation(
+                                                   ComponentManager.getComponent(IFeatureComponent.class).getMainPath()
+                                           );
                                        }
                                    },
                                 new Consumer<Throwable>() {
                                     @Override
                                     public void accept(Throwable throwable) throws Exception {
                                         Log.d(TAG, "当前用户未登录，跳转account组件...");
-                                        RouterManager.navigation(App.accountService.getLoginPath());
+                                        RouterManager.navigation(
+                                                ServiceManager.getService(IAccountService.class).getLoginPath()
+                                        );
                                     }
                                 });
 

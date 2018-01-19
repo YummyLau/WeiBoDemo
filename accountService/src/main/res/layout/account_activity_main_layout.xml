@@ -13,7 +13,6 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary" />
 
-
         <Button
             android:id="@+id/login"
             android:layout_width="250dp"
@@ -76,7 +75,6 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/account_login_btn_selector"
             android:gravity="center"
-            android:text="退出登录 "
             android:textColor="@color/colorTextIcon"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"

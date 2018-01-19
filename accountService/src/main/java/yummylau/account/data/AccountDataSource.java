@@ -1,8 +1,5 @@
 package yummylau.account.data;
 
-import io.reactivex.Flowable;
-import yummylau.componentservice.bean.Token;
-
 /**
  * account 模块数据接口
  * Email yummyl.lau@gmail.com
@@ -11,7 +8,9 @@ import yummylau.componentservice.bean.Token;
 
 public interface AccountDataSource {
 
-    Flowable<Boolean> isLogin();
+    void login();
 
-    Flowable<Token> getToken();
+    void logout();
+
+    void refreshToken();
 }

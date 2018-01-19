@@ -23,10 +23,13 @@ import com.sina.weibo.sdk.net.RequestListener;
 import yummylau.account.Constants;
 import yummylau.account.R;
 import yummylau.account.databinding.AccountActivityMainLayoutBinding;
+import yummylau.account.viewmodel.LoginViewModel;
+import yummylau.common.activity.BaseActivity;
 import yummylau.common.activity.BaseBindingActivity;
 
 
 /**
+ * 登录页面
  * Email yummyl.lau@gmail.com
  * Created by yummylau on 2017/12/11.
  */
@@ -35,14 +38,14 @@ public class LoginActivity extends BaseBindingActivity<AccountActivityMainLayout
 
     public static final String TAG = LoginActivity.class.getSimpleName();
 
+    private String returnPath;
+    private SsoHandler mSsoHandler;
+    private Oauth2AccessToken mAccessToken;
+
     @Override
     public int getLayoutRes() {
         return R.layout.account_activity_main_layout;
     }
-
-    private String returnPath;
-    private SsoHandler mSsoHandler;
-    private Oauth2AccessToken mAccessToken;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +67,7 @@ public class LoginActivity extends BaseBindingActivity<AccountActivityMainLayout
             }
         });
         dataBinding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        dataBinding.toolbar.inflateMenu(R.menu.account_toolbar_menu);//设置右上角的填充菜单
+        dataBinding.toolbar.inflateMenu(R.menu.account_toolbar_menu);
 
         dataBinding.login.setOnClickListener(new View.OnClickListener() {
             @Override

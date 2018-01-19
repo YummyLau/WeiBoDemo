@@ -37,6 +37,5 @@ public interface AccountComponent {
         AccountComponent build();
     }
 
-    //    void inject(AccountServiceImpl accountService);
     void inject(Application application);
 }
