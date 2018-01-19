@@ -114,11 +114,14 @@ public class HomeActivity extends BaseActivity<HomeViewModel, FeatureActivityMai
                 if (item.getItemId() == R.id.nav_main) {
                     mFragmentManager.beginTransaction().replace(R.id.content_frame, mFragments.get(0), null).commit();
                 }
+                dataBinding.toolbar.setTitle(item.getTitle());
                 dataBinding.drawerLayout.closeDrawers();
                 return true;
             }
         });
         toggle.syncState();
+        dataBinding.navigationLayout.getMenu().getItem(0).setCheckable(true);
+        dataBinding.toolbar.setTitle(item.getTitle());
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -68,6 +68,7 @@ public class App extends Application implements HasActivityInjector {
 
         //初始化基础服务
         ServiceManager.register(this, AccountServiceImpl.class);
+
         //初始化组件
         ComponentManager.bind(this, FeatureComponentImpl.class);
     }
